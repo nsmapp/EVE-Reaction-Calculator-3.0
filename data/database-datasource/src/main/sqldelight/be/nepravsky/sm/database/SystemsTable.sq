@@ -1,0 +1,11 @@
+CREATE TABLE systems (
+    system_id   INTEGER NOT NULL
+                        PRIMARY KEY,
+    system_name TEXT    NOT NULL,
+    region_id   INTEGER NOT NULL,
+    region_name TEXT    NOT NULL
+);
+
+
+getAll:
+SELECT * FROM systems;

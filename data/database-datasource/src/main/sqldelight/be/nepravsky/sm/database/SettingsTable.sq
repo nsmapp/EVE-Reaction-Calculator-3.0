@@ -1,0 +1,24 @@
+CREATE TABLE settings (
+    id                  INTEGER NOT NULL
+                                PRIMARY KEY,
+    lang_id             INTEGER NOT NULL
+                                DEFAULT (12),
+    system_id           INTEGER NOT NULL
+                                DEFAULT (30000142),
+    region_id           INTEGER NOT NULL
+                                DEFAULT (10000002),
+    bpo_me              INTEGER NOT NULL
+                                DEFAULT (0),
+    bpo_te              INTEGER NOT NULL
+                                DEFAULT (0),
+    sub_bpo_me          INTEGER NOT NULL
+                                DEFAULT (0),
+    sub_bpo_te          INTEGER NOT NULL
+                                DEFAULT (0),
+    price_update_source INTEGER NOT NULL
+                                DEFAULT (1)
+);
+
+
+getAll:
+SELECT * FROM settings;

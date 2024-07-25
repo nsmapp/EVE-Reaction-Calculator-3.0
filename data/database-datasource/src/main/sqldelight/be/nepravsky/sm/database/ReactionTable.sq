@@ -1,0 +1,18 @@
+CREATE TABLE reaction (
+    id        INTEGER PRIMARY KEY
+                      NOT NULL,
+    group_id  INTEGER NOT NULL,
+    de        TEXT    NOT NULL,
+    en        TEXT    NOT NULL,
+    fr        TEXT    NOT NULL,
+    ja        TEXT    NOT NULL,
+    ru        TEXT    NOT NULL,
+    zh        TEXT    NOT NULL,
+    base_time INTEGER NOT NULL,
+    run_limit INTEGER NOT NULL,
+    materials TEXT    NOT NULL,
+    products  TEXT    NOT NULL
+);
+
+getAll:
+SELECT * FROM reaction;

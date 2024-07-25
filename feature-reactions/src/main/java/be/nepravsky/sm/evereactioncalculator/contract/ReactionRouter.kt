@@ -1,0 +1,3 @@
+package be.nepravsky.sm.evereactioncalculator.contract
+
+interface ReactionRouter

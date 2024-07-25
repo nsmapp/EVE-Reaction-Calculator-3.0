@@ -1,0 +1,100 @@
+[versions]
+
+java = "17"
+kotlin = "2.0.0"
+
+compileSDk = "34"
+minSDK = "25"
+
+versionCode = "1"
+versionName = "1.0"
+
+agp = "8.3.1"
+ksp = "2.0.0-1.0.22"
+
+coroutines = "1.8.1"
+
+appcompat = "1.7.0"
+coreKtx = "1.13.1"
+lifecycleRuntimeKtx = "2.8.3"
+activityCompose = "1.9.0"
+androidxComposeCompiler = "1.5.7"
+composeBom = "2024.06.00"
+material = "1.12.0"
+systemUIcontroller = "0.34.0"
+
+sqlDelight = "2.0.1"
+
+koin = "3.5.3"
+koinAnatations = "1.3.1"
+
+decomposeVersion = "3.1.0"
+
+junit = "4.13.2"
+junitVersion = "1.1.5"
+espressoCore = "3.5.1"
+uiTooling = "1.6.8"
+jetbrainsKotlinJvm = "1.9.0"
+
+kotlinSerializationPlugin = "2.0.20-Beta1"
+
+[libraries]
+# plugins
+android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "agp" }
+kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
+sqldelitePlugin = {group = "com.squareup.sqldelight", name = "gradle-plugin", version.ref = "sqlDelight"}
+ksp-gradlePlugin = {group = "com.google.devtools.ksp", name = "com.google.devtools.ksp.gradle.plugin", version.ref = "ksp" }
+
+androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+junit = { group = "junit", name = "junit", version.ref = "junit" }
+androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
+androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
+androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtx" }
+androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activityCompose" }
+androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
+androidx-ui = { group = "androidx.compose.ui", name = "ui" }
+androidx-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
+androidx-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
+androidx-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
+androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
+androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
+androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
+androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+accompanist-systemuicontroller = {group = "com.google.accompanist", name = "accompanist-systemuicontroller", version.ref = "systemUIcontroller"}
+ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling", version.ref = "uiTooling" }
+
+#koin
+#io.insert-koin:koin-android
+koin-core = {group = "io.insert-koin", name = "koin-core", version.ref = "koin" }
+koin-android = {group = "io.insert-koin", name = "koin-android", version.ref = "koin" }
+koin-coroutines = {group = "io.insert-koin", name = "koin-core-coroutines", version.ref = "koin" }
+koin-compose = {group = "io.insert-koin", name = "koin-androidx-compose", version.ref = "koin" }
+koin-annotations = {group = "io.insert-koin", name = "koin-annotations", version.ref = "koinAnatations" }
+koin-ksp-compiler = {group = "io.insert-koin", name = "koin-ksp-compiler", version.ref = "koinAnatations" }
+
+#sql
+sqlDelight-core = { module = "app.cash.sqldelight:runtime", version.ref = "sqlDelight" }
+sqlDelight-extensions = { module = "app.cash.sqldelight:coroutines-extensions", version.ref = "sqlDelight" }
+sqlDelight-driver-android = { module = "app.cash.sqldelight:android-driver", version.ref = "sqlDelight" }
+sqlDelight-driver-ios = { module = "app.cash.sqldelight:native-driver", version.ref = "sqlDelight" }
+
+#coroutines
+kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutines" }
+kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
+
+#decompose
+decompose-core = { module = "com.arkivanov.decompose:decompose", version.ref = "decomposeVersion" }
+decompose-extension = { module = "com.arkivanov.decompose:extensions-compose", version.ref = "decomposeVersion"}
+decompose-android-extension = { module = "com.arkivanov.decompose:extensions-android", version.ref = "decomposeVersion"}
+
+[plugins]
+androidApplication = { id = "com.android.application", version.ref = "agp" }
+jetbrainsKotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+androidLibrary = { id = "com.android.library", version.ref = "agp" }
+sqlDelite = {id = "app.cash.sqldelight", version.ref = "sqlDelight"}
+jetbrainsKotlinJvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "jetbrainsKotlinJvm" }
+ksp = {id = "com.google.devtools.ksp", version.ref = "ksp" }
+compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlinSerializationPlugin"}
+

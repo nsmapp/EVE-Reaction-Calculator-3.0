@@ -1,0 +1,10 @@
+CREATE TABLE project_items (
+    id          INTEGER PRIMARY KEY
+                        NOT NULL,
+    parent_id   INTEGER NOT NULL,
+    reaction_id INTEGER NOT NULL,
+    run         INTEGER NOT NULL
+);
+
+getAll:
+SELECT * FROM project_items;

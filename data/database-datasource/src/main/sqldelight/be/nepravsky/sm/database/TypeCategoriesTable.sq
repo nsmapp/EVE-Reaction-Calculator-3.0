@@ -1,0 +1,9 @@
+CREATE TABLE type_categories (
+    id   INTEGER PRIMARY KEY
+                 NOT NULL,
+    name TEXT    NOT NULL
+);
+
+
+getAll:
+SELECT * FROM type_categories;

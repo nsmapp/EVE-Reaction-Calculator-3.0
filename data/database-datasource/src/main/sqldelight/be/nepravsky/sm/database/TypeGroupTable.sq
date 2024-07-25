@@ -1,0 +1,17 @@
+CREATE TABLE type_group (
+    id          INTEGER PRIMARY KEY
+                        NOT NULL,
+    is_formula  INTEGER NOT NULL,
+    is_selected INTEGER NOT NULL,
+    category    INTEGER NOT NULL,
+    de          TEXT    NOT NULL,
+    en          TEXT    NOT NULL,
+    fr          TEXT    NOT NULL,
+    ja          TEXT    NOT NULL,
+    ru          TEXT    NOT NULL,
+    zh          TEXT    NOT NULL
+);
+
+
+getAll:
+SELECT * FROM type_group;

@@ -1,0 +1,16 @@
+CREATE TABLE type (
+    id         INTEGER NOT NULL
+                       PRIMARY KEY,
+    base_price REAL    NOT NULL,
+    group_id   INTEGER NOT NULL,
+    volume     REAL    NOT NULL,
+    de         TEXT    NOT NULL,
+    en         TEXT    NOT NULL,
+    fr         TEXT    NOT NULL,
+    ja         TEXT    NOT NULL,
+    ru         TEXT    NOT NULL,
+    zh         TEXT    NOT NULL
+);
+
+getAll:
+SELECT * FROM type;

@@ -1,0 +1,19 @@
+CREATE TABLE type_price (
+    type_id     INTEGER NOT NULL,
+    system_id   INTEGER NOT NULL,
+    region_id   INTEGER NOT NULL,
+    sell        REAL    NOT NULL
+                        DEFAULT (0),
+    buy         REAL    NOT NULL
+                        DEFAULT (0),
+    update_time INTEGER DEFAULT (0)
+                        NOT NULL,
+    PRIMARY KEY (
+        system_id,
+        type_id
+    )
+);
+
+
+getAll:
+SELECT * FROM  type_price;

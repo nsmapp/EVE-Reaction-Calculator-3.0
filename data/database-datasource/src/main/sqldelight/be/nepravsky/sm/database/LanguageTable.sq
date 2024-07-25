@@ -1,0 +1,9 @@
+CREATE TABLE lang (
+    id   INTEGER PRIMARY KEY
+                 NOT NULL,
+    name TEXT    NOT NULL
+);
+
+
+getAll:
+SELECT * FROM lang;
