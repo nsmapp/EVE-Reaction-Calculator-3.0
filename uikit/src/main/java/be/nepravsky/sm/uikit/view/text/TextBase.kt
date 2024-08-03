@@ -15,7 +15,7 @@ import be.nepravsky.sm.uikit.theme.AppTheme
 fun TextBase(
     modifier: Modifier = Modifier,
     text: String,
-    color: Color = AppTheme.colors.text_hard,
+    color: Color = AppTheme.colors.text,
     fontSize: TextUnit = TextUnit.Unspecified,
     overflow: TextOverflow = TextOverflow.Ellipsis,
     softWrap: Boolean = true,
@@ -42,7 +42,7 @@ fun TextBase(
 fun TextBase(
     modifier: Modifier = Modifier,
     text: AnnotatedString,
-    color: Color = AppTheme.colors.text_hard,
+    color: Color = AppTheme.colors.text,
     fontSize: TextUnit = TextUnit.Unspecified,
     overflow: TextOverflow = TextOverflow.Ellipsis,
     softWrap: Boolean = true,

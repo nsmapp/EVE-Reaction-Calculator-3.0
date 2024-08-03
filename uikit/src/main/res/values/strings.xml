@@ -6,6 +6,8 @@
     <string name="view_blueprint_base_reaction_time">Base reaction time</string>
     <string name="view_blueprint_unit_per_run">Unit per run</string>
 
+    <string name="feature_reaction_search">Search</string>
+
     <string name="time_day_short">d</string>
     <string name="time_hour_short">h</string>
     <string name="time_min_short">m</string>

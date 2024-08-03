@@ -1,6 +1,6 @@
-package be.nepravsky.sm.uikit.utils
+package be.nepravsky.sm.domain.utils
 
-import be.nepravsky.sm.uikit.utils.model.ReactionTime
+import be.nepravsky.sm.domain.model.ReactionTime
 
 
 fun Long.toTime(): ReactionTime {

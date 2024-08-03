@@ -16,3 +16,22 @@ CREATE TABLE reaction (
 
 getAll:
 SELECT * FROM reaction;
+
+getFilteredByEng:
+SELECT *
+FROM reaction
+WHERE en LIKE ('%' || :query || '%')  AND group_id IN ?
+ORDER BY group_id, en ASC;
+
+getBpcShort:
+SELECT id, group_id, base_time, run_limit,
+CASE (SELECT lang_id FROM settings WHERE id = 1)
+  WHEN 12 THEN en
+  WHEN 13 THEN fr
+  WHEN 14 THEN ja
+  WHEN 15 THEN zh
+  ELSE en
+  END AS name
+FROM reaction
+WHERE en LIKE ('%' || :query || '%')  AND group_id IN ?
+ORDER BY group_id, en ASC;

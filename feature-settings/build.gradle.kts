@@ -7,4 +7,3 @@ plugins {
 android {
     namespace = "be.nepravsky.sm.evereactioncalculator.settings"
 }
-

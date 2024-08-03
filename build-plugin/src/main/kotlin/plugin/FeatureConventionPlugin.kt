@@ -1,5 +1,6 @@
 package plugin
 
+import ext.getLibs
 import ext.implementation
 import org.gradle.api.Plugin
 import org.gradle.api.Project
@@ -17,6 +18,7 @@ class FeatureConventionPlugin : Plugin<Project> {
             }
 
             dependencies {
+                implementation(getLibs().coil.coil)
                 implementation(project(":base"))
                 implementation(project(":uikit"))
                 implementation(project(":domain"))

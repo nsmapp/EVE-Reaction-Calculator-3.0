@@ -17,10 +17,7 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
 import be.nepravsky.sm.uikit.theme.colors.Colors
-import be.nepravsky.sm.uikit.theme.colors.nightColorScheme
-import be.nepravsky.sm.uikit.theme.colors.dayColors
 import be.nepravsky.sm.uikit.theme.colors.dayColorScheme
-import be.nepravsky.sm.uikit.theme.colors.nightColors
 import be.nepravsky.sm.uikit.theme.dimens.Padding
 import be.nepravsky.sm.uikit.theme.dimens.Radius
 import be.nepravsky.sm.uikit.theme.dimens.ViewSize
@@ -29,14 +26,14 @@ import be.nepravsky.sm.uikit.theme.dimens.defaultRadius
 import be.nepravsky.sm.uikit.theme.dimens.defaultViewSizes
 import be.nepravsky.sm.uikit.theme.typography.UbuntuTypography
 import be.nepravsky.sm.uikit.theme.typography.ubuntuTypography
-import be.nepravsky.sm.uikit.utils.TEXT_EMPTY
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import kotlinx.coroutines.CoroutineScope
 
 
 @Composable
 fun AppTheme(
     isDarkThemeEnabled: Boolean = true,
-    accentColor: Color = nightColors.default_accent,
+    accentColor: Color = Colors().accent,
     snackBarHost: @Composable BoxScope.() -> Unit = {},
     content: @Composable () -> Unit
 ){
@@ -44,13 +41,15 @@ fun AppTheme(
     val padding = defaultPaddings
     val radius = defaultRadius
     val viewSize = defaultViewSizes
-    val colors = if (isDarkThemeEnabled) nightColors else dayColors
-    val colorScheme = if (isDarkThemeEnabled) nightColorScheme else dayColorScheme
+    //TODO add day/night colors
+    val colors = if (isDarkThemeEnabled) Colors() else Colors()
+    val colorScheme = if (isDarkThemeEnabled) dayColorScheme else dayColorScheme
 
     val snackBarHostState = remember { SnackbarHostState() }
     val coroutineScope = rememberCoroutineScope()
 
-//    SystemAppearance(isDarkThemeEnabled = isDarkThemeEnabled)
+
+    SystemAppearance(isDarkThemeEnabled = isDarkThemeEnabled)
 
     CompositionLocalProvider(
         LocalTypography provides typography,
@@ -72,6 +71,7 @@ fun AppTheme(
 
 }
 
+internal const val TEXT_EMPTY = ""
 val LocalTypography = staticCompositionLocalOf<UbuntuTypography> { error(TEXT_EMPTY)  }
 val LocalPadding = staticCompositionLocalOf<Padding> { error(TEXT_EMPTY) }
 val LocalRadius = staticCompositionLocalOf<Radius> { error(TEXT_EMPTY) }
@@ -108,7 +108,7 @@ object AppTheme{
 @Composable
 private fun SystemAppearance(isDarkThemeEnabled: Boolean) {
     val view = LocalView.current
-    val statusBarColor = AppTheme.colors.background.toArgb()
+    val statusBarColor = Colors().background.toArgb()
     LaunchedEffect(isDarkThemeEnabled) {
         val window = (view.context as Activity).window
         window.statusBarColor = statusBarColor

@@ -1,4 +1,4 @@
-package be.nepravsky.sm.uikit.utils.model
+package be.nepravsky.sm.domain.model
 
 data class ReactionTime(
     val day: Long,

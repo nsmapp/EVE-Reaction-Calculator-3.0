@@ -43,6 +43,10 @@ class DatabaseModule {
     @Single
     fun provideReactionTableDao(database: Database): ReactionTableQueries =
         database.reactionTableQueries
+
+    @Single
+    fun provideTypeGroupDao(database: Database): TypeGroupTableQueries =
+        database.typeGroupTableQueries
 }
 
 

@@ -3,7 +3,9 @@ package be.nepravsky.sm.evereactioncalculator.contract
 
 interface ReactionsContract {
 
-    fun getBpcList()
+    fun getBpcList(query: String)
+
+    fun getActiveReactionGroupIds()
 
     fun openFilter()
 }

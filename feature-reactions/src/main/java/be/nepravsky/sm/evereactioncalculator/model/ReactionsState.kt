@@ -1,14 +1,14 @@
 package be.nepravsky.sm.evereactioncalculator.model
 
-import be.nepravsky.sm.domain.model.Blueprint
+import be.nepravsky.sm.domain.model.BpcShort
 
 data class ReactionsState(
 
-    val bpcList: List<Blueprint>
+    val bpcShortList: List<BpcShort>
 ){
     companion object{
         val EMPTY = ReactionsState(
-            bpcList = emptyList()
+            bpcShortList = emptyList()
         )
     }
 }

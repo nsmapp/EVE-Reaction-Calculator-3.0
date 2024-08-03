@@ -1,11 +1,10 @@
 package be.nepravsky.sm.domain.repo
 
-import be.nepravsky.sm.domain.model.Blueprint
-import be.nepravsky.sm.domain.query.ReactionsQuery
-import kotlinx.coroutines.flow.Flow
+import be.nepravsky.sm.domain.model.BpcShort
+import be.nepravsky.sm.domain.model.query.ReactionsQuery
 
 interface BlueprintRepo {
 
 
-    fun get(query: ReactionsQuery): List<Blueprint>
+    fun get(query: ReactionsQuery): List<BpcShort>
 }

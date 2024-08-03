@@ -5,10 +5,9 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material3.Button
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -30,10 +29,11 @@ fun MainScreen(
 
 
     Column(verticalArrangement = Arrangement.SpaceBetween) {
-        TextBold(modifier = Modifier, text = "Main Screen")
         Box(modifier = Modifier
+            .navigationBarsPadding()
             .weight(1f)
             .fillMaxWidth()) { content() }
+
         Row(
             modifier = Modifier
                 .wrapContentHeight()

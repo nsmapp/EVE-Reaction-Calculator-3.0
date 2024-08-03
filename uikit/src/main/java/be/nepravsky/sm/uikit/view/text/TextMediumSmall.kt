@@ -12,7 +12,7 @@ import be.nepravsky.sm.uikit.theme.AppTheme
 fun TextMediumSmall(
     modifier: Modifier = Modifier,
     text: String,
-    color: Color = AppTheme.colors.text_hard,
+    color: Color = AppTheme.colors.text,
     overflow: TextOverflow = TextOverflow.Ellipsis,
     softWrap: Boolean = true,
     maxLines: Int = Int.MAX_VALUE,
@@ -35,7 +35,7 @@ fun TextMediumSmall(
 fun TextMediumSmall(
     modifier: Modifier = Modifier,
     text: AnnotatedString,
-    color: Color = AppTheme.colors.text_hard,
+    color: Color = AppTheme.colors.text,
     overflow: TextOverflow = TextOverflow.Ellipsis,
     softWrap: Boolean = true,
     maxLines: Int = Int.MAX_VALUE,

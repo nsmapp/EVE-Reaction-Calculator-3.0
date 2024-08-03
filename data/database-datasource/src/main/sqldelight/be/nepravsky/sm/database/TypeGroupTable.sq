@@ -15,3 +15,7 @@ CREATE TABLE type_group (
 
 getAll:
 SELECT * FROM type_group;
+
+getActiveGroupIds:
+SELECT id FROM type_group WHERE is_selected = 1;
+
