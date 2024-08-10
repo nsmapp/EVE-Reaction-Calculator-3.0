@@ -15,7 +15,9 @@ class DatabaseModule {
 
 
     @Single
-    fun provideDatabase(sqlDriver: SqlDriver): Database = Database(sqlDriver)
+    fun provideDatabase(sqlDriver: SqlDriver): Database = Database(
+        driver = sqlDriver
+    )
 
 
     @Single

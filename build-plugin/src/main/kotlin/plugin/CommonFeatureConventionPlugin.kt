@@ -27,6 +27,7 @@ class CommonFeatureConventionPlugin : Plugin<Project> {
                 implementation(getLibs().androidx.ui.graphics)
                 implementation(getLibs().androidx.ui.tooling.preview)
                 implementation(getLibs().androidx.material3)
+                implementation(getLibs().androidx.material)
                 implementation(getLibs().accompanist.systemuicontroller)
                 implementation(getLibs().koin.compose)
                 implementation(getLibs().koin.android)

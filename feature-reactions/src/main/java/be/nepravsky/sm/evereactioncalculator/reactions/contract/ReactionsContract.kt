@@ -1,4 +1,4 @@
-package be.nepravsky.sm.evereactioncalculator.contract
+package be.nepravsky.sm.evereactioncalculator.reactions.contract
 
 
 interface ReactionsContract {

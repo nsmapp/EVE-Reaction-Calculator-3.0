@@ -4,8 +4,9 @@ import app.cash.sqldelight.coroutines.asFlow
 import app.cash.sqldelight.coroutines.mapToList
 import be.nepravsky.sm.database.TypeGroupTableQueries
 import be.nepravsky.sm.domain.model.ReactionGroup
+import be.nepravsky.sm.domain.model.query.ActiveGroupQuery
 import be.nepravsky.sm.domain.repo.ReactionGroupRepository
-import kotlinx.coroutines.Dispatchers
+import be.nepravsky.sm.domain.utils.DispatcherProvider
 import kotlinx.coroutines.flow.Flow
 import org.koin.core.annotation.Single
 
@@ -13,14 +14,34 @@ import org.koin.core.annotation.Single
 @Single(binds = [ReactionGroupRepository::class])
 class ReactionGroupRepoImpl(
     private val groupsSource: TypeGroupTableQueries,
-): ReactionGroupRepository {
+    private val dispatcherProvider: DispatcherProvider,
+) : ReactionGroupRepository {
 
 
-    override fun getAll(): List<ReactionGroup> {
-        TODO("Not yet implemented")
-    }
+    override fun getAll(): List<ReactionGroup> = groupsSource.getAll()
+        .executeAsList()
+        .map { group ->
+            with(group) {
+                ReactionGroup(
+                    id = id,
+                    isFormula = isFormula,
+                    isSelected = isSelected,
+                    category = category,
+                    name = name,
+                    iconId = iconId,
+                )
+            }
+
+        }
+
 
     override fun getActiveGroupId(): Flow<List<Long>> = groupsSource.getActiveGroupIds()
         .asFlow()
-        .mapToList(Dispatchers.IO)
+        .mapToList(dispatcherProvider.io)
+
+
+    override fun updateActiveGroups(query: ActiveGroupQuery) =
+        groupsSource.updateActiveGroups(query.isSelected, query.id)
+
+
 }

@@ -1,11 +1,11 @@
-package be.nepravsky.sm.evereactioncalculator
+package be.nepravsky.sm.evereactioncalculator.reactions
 
 import androidx.lifecycle.viewModelScope
 import be.nepravsky.sm.domain.model.query.ReactionsQuery
-import be.nepravsky.sm.domain.usecase.GetActiveGroupIdsUseCase
+import be.nepravsky.sm.domain.usecase.groups.GetActiveGroupIdsUseCase
 import be.nepravsky.sm.domain.usecase.GetBpcListUseCase
-import be.nepravsky.sm.evereactioncalculator.contract.ReactionsContract
-import be.nepravsky.sm.evereactioncalculator.model.ReactionsState
+import be.nepravsky.sm.evereactioncalculator.reactions.contract.ReactionsContract
+import be.nepravsky.sm.evereactioncalculator.reactions.model.ReactionsState
 import be.nepravsky.sm.evereactioncalculator.utils.TEXT_EMPTY
 import be.nepravsky.sm.evereactioncalculator.viewmodel.BaseViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

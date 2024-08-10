@@ -34,4 +34,4 @@ CASE (SELECT lang_id FROM settings WHERE id = 1)
   END AS name
 FROM reaction
 WHERE en LIKE ('%' || :query || '%')  AND group_id IN ?
-ORDER BY group_id, en ASC;
+ORDER BY group_id, name ASC;

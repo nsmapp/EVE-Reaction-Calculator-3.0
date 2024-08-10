@@ -3,11 +3,14 @@ package be.nepravsky.sm.uikit.theme.colors
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.Stable
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 
 private val defBackground: Color = Color(0xff44475a)
+private val defForegroundHard: Color = Color(0xFF1D1D25)
 private val defForeground: Color = Color(0xff282a36)
-private val defForegroundLight: Color = Color(0xFF373846)
+private val defForegroundLight: Color = Color(0xFF2D2F3A)
 private val defText: Color = Color(0xfff8f8f2)
 private val defTextLigth: Color = Color(0xC69B9B9A)
 private val defAccent: Color = Color(0xFF205F2F)
@@ -17,6 +20,7 @@ private val defTransparent: Color = Color(0x00FFFFFF)
 @Immutable
 data class Colors(
     val background: Color = defBackground,
+    val foreground_hard: Color = defForegroundHard,
     val foreground: Color = defForeground,
     val foreground_light: Color = defForegroundLight,
     val text: Color = defText,
@@ -33,3 +37,9 @@ val dayColorScheme = darkColorScheme(
     onSurface = defBackground
 )
 
+
+val gradient1 = Brush.linearGradient(
+    colors = listOf(defForegroundHard, defForegroundLight, defForegroundLight),
+    start = Offset.Zero,
+    end = Offset(Float.POSITIVE_INFINITY, 0f),
+)

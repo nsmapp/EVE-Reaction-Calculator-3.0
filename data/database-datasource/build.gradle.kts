@@ -23,5 +23,6 @@ dependencies {
     implementation(libs.sqlDelight.core)
     implementation(libs.sqlDelight.extensions)
     implementation(libs.sqlDelight.driver.android)
+    implementation(libs.sqlDelight.pribitive.adapters)
     implementation(project(":domain"))
 }

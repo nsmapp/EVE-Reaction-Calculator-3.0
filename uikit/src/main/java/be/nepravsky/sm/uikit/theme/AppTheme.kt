@@ -108,13 +108,13 @@ object AppTheme{
 @Composable
 private fun SystemAppearance(isDarkThemeEnabled: Boolean) {
     val view = LocalView.current
-    val statusBarColor = Colors().background.toArgb()
+    val statusBarColor = Colors().foreground.toArgb()
     LaunchedEffect(isDarkThemeEnabled) {
         val window = (view.context as Activity).window
         window.statusBarColor = statusBarColor
         WindowCompat.getInsetsController(window, window.decorView).apply {
-            isAppearanceLightStatusBars = isDarkThemeEnabled
-            isAppearanceLightNavigationBars = isDarkThemeEnabled
+            isAppearanceLightStatusBars = isDarkThemeEnabled.not()
+            isAppearanceLightNavigationBars = isDarkThemeEnabled.not()
         }
     }
 }

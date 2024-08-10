@@ -1,4 +1,4 @@
-package be.nepravsky.sm.evereactioncalculator.view
+package be.nepravsky.sm.evereactioncalculator.reactions.view
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -26,12 +26,13 @@ import be.nepravsky.sm.domain.utils.toTime
 import be.nepravsky.sm.evereactioncalculator.uikit.R
 import be.nepravsky.sm.evereactioncalculator.utils.getItemImageURL
 import be.nepravsky.sm.uikit.theme.AppTheme
+import be.nepravsky.sm.uikit.theme.colors.gradient1
 import be.nepravsky.sm.uikit.view.row.KeyValueRow
 import be.nepravsky.sm.uikit.view.text.TextBold
 
 
 @Composable
-fun Blueprint(
+fun BlueprintItem(
     modifier: Modifier = Modifier,
     item: BpcShort,
 ) {
@@ -56,22 +57,20 @@ fun Blueprint(
         modifier = modifier
             .wrapContentHeight()
             .fillMaxWidth()
-            .padding(bottom = AppTheme.padding.s_2)
-            .background(
-                color = AppTheme.colors.foreground,
-                shape = RoundedCornerShape(AppTheme.radius.r_8),
-            )
+            .padding(top = AppTheme.padding.s_4)
+            .clip(RoundedCornerShape(AppTheme.radius.r_8))
+            .background(gradient1)
             .border(
                 AppTheme.viewSize.border_small,
-                AppTheme.colors.accent,
+                AppTheme.colors.foreground_hard,
                 RoundedCornerShape(AppTheme.radius.r_8)
             ),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         AsyncImage(
             modifier = Modifier
-                .clip(RoundedCornerShape(AppTheme.radius.r_2))
                 .padding(vertical = AppTheme.padding.s_8, horizontal = AppTheme.padding.s_8)
+                .clip(RoundedCornerShape(AppTheme.radius.r_2))
                 .size(AppTheme.viewSize.icon_normal),
             model = getItemImageURL(itemId = item.id),
             contentDescription = null,
@@ -97,6 +96,7 @@ fun Blueprint(
                     .wrapContentHeight(),
                 key = stringResource(R.string.view_blueprint_base_reaction_time),
                 value = time,
+                style = AppTheme.typography.regular_small
             )
 
         }

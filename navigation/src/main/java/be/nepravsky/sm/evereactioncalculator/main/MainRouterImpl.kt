@@ -24,12 +24,13 @@ import com.arkivanov.decompose.router.stack.StackNavigation
 import com.arkivanov.decompose.router.stack.bringToFront
 import com.arkivanov.decompose.router.stack.childStack
 import com.arkivanov.decompose.router.stack.popTo
+import com.arkivanov.decompose.router.stack.push
 import com.arkivanov.decompose.value.Value
 import kotlinx.serialization.Serializable
 
 class MainRouterImpl(
     tab: Tabs,
-    val stackNavigation: StackNavigation<RootConfig>,
+    val rootNavigation: StackNavigation<RootConfig>,
     componentContext: ComponentContext
 ) : Rout(
     componentContext = componentContext,
@@ -63,7 +64,12 @@ class MainRouterImpl(
     private fun reactionsComponent(componentContext: ComponentContext): MainChild =
         MainChild.ReactionsChild(
             ReactionRouterImpl(
-                stackNavigation = stackNavigation,
+                onSearchSettings = {
+                    rootNavigation.push(RootConfig.SearchSettings)
+                },
+                onReaction = { reactionId ->
+
+                },
                 componentContext = componentContext,
             )
         )

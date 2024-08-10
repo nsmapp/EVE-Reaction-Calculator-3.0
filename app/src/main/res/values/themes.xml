@@ -2,6 +2,7 @@
 <resources>
 
     <style name="Theme.EVEReactionCalculator" parent="android:Theme.Material.Light.NoActionBar">
-        <item name="android:windowBackground">#ff44475a</item>
+        <item name="android:windowBackground">#383B53</item>
+        <item name="android:windowLightStatusBar">true</item>
     </style>
 </resources>

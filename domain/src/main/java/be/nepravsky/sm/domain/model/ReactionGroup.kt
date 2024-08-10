@@ -1,9 +1,10 @@
 package be.nepravsky.sm.domain.model
 
-class ReactionGroup(
+data class ReactionGroup(
     val id: Long,
-    val isFormula: Long,
-    val isSelected: Long,
+    val isFormula: Boolean,
+    val isSelected: Boolean,
     val category: Long,
     val name: String,
+    val iconId: Long,
 )

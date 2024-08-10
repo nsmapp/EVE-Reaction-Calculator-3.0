@@ -8,6 +8,8 @@
 
     <string name="feature_reaction_search">Search</string>
 
+    <string name="feature_search_settings_search_settings">Search settings</string>
+
     <string name="time_day_short">d</string>
     <string name="time_hour_short">h</string>
     <string name="time_min_short">m</string>

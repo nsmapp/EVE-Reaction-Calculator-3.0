@@ -1,4 +1,4 @@
-package be.nepravsky.sm.evereactioncalculator.model
+package be.nepravsky.sm.evereactioncalculator.reactions.model
 
 import be.nepravsky.sm.domain.model.BpcShort
 
