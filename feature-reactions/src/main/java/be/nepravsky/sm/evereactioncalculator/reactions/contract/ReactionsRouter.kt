@@ -4,5 +4,5 @@ interface ReactionsRouter{
 
     fun openSearchSettings()
 
-    fun openReaction(id: Long)
+    fun buildReaction(id: Long)
 }

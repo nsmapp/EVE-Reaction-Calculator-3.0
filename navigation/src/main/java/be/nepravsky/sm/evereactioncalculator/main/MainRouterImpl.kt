@@ -6,10 +6,9 @@ import androidx.compose.ui.Modifier
 import be.nepravsky.sm.evereactioncalculator.MainRouter
 import be.nepravsky.sm.evereactioncalculator.MainScreen
 import be.nepravsky.sm.evereactioncalculator.MainViewModel
-import be.nepravsky.sm.evereactioncalculator.RootConfig
-import be.nepravsky.sm.evereactioncalculator.navigation.Rout
 import be.nepravsky.sm.evereactioncalculator.library.LibraryRouterImpl
 import be.nepravsky.sm.evereactioncalculator.model.Tabs
+import be.nepravsky.sm.evereactioncalculator.navigation.Rout
 import be.nepravsky.sm.evereactioncalculator.reaction.ReactionRouterImpl
 import be.nepravsky.sm.evereactioncalculator.settings.SettingsRouterImpl
 import be.nepravsky.sm.evereactioncalculator.viewmodel.viewModelKey
@@ -24,13 +23,13 @@ import com.arkivanov.decompose.router.stack.StackNavigation
 import com.arkivanov.decompose.router.stack.bringToFront
 import com.arkivanov.decompose.router.stack.childStack
 import com.arkivanov.decompose.router.stack.popTo
-import com.arkivanov.decompose.router.stack.push
 import com.arkivanov.decompose.value.Value
 import kotlinx.serialization.Serializable
 
 class MainRouterImpl(
     tab: Tabs,
-    val rootNavigation: StackNavigation<RootConfig>,
+    private val onSearchSettings: () -> Unit,
+    private val onReaction: (Long) -> Unit,
     componentContext: ComponentContext
 ) : Rout(
     componentContext = componentContext,
@@ -64,12 +63,8 @@ class MainRouterImpl(
     private fun reactionsComponent(componentContext: ComponentContext): MainChild =
         MainChild.ReactionsChild(
             ReactionRouterImpl(
-                onSearchSettings = {
-                    rootNavigation.push(RootConfig.SearchSettings)
-                },
-                onReaction = { reactionId ->
-
-                },
+                onSearchSettings = onSearchSettings,
+                onReaction = onReaction,
                 componentContext = componentContext,
             )
         )

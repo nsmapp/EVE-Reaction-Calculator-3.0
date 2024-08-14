@@ -18,6 +18,7 @@ import com.arkivanov.decompose.router.stack.StackNavigation
 import com.arkivanov.decompose.router.stack.childStack
 import com.arkivanov.decompose.router.stack.pop
 import com.arkivanov.decompose.router.stack.popTo
+import com.arkivanov.decompose.router.stack.push
 import com.arkivanov.decompose.value.Value
 import kotlinx.serialization.Serializable
 import org.koin.core.annotation.Factory
@@ -45,7 +46,7 @@ class RootRouterImpl(
         when(rootConfig){
             is RootConfig.Main -> RootChild.MainRootChild(mainComponent(componentContext))
             is RootConfig.SearchSettings -> RootChild.SearchSettings(searchComponent(componentContext))
-            is RootConfig.Reactor -> RootChild.ReactorChild(rectorComponent(componentContext))
+            is RootConfig.Reactor -> RootChild.ReactorChild(rectorComponent(componentContext, rootConfig.reactionId))
 
         }
 
@@ -58,12 +59,18 @@ class RootRouterImpl(
     private fun mainComponent(componentContext: ComponentContext): MainRouterImpl =
         MainRouterImpl(
             tab = Tabs.REACTIONS,
-            rootNavigation = navigation,
+            onSearchSettings = {
+                navigation.push(RootConfig.SearchSettings)
+            },
+            onReaction = { reactionId ->
+                navigation.push(RootConfig.Reactor(reactionId))
+            },
             componentContext = componentContext
         )
 
-    private fun rectorComponent(componentContext: ComponentContext): ReactorRouterImpl =
+    private fun rectorComponent(componentContext: ComponentContext, reactionId: Long): ReactorRouterImpl =
         ReactorRouterImpl(
+            reactionId = reactionId,
             componentContext = componentContext
         )
 
@@ -108,5 +115,5 @@ sealed interface RootConfig{
 
     data object Main: RootConfig
     data object SearchSettings: RootConfig
-    data object Reactor: RootConfig
+    data class Reactor(val reactionId: Long) : RootConfig
 }

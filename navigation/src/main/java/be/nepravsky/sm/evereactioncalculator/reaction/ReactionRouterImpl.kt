@@ -1,10 +1,10 @@
 package be.nepravsky.sm.evereactioncalculator.reaction
 
 import androidx.compose.runtime.Composable
-import be.nepravsky.sm.evereactioncalculator.reactions.contract.ReactionsRouter
+import be.nepravsky.sm.evereactioncalculator.navigation.Rout
 import be.nepravsky.sm.evereactioncalculator.reactions.ReactionsScreen
 import be.nepravsky.sm.evereactioncalculator.reactions.ReactionsViewModel
-import be.nepravsky.sm.evereactioncalculator.navigation.Rout
+import be.nepravsky.sm.evereactioncalculator.reactions.contract.ReactionsRouter
 import be.nepravsky.sm.evereactioncalculator.viewmodel.viewModelKey
 import com.arkivanov.decompose.ComponentContext
 
@@ -29,7 +29,7 @@ class ReactionRouterImpl(
         onSearchSettings.invoke()
     }
 
-    override fun openReaction(id: Long) {
+    override fun buildReaction(id: Long) {
         onReaction.invoke(id)
     }
 }

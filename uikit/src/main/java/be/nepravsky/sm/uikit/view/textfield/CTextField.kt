@@ -19,8 +19,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.Shape
-import androidx.compose.ui.graphics.vector.VectorPainter
-import androidx.compose.ui.graphics.vector.rememberVectorPainter
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import be.nepravsky.sm.uikit.theme.AppTheme
@@ -36,9 +35,9 @@ fun CTextField(
     readOnly: Boolean = false,
     textStyle: TextStyle = AppTheme.typography.medium,
     hint: String? = null,
-    leadingIcon: VectorPainter? = null,
+    leadingIcon: ImageVector? = null,
     onLeadingClick: () -> Unit = {},
-    trailingIcon: VectorPainter? = null,
+    trailingIcon: ImageVector? = null,
     onTrailingClick: () -> Unit = {},
     isError: Boolean = false,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
@@ -88,25 +87,25 @@ fun CTextField(
             }
         },
         leadingIcon = {
-            leadingIcon?.let { painter ->
+            leadingIcon?.let { icon ->
                 SmallIcon(
                     modifier = Modifier.clickable(
                         interactionSource = remember { MutableInteractionSource() },
                         indication = null,
                         onClick = { onLeadingClick() }),
-                    painter = painter,
+                    imageVector = icon,
                     colorFilter = ColorFilter.tint(AppTheme.colors.text_ligth)
                 )
             }
         },
         trailingIcon = {
-            trailingIcon?.let { painter ->
+            trailingIcon?.let { icon ->
                 SmallIcon(
                     modifier = Modifier.clickable(
                         interactionSource = remember { MutableInteractionSource() },
                         indication = null,
                         onClick = { onTrailingClick() }),
-                    painter = painter,
+                    imageVector = icon,
                     colorFilter = ColorFilter.tint(AppTheme.colors.text)
                 )
             }
@@ -130,8 +129,8 @@ fun PreviewTextField() {
         value = "",
         onValueChange = {},
         hint = "hint text",
-        leadingIcon = rememberVectorPainter(Icons.Default.Search),
-        trailingIcon = rememberVectorPainter(Icons.Default.Settings),
+        leadingIcon = Icons.Default.Search,
+        trailingIcon = Icons.Default.Settings,
 
         )
 }

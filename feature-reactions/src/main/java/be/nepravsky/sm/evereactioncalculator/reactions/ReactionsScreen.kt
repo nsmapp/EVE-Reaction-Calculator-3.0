@@ -21,12 +21,11 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.res.stringResource
 import be.nepravsky.sm.evereactioncalculator.reactions.contract.ReactionsRouter
+import be.nepravsky.sm.evereactioncalculator.reactions.view.BlueprintItem
 import be.nepravsky.sm.evereactioncalculator.uikit.R
 import be.nepravsky.sm.evereactioncalculator.utils.TEXT_EMPTY
-import be.nepravsky.sm.evereactioncalculator.reactions.view.BlueprintItem
 import be.nepravsky.sm.uikit.theme.AppTheme
 import be.nepravsky.sm.uikit.view.textfield.CTextField
 
@@ -61,7 +60,8 @@ fun ReactionsScreen(
                     key = { _, item -> item.id }) { _, item ->
                     BlueprintItem(
                         modifier = Modifier.animateItemPlacement(animationSpec = tween()),
-                        item = item
+                        item = item,
+                        onItemClick = {reactionId ->  router.buildReaction(reactionId)}
                     )
                 }
             }
@@ -77,8 +77,8 @@ fun ReactionsScreen(
                 searchText = text
                 viewModel.getBpcList(text)
             },
-            leadingIcon = rememberVectorPainter(Icons.Default.Search),
-            trailingIcon = rememberVectorPainter(Icons.Default.Settings),
+            leadingIcon = Icons.Default.Search,
+            trailingIcon = Icons.Default.Settings,
             onTrailingClick = { router.openSearchSettings() },
             hint = stringResource(R.string.feature_reaction_search),
         )
