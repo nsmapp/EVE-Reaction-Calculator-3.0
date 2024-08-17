@@ -1,3 +1,6 @@
+import be.nepravsky.sm.database.models.ReactionItemEntity;
+import kotlin.collections.List;
+
 CREATE TABLE reaction (
     id        INTEGER PRIMARY KEY
                       NOT NULL,
@@ -10,8 +13,8 @@ CREATE TABLE reaction (
     zh        TEXT    NOT NULL,
     base_time INTEGER NOT NULL,
     run_limit INTEGER NOT NULL,
-    materials TEXT    NOT NULL,
-    products  TEXT    NOT NULL
+    materials TEXT    AS List<ReactionItemEntity> NOT NULL,
+    products  TEXT    AS List<ReactionItemEntity> NOT NULL
 );
 
 getAll:
@@ -35,3 +38,15 @@ CASE (SELECT lang_id FROM settings WHERE id = 1)
 FROM reaction
 WHERE en LIKE ('%' || :query || '%')  AND group_id IN ?
 ORDER BY group_id, name ASC;
+
+getBpcFull:
+SELECT id, group_id, base_time, run_limit, materials, products,
+CASE (SELECT lang_id FROM settings WHERE id = 1)
+  WHEN 12 THEN en
+  WHEN 13 THEN fr
+  WHEN 14 THEN ja
+  WHEN 15 THEN zh
+  ELSE en
+  END AS name
+FROM reaction
+WHERE id = ?;

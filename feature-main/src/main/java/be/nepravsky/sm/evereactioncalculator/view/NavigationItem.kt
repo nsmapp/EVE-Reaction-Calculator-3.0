@@ -12,7 +12,7 @@ import be.nepravsky.sm.uikit.theme.AppTheme
 import be.nepravsky.sm.uikit.view.icons.SmallIcon
 
 @Composable
-private fun RowScope.NavigationItem(
+fun RowScope.NavigationItem(
     isSelected: Boolean,
     onClick: () -> Unit,
     icon: ImageVector

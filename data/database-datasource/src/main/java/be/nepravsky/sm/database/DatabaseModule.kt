@@ -3,6 +3,7 @@ package be.nepravsky.sm.database
 import android.content.Context
 import app.cash.sqldelight.db.SqlDriver
 import app.cash.sqldelight.driver.android.AndroidSqliteDriver
+import be.nepravsky.sm.database.adapters.reactionItemAdapter
 import org.koin.core.annotation.ComponentScan
 import org.koin.core.annotation.Module
 import org.koin.core.annotation.Single
@@ -16,7 +17,8 @@ class DatabaseModule {
 
     @Single
     fun provideDatabase(sqlDriver: SqlDriver): Database = Database(
-        driver = sqlDriver
+        driver = sqlDriver,
+        reactionAdapter = Reaction.Adapter(reactionItemAdapter, reactionItemAdapter),
     )
 
 
@@ -43,12 +45,16 @@ class DatabaseModule {
     }
 
     @Single
-    fun provideReactionTableDao(database: Database): ReactionTableQueries =
+    fun provideReactionDao(database: Database): ReactionTableQueries =
         database.reactionTableQueries
 
     @Single
     fun provideTypeGroupDao(database: Database): TypeGroupTableQueries =
         database.typeGroupTableQueries
+
+    @Single
+    fun provideTypePriceDao(database: Database): TypePriceTableQueries =
+        database.typePriceTableQueries
 }
 
 

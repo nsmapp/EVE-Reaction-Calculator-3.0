@@ -14,6 +14,14 @@ CREATE TABLE type_price (
     )
 );
 
+insert:
+INSERT OR REPLACE INTO type_price VALUES ?;
 
 getAll:
 SELECT * FROM  type_price;
+
+getPriceByIds:
+SELECT * FROM type_price
+WHERE
+    type_id IN ? AND
+    region_id == (SELECT region_id FROM settings WHERE id == 1);

@@ -1,0 +1,9 @@
+package be.nepravsky.sm.database.network
+
+import org.koin.core.annotation.ComponentScan
+import org.koin.core.annotation.Module
+
+@Module
+@ComponentScan
+class NetworkModule {
+}

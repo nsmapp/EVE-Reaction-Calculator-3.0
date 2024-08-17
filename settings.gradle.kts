@@ -31,6 +31,7 @@ include(":uikit")
 include(":domain")
 
 include(":data:database-datasource")
+include(":data:network-source")
 include(":navigation")
 include(":feature-reactions")
 include(":feature-library")

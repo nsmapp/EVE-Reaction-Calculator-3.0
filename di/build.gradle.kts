@@ -9,6 +9,7 @@ android{
 
     dependencies {
         implementation(project(":data:database-datasource"))
+        implementation(project(":data:network-source"))
         implementation(project(":navigation"))
         implementation(project(":feature-library"))
         implementation(project(":feature-main"))
