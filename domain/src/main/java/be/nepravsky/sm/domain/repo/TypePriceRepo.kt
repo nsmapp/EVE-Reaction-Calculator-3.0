@@ -1,6 +1,6 @@
 package be.nepravsky.sm.domain.repo
 
-import be.nepravsky.sm.domain.model.price.TypePrice
+import be.nepravsky.sm.domain.model.TypePrice
 
 interface TypePriceRepo {
 

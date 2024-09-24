@@ -10,4 +10,6 @@ interface BlueprintRepo {
     fun get(query: ReactionsQuery): List<BpcShort>
 
     fun getById(reactionId: Long): BpcFull?
+
+    fun getByIds(reactionIds: List<Long>): List<BpcFull>
 }

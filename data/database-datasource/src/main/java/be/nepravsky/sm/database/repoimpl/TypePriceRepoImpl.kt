@@ -3,7 +3,7 @@ package be.nepravsky.sm.database.repoimpl
 import be.nepravsky.sm.database.TypePriceTableQueries
 import be.nepravsky.sm.database.Type_price
 import be.nepravsky.sm.database.network.PriceSource
-import be.nepravsky.sm.domain.model.price.TypePrice
+import be.nepravsky.sm.domain.model.TypePrice
 import be.nepravsky.sm.domain.repo.TypePriceRepo
 import org.koin.core.annotation.Single
 
@@ -20,12 +20,12 @@ class TypePriceRepoImpl(
         .map { type ->
             with(type) {
                 TypePrice(
-                    id = type_id,
-                    systemId = system_id,
-                    regionId = region_id,
+                    id = typeId,
+                    systemId = systemId,
+                    regionId = regionId,
                     sell = sell,
                     buy = buy,
-                    updateTime = update_time,
+                    updateTime = updateTime,
                 )
             }
         }
@@ -34,12 +34,12 @@ class TypePriceRepoImpl(
         newPrices.map { item ->
             with(item) {
                 Type_price(
-                    type_id = id,
-                    system_id = systemId,
-                    region_id = regionId,
+                    typeId = id,
+                    systemId = systemId,
+                    regionId = regionId,
                     sell = sell,
                     buy = buy,
-                    update_time = updateTime
+                    updateTime = updateTime
                 )
             }
         }.also { prices ->

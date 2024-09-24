@@ -1,9 +1,9 @@
 CREATE TABLE systems (
-    system_id   INTEGER NOT NULL
+    systemId   INTEGER NOT NULL
                         PRIMARY KEY,
-    system_name TEXT    NOT NULL,
-    region_id   INTEGER NOT NULL,
-    region_name TEXT    NOT NULL
+    systemName TEXT    NOT NULL,
+    regionId   INTEGER NOT NULL,
+    regionName TEXT    NOT NULL
 );
 
 

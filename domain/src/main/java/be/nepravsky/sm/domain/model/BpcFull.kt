@@ -8,4 +8,5 @@ data class BpcFull(
     val runLimit: Long,
     val materials: List<ReactionItem>,
     val products: List<ReactionItem>,
+    val isFormula: Boolean,
 )

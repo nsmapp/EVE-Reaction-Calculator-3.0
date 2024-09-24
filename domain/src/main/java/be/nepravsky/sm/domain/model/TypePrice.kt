@@ -1,4 +1,4 @@
-package be.nepravsky.sm.domain.model.price
+package be.nepravsky.sm.domain.model
 
 data class TypePrice(
     val id: Long,

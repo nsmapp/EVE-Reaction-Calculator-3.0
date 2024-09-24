@@ -4,7 +4,7 @@ import be.nepravsky.sm.domain.model.ReactionGroup
 import be.nepravsky.sm.domain.model.query.ActiveGroupQuery
 import kotlinx.coroutines.flow.Flow
 
-interface ReactionGroupRepository {
+interface ReactionGroupRepo {
 
     fun getAll(): List<ReactionGroup>
 

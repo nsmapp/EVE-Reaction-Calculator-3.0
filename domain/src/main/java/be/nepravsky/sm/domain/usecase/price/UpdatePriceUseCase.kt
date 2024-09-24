@@ -1,7 +1,7 @@
 package be.nepravsky.sm.domain.usecase.price
 
 import be.nepravsky.sm.domain.model.BpcFull
-import be.nepravsky.sm.domain.model.price.TypePrice
+import be.nepravsky.sm.domain.model.TypePrice
 import be.nepravsky.sm.domain.repo.BlueprintRepo
 import be.nepravsky.sm.domain.repo.TypePriceRepo
 import be.nepravsky.sm.domain.utils.DispatcherProvider
@@ -43,6 +43,7 @@ class UpdatePriceUseCase(
                 .filter { type -> (time - type.updateTime) > minTimeForUpdate }
                 .map { type -> async { priceRepo.getRemoteById(type) } }
 
+            //TODO make as chunk
             val newPrices = priceForUpdate.awaitAll()
             priceRepo.updatePrice(newPrices)
 

@@ -5,17 +5,17 @@ import app.cash.sqldelight.coroutines.mapToList
 import be.nepravsky.sm.database.TypeGroupTableQueries
 import be.nepravsky.sm.domain.model.ReactionGroup
 import be.nepravsky.sm.domain.model.query.ActiveGroupQuery
-import be.nepravsky.sm.domain.repo.ReactionGroupRepository
+import be.nepravsky.sm.domain.repo.ReactionGroupRepo
 import be.nepravsky.sm.domain.utils.DispatcherProvider
 import kotlinx.coroutines.flow.Flow
 import org.koin.core.annotation.Single
 
 
-@Single(binds = [ReactionGroupRepository::class])
+@Single(binds = [ReactionGroupRepo::class])
 class ReactionGroupRepoImpl(
     private val groupsSource: TypeGroupTableQueries,
     private val dispatcherProvider: DispatcherProvider,
-) : ReactionGroupRepository {
+) : ReactionGroupRepo {
 
 
     override fun getAll(): List<ReactionGroup> = groupsSource.getAll()

@@ -1,18 +1,20 @@
 import be.nepravsky.sm.database.models.ReactionItemEntity;
 import kotlin.collections.List;
+import kotlin.Boolean;
 
 CREATE TABLE reaction (
     id        INTEGER PRIMARY KEY
                       NOT NULL,
-    group_id  INTEGER NOT NULL,
+    groupId  INTEGER NOT NULL,
+    isFormula  INTEGER AS Boolean NOT NULL DEFAULT 0,
     de        TEXT    NOT NULL,
     en        TEXT    NOT NULL,
     fr        TEXT    NOT NULL,
     ja        TEXT    NOT NULL,
     ru        TEXT    NOT NULL,
     zh        TEXT    NOT NULL,
-    base_time INTEGER NOT NULL,
-    run_limit INTEGER NOT NULL,
+    baseTime INTEGER NOT NULL,
+    runLimit INTEGER NOT NULL,
     materials TEXT    AS List<ReactionItemEntity> NOT NULL,
     products  TEXT    AS List<ReactionItemEntity> NOT NULL
 );
@@ -23,12 +25,12 @@ SELECT * FROM reaction;
 getFilteredByEng:
 SELECT *
 FROM reaction
-WHERE en LIKE ('%' || :query || '%')  AND group_id IN ?
-ORDER BY group_id, en ASC;
+WHERE en LIKE ('%' || :query || '%')  AND groupId IN ?
+ORDER BY groupId, en ASC;
 
 getBpcShort:
-SELECT id, group_id, base_time, run_limit,
-CASE (SELECT lang_id FROM settings WHERE id = 1)
+SELECT id, groupId, baseTime, runLimit,
+CASE (SELECT langId FROM settings WHERE id = 1)
   WHEN 12 THEN en
   WHEN 13 THEN fr
   WHEN 14 THEN ja
@@ -36,12 +38,12 @@ CASE (SELECT lang_id FROM settings WHERE id = 1)
   ELSE en
   END AS name
 FROM reaction
-WHERE en LIKE ('%' || :query || '%')  AND group_id IN ?
-ORDER BY group_id, name ASC;
+WHERE en LIKE ('%' || :query || '%')  AND groupId IN ?
+ORDER BY groupId, name ASC;
 
 getBpcFull:
-SELECT id, group_id, base_time, run_limit, materials, products,
-CASE (SELECT lang_id FROM settings WHERE id = 1)
+SELECT id, groupId, isFormula, baseTime, runLimit, materials, products,
+CASE (SELECT langId FROM settings WHERE id = 1)
   WHEN 12 THEN en
   WHEN 13 THEN fr
   WHEN 14 THEN ja
@@ -49,4 +51,17 @@ CASE (SELECT lang_id FROM settings WHERE id = 1)
   ELSE en
   END AS name
 FROM reaction
-WHERE id = ?;
+WHERE id = :id;
+
+
+getBpcFullList:
+SELECT id, groupId, isFormula, baseTime, runLimit, materials, products,
+CASE (SELECT langId FROM settings WHERE id = 1)
+  WHEN 12 THEN en
+  WHEN 13 THEN fr
+  WHEN 14 THEN ja
+  WHEN 15 THEN zh
+  ELSE en
+  END AS name
+FROM reaction
+WHERE id IN ?;

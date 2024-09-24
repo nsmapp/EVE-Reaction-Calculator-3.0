@@ -1,11 +1,13 @@
 package be.nepravsky.sm.uikit.theme.colors
 
 import androidx.compose.material3.darkColorScheme
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.Stable
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import be.nepravsky.sm.uikit.theme.AppTheme
 
 private val defBackground: Color = Color(0xff44475a)
 private val defForegroundHard: Color = Color(0xFF1D1D25)
@@ -37,9 +39,29 @@ val dayColorScheme = darkColorScheme(
     onSurface = defBackground
 )
 
-
-val gradient1 = Brush.linearGradient(
-    colors = listOf(defForegroundHard, defForegroundLight, defForegroundLight),
+//TODO change gradient names
+@Stable
+val gradient1: Brush
+    @Composable
+    get () = Brush.linearGradient(
+    colors = listOf(
+        AppTheme.colors.foreground_hard,
+        AppTheme.colors.foreground_light,
+        AppTheme.colors.foreground_light,
+    ),
     start = Offset.Zero,
     end = Offset(Float.POSITIVE_INFINITY, 0f),
 )
+
+@Stable
+val gradient2: Brush
+    @Composable
+    get () = Brush.linearGradient(
+        colors = listOf(
+            AppTheme.colors.foreground_light,
+            AppTheme.colors.foreground_light,
+            AppTheme.colors.foreground_hard,
+        ),
+        start = Offset.Zero,
+        end = Offset(Float.POSITIVE_INFINITY, 0f),
+    )

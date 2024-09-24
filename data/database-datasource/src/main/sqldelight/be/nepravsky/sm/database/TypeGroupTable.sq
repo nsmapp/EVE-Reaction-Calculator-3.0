@@ -3,9 +3,9 @@ import kotlin.Boolean;
 CREATE TABLE type_group (
     id          INTEGER PRIMARY KEY
                         NOT NULL,
-    icon_id     INTEGER NOT NULL,
-    is_formula  INTEGER AS Boolean NOT NULL DEFAULT 0,
-    is_selected INTEGER AS Boolean NOT NULL DEFAULT 0,
+    iconId     INTEGER NOT NULL,
+    isFormula  INTEGER AS Boolean NOT NULL DEFAULT 0,
+    isSelected INTEGER AS Boolean NOT NULL DEFAULT 0,
     category    INTEGER NOT NULL,
     de          TEXT    NOT NULL,
     en          TEXT    NOT NULL,
@@ -17,8 +17,8 @@ CREATE TABLE type_group (
 
 
 getAll:
-SELECT id, category, is_formula AS isFormula, is_selected AS isSelected, icon_id AS iconId,
-CASE (SELECT lang_id FROM settings WHERE id = 1)
+SELECT id, category, isFormula, isSelected, iconId,
+CASE (SELECT langId FROM settings WHERE id = 1)
   WHEN 12 THEN en
   WHEN 13 THEN fr
   WHEN 14 THEN ja
@@ -26,11 +26,11 @@ CASE (SELECT lang_id FROM settings WHERE id = 1)
   ELSE en
   END AS name
 FROM type_group
-ORDER BY is_formula, name ASC;
+ORDER BY isFormula, name ASC;
 
 getActiveGroupIds:
-SELECT id FROM type_group WHERE is_selected = 1;
+SELECT id FROM type_group WHERE isSelected = 1;
 
 
 updateActiveGroups:
-UPDATE type_group SET is_selected = ? WHERE id = ?;
+UPDATE type_group SET isSelected = ? WHERE id = ?;

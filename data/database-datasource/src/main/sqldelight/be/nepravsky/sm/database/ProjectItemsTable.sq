@@ -1,8 +1,8 @@
 CREATE TABLE project_items (
     id          INTEGER PRIMARY KEY
                         NOT NULL,
-    parent_id   INTEGER NOT NULL,
-    reaction_id INTEGER NOT NULL,
+    parentId   INTEGER NOT NULL,
+    reactionId INTEGER NOT NULL,
     run         INTEGER NOT NULL
 );
 

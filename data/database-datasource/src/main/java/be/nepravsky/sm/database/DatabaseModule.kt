@@ -24,10 +24,10 @@ class DatabaseModule {
 
     @Single
     fun provideSqlDriver(context: Context): SqlDriver {
-        val database = context.getDatabasePath("reactionsv341.db")
+        val database = context.getDatabasePath("reactionsv342.db")
 
         if (!database.exists()) {
-            val inputStream = context.assets.open("reactionsv34.db")
+            val inputStream = context.assets.open("reactionsv36.db")
             val outputStream = FileOutputStream(database.absolutePath)
 
             inputStream.use { input: InputStream ->
@@ -40,7 +40,7 @@ class DatabaseModule {
         return AndroidSqliteDriver(
             Database.Schema,
             context,
-            "reactionsv341.db"
+            "reactionsv342.db"
         )
     }
 
@@ -55,6 +55,10 @@ class DatabaseModule {
     @Single
     fun provideTypePriceDao(database: Database): TypePriceTableQueries =
         database.typePriceTableQueries
+
+    @Single
+    fun provideTypeRepoDao(database: Database): TypeTableQueries =
+        database.typeTableQueries
 }
 
 
