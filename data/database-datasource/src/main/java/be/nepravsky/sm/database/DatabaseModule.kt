@@ -59,6 +59,10 @@ class DatabaseModule {
     @Single
     fun provideTypeRepoDao(database: Database): TypeTableQueries =
         database.typeTableQueries
+
+    @Single
+    fun provideSettingDao(database: Database): SettingsTableQueries =
+        database.settingsTableQueries
 }
 
 

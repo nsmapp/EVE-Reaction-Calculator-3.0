@@ -22,3 +22,6 @@ CREATE TABLE settings (
 
 getAll:
 SELECT * FROM settings;
+
+getPriceSource:
+SELECT priceUpdateSource FROM settings WHERE id == 1;

@@ -24,4 +24,5 @@ getPriceByIds:
 SELECT * FROM type_price
 WHERE
     typeId IN ? AND
-    regionId == (SELECT regionId FROM settings WHERE id == 1);
+    regionId == (SELECT regionId FROM settings WHERE id == 1) AND
+    systemId == (SELECT systemId FROM settings WHERE id == 1);

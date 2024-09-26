@@ -41,8 +41,8 @@ class KtorClient{
         }
 
         install(HttpTimeout){
-            requestTimeoutMillis = 20000
-            connectTimeoutMillis = 20000
+            requestTimeoutMillis = 5000
+            connectTimeoutMillis = 5000
         }
 
         install(Logging){
