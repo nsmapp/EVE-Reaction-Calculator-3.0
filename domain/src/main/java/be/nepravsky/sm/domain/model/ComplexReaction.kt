@@ -1,7 +1,8 @@
 package be.nepravsky.sm.domain.model
 
 data class ComplexReaction(
-    val reactions: List<CompleteReactionFull>
+    val baseReactions: List<CompleteReactionFull>,
+    val reactions: List<CompleteReactionFull>,
 ){
 
     val productQuantity: Long
@@ -14,15 +15,35 @@ data class ComplexReaction(
     val materialSell: Double
     val materialBuy: Double
 
-    init {
-        productQuantity = reactions.sumOf { it.productQuantity }
-        productVolume = reactions.sumOf { it.productVolume }
-        productSell = reactions.sumOf { it.productSell }
-        productBuy = reactions.sumOf { it.productBuy }
+    val fullProductQuantity: Long
+    val fullProductVolume: Double
+    val fullProductSell: Double
+    val fullProductBuy: Double
 
-        materialQuantity = reactions.sumOf { it.materialQuantity }
-        materialVolume = reactions.sumOf { it.materialVolume }
-        materialSell = reactions.sumOf { it.materialSell }
-        materialBuy = reactions.sumOf { it.materialBuy }
+    val fullMaterialQuantity: Long
+    val fullMaterialVolume: Double
+    val fullMaterialSell: Double
+    val fullMaterialBuy: Double
+
+    init {
+        productQuantity = baseReactions.sumOf { it.productQuantity }
+        productVolume = baseReactions.sumOf { it.productVolume }
+        productSell = baseReactions.sumOf { it.productSell }
+        productBuy = baseReactions.sumOf { it.productBuy }
+
+        materialQuantity = baseReactions.sumOf { it.materialQuantity }
+        materialVolume = baseReactions.sumOf { it.materialVolume }
+        materialSell = baseReactions.sumOf { it.materialSell }
+        materialBuy = baseReactions.sumOf { it.materialBuy }
+
+        fullProductQuantity = reactions.sumOf { it.productQuantity }
+        fullProductVolume = reactions.sumOf { it.productVolume }
+        fullProductSell = reactions.sumOf { it.productSell }
+        fullProductBuy = reactions.sumOf { it.productBuy }
+
+        fullMaterialQuantity = reactions.sumOf { it.materialQuantity }
+        fullMaterialVolume = reactions.sumOf { it.materialVolume }
+        fullMaterialSell = reactions.sumOf { it.materialSell }
+        fullMaterialBuy = reactions.sumOf { it.materialBuy }
     }
 }

@@ -28,7 +28,7 @@ import org.koin.core.component.KoinComponent
 @Factory(binds = [RootRouter::class])
 class RootRouterImpl(
     componentContext: DefaultComponentContext
-): RootRouter, KoinComponent, ComponentContext by componentContext {
+) : RootRouter, KoinComponent, ComponentContext by componentContext {
 
     private val navigation = StackNavigation<RootConfig>()
 
@@ -43,17 +43,28 @@ class RootRouterImpl(
 
 
     private fun child(rootConfig: RootConfig, componentContext: ComponentContext): RootChild =
-        when(rootConfig){
+        when (rootConfig) {
             is RootConfig.Main -> RootChild.MainRootChild(mainComponent(componentContext))
-            is RootConfig.SearchSettings -> RootChild.SearchSettings(searchComponent(componentContext))
-            is RootConfig.Reactor -> RootChild.ReactorChild(rectorComponent(componentContext, rootConfig.reactionId))
+            is RootConfig.SearchSettings -> RootChild.SearchSettings(
+                searchComponent(
+                    componentContext
+                )
+            )
+
+            is RootConfig.Reactor -> RootChild.ReactorChild(
+                reactorComponent(
+                    componentContext,
+                    rootConfig.reactionId,
+                    rootConfig.isSingeReaction
+                )
+            )
 
         }
 
     private fun searchComponent(componentContext: ComponentContext): SearchSettingsRouterImpl =
         SearchSettingsRouterImpl(
             componentContext = componentContext,
-            onBackPressed = {navigation.pop()}
+            onBackPressed = { navigation.pop() }
         )
 
     private fun mainComponent(componentContext: ComponentContext): MainRouterImpl =
@@ -62,18 +73,22 @@ class RootRouterImpl(
             onSearchSettings = {
                 navigation.push(RootConfig.SearchSettings)
             },
-            onReaction = { reactionId ->
-                navigation.push(RootConfig.Reactor(reactionId))
+            onReaction = { reactionId, isSingleReaction ->
+                navigation.push(RootConfig.Reactor(reactionId, isSingleReaction))
             },
             componentContext = componentContext
         )
 
-    private fun rectorComponent(componentContext: ComponentContext, reactionId: Long): ReactorRouterImpl =
+    private fun reactorComponent(
+        componentContext: ComponentContext,
+        reactionId: Long,
+        isSingeReaction: Boolean
+    ): ReactorRouterImpl =
         ReactorRouterImpl(
             reactionId = reactionId,
+            isSingleReaction = isSingeReaction,
             componentContext = componentContext
         )
-
 
 
     override fun onBackClicked(toIndex: Int) {
@@ -100,20 +115,20 @@ class RootRouterImpl(
 }
 
 
-sealed interface RootChild{
+sealed interface RootChild {
 
     val rout: Rout
 
-    class MainRootChild(override val rout: MainRouterImpl): RootChild
-    class SearchSettings(override val rout: SearchSettingsRouterImpl): RootChild
-    class ReactorChild(override val rout: ReactorRouterImpl): RootChild
+    class MainRootChild(override val rout: MainRouterImpl) : RootChild
+    class SearchSettings(override val rout: SearchSettingsRouterImpl) : RootChild
+    class ReactorChild(override val rout: ReactorRouterImpl) : RootChild
 
 }
 
 @Serializable
-sealed interface RootConfig{
+sealed interface RootConfig {
 
-    data object Main: RootConfig
-    data object SearchSettings: RootConfig
-    data class Reactor(val reactionId: Long) : RootConfig
+    data object Main : RootConfig
+    data object SearchSettings : RootConfig
+    data class Reactor(val reactionId: Long, val isSingeReaction: Boolean) : RootConfig
 }

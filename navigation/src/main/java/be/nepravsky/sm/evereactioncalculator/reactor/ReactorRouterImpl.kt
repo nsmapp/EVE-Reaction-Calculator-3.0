@@ -14,6 +14,7 @@ import org.koin.core.parameter.parametersOf
 
 class ReactorRouterImpl(
     private val reactionId: Long,
+    private val isSingleReaction: Boolean,
     componentContext: ComponentContext
 ): Rout(
     componentContext = componentContext,
@@ -23,7 +24,7 @@ class ReactorRouterImpl(
 
     override val viewModelFactory: ViewModelProvider.Factory by lazy {
         KoinAssistedViewModelFactory(
-            parametersOf(reactionId)
+            parametersOf(reactionId, isSingleReaction)
         )
     }
 

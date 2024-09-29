@@ -9,6 +9,7 @@ import androidx.compose.runtime.State
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import be.nepravsky.sm.domain.utils.TEXT_EMPTY
+import be.nepravsky.sm.evereactioncalculator.model.ReactionTab
 import be.nepravsky.sm.evereactioncalculator.model.ReactorState
 import be.nepravsky.sm.evereactioncalculator.uikit.R
 import be.nepravsky.sm.uikit.theme.AppTheme
@@ -16,7 +17,15 @@ import be.nepravsky.sm.uikit.view.row.KeyValueRow
 import be.nepravsky.sm.uikit.view.text.TextMedium
 
 @Composable
-fun ReactionInformationView(state: State<ReactorState>) {
+fun ReactionInformationView(
+    state: State<ReactorState>,
+    selectedTabIndex: Int,
+) {
+
+    val data = state.value.data
+    val isBaseTab = ReactionTab.BASE_TYPE.ordinal == selectedTabIndex
+
+
     Column(
         modifier = Modifier
             .wrapContentHeight()
@@ -29,7 +38,7 @@ fun ReactionInformationView(state: State<ReactorState>) {
                 .fillMaxWidth()
                 .padding(start = AppTheme.padding.s_8),
             key = stringResource(R.string.feature_reactor_volume),
-            value = state.value.data.productVolume,
+            value = if (isBaseTab) data.productVolume else data.fullProductVolume,
             style = AppTheme.typography.medium,
         )
         KeyValueRow(
@@ -37,7 +46,7 @@ fun ReactionInformationView(state: State<ReactorState>) {
                 .fillMaxWidth()
                 .padding(start = AppTheme.padding.s_8),
             key = stringResource(R.string.feature_reactor_sell_price),
-            value = state.value.data.productSell,
+            value = if (isBaseTab) data.productSell else data.fullProductSell,
             style = AppTheme.typography.medium,
         )
         KeyValueRow(
@@ -45,7 +54,7 @@ fun ReactionInformationView(state: State<ReactorState>) {
                 .fillMaxWidth()
                 .padding(start = AppTheme.padding.s_8),
             key = stringResource(R.string.feature_reactor_buy_price),
-            value = state.value.data.productBuy,
+            value = if (isBaseTab) data.productBuy else data.fullProductBuy,
             style = AppTheme.typography.medium,
         )
         KeyValueRow(
@@ -53,7 +62,7 @@ fun ReactionInformationView(state: State<ReactorState>) {
                 .fillMaxWidth()
                 .padding(start = AppTheme.padding.s_8, bottom = AppTheme.padding.s_8),
             key = TEXT_EMPTY,
-            value = state.value.data.productPriceDif,
+            value = if (isBaseTab) data.productPriceDif else data.fullProductPriceDif,
             style = AppTheme.typography.medium,
         )
 
@@ -63,7 +72,7 @@ fun ReactionInformationView(state: State<ReactorState>) {
                 .fillMaxWidth()
                 .padding(start = AppTheme.padding.s_8),
             key = stringResource(R.string.feature_reactor_volume),
-            value = state.value.data.materialVolume,
+            value = if (isBaseTab) data.materialVolume else data.fullMaterialVolume,
             style = AppTheme.typography.medium,
         )
         KeyValueRow(
@@ -71,7 +80,7 @@ fun ReactionInformationView(state: State<ReactorState>) {
                 .fillMaxWidth()
                 .padding(start = AppTheme.padding.s_8),
             key = stringResource(R.string.feature_reactor_sell_price),
-            value = state.value.data.materialSell,
+            value = if (isBaseTab) data.materialSell else data.fullMaterialSell,
             style = AppTheme.typography.medium,
         )
         KeyValueRow(
@@ -79,7 +88,7 @@ fun ReactionInformationView(state: State<ReactorState>) {
                 .fillMaxWidth()
                 .padding(start = AppTheme.padding.s_8),
             key = stringResource(R.string.feature_reactor_buy_price),
-            value = state.value.data.materialBuy,
+            value = if (isBaseTab) data.materialBuy else data.fullMaterialBuy,
             style = AppTheme.typography.medium,
         )
         KeyValueRow(
@@ -87,7 +96,7 @@ fun ReactionInformationView(state: State<ReactorState>) {
                 .fillMaxWidth()
                 .padding(start = AppTheme.padding.s_8),
             key = TEXT_EMPTY,
-            value = state.value.data.materialPriceDif,
+            value = if (isBaseTab) data.materialPriceDif else data.fullMaterialPriceDif,
             style = AppTheme.typography.medium,
         )
     }

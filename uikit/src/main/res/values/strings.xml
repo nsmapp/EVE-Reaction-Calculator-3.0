@@ -21,4 +21,9 @@
     <string name="feature_reactor_buy_price">Buy price</string>
     <string name="feature_reactor_products">Products</string>
     <string name="feature_reactor_materials">Materials</string>
+    <string name="feature_run_count">Run, count</string>
+    <string name="feature_reactor_me_percent">ME, %</string>
+    <string name="feature_reactor_sub_me_percent">Sub ME, %</string>
+    <string name="feature_reactor_reaction">Reaction</string>
+    <string name="feature_reactor_base">Base</string>
 </resources>

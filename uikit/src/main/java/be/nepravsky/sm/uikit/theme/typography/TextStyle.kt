@@ -19,7 +19,8 @@ data class UbuntuTypography(
 
     val regular_large: TextStyle,
     val regular: TextStyle,
-    val regular_small: TextStyle
+    val regular_small: TextStyle,
+    val regular_nano: TextStyle,
 )
 
 val ubuntuTypography = UbuntuTypography(
@@ -33,4 +34,5 @@ val ubuntuTypography = UbuntuTypography(
     regular_large = TextStyle(fontFamily = openSansFamily, fontSize = 20.sp, fontWeight = FontWeight.Normal),
     regular = TextStyle(fontFamily = openSansFamily, fontSize = 16.sp, fontWeight = FontWeight.Normal),
     regular_small = TextStyle(fontFamily = openSansFamily, fontSize = 14.sp, fontWeight = FontWeight.Normal),
+    regular_nano = TextStyle(fontFamily = openSansFamily, fontSize = 12.sp, fontWeight = FontWeight.Normal),
 )

@@ -31,22 +31,38 @@ class MakeReactionUseCase(
     suspend fun invoke(query: List<ReactionQuery>): Result<ComplexReaction> =
         withContext(dispatcherProvider.io) {
             runCatching {
-                val shortReactions = getCompleteReactionShotList(query)
-                val typeIds: List<Long> = shortReactions.map { it.typeIdSet }.flatten().distinct()
-                val prices: Map<Long, TypePrice> = priceRepo.getByIds(typeIds).associateBy { it.id }
-                val types: Map<Long, Type> = typeRepo.getByIds(typeIds).associateBy { it.id }
 
-                val completeReactionFullList = shortReactions.map { short ->
-                    CompleteReactionFull(
-                        products = short.products
-                            .map { item -> mapReactionItemToFull(item, types, prices) },
-                        materials = short.materials
-                            .map { item -> mapReactionItemToFull(item, types, prices) }
-                    )
-                }
-                ComplexReaction(completeReactionFullList)
+                //calc reaction with base materials
+                val baseReactionShort = getBaseReactionShortList(query)
+                val baseReaction = getBaseReactionFull(baseReactionShort)
+
+                //calc simple reaction
+                val reactionShort = getReactionShortList(query)
+                val reaction = getReactionFull(reactionShort)
+
+                ComplexReaction(baseReaction, reaction)
             }
         }
+
+    private fun getBaseReactionFull(baseReactionShort: List<CompleteReactionShort>): List<CompleteReactionFull> {
+        val baseReaction = getReactionFull(baseReactionShort)
+        return baseReaction
+    }
+
+    private fun getReactionFull(reactionShort: List<CompleteReactionShort>): List<CompleteReactionFull> {
+        val typeIds: List<Long> = reactionShort.map { it.typeIdSet }.flatten().distinct()
+        val prices: Map<Long, TypePrice> = priceRepo.getByIds(typeIds).associateBy { it.id }
+        val types: Map<Long, Type> = typeRepo.getByIds(typeIds).associateBy { it.id }
+        val reaction = reactionShort.map { short ->
+            CompleteReactionFull(
+                products = short.products
+                    .map { item -> mapReactionItemToFull(item, types, prices) },
+                materials = short.materials
+                    .map { item -> mapReactionItemToFull(item, types, prices) }
+            )
+        }
+        return reaction
+    }
 
     private fun mapReactionItemToFull(
         item: ReactionItem,
@@ -62,7 +78,7 @@ class MakeReactionUseCase(
     )
 
 
-    private fun getCompleteReactionShotList(query: List<ReactionQuery>): List<CompleteReactionShort> {
+    private fun getBaseReactionShortList(query: List<ReactionQuery>): List<CompleteReactionShort> {
 
         val completeReactionsShort = mutableListOf<CompleteReactionShort>()
 
@@ -92,6 +108,28 @@ class MakeReactionUseCase(
                     materials.addAll(baseMaterials)
 
                 } while (subProducts.isNotEmpty())
+
+                products.forEach { product -> typeSet.add(product.typeId) }
+                materials.forEach { material -> typeSet.add(material.typeId) }
+
+                val shorReaction = CompleteReactionShort(products, materials, typeSet)
+                completeReactionsShort.add(shorReaction)
+            }
+        }
+
+        return completeReactionsShort.toList()
+    }
+
+    private fun getReactionShortList(query: List<ReactionQuery>): List<CompleteReactionShort> {
+
+        val completeReactionsShort = mutableListOf<CompleteReactionShort>()
+
+        query.forEach { build ->
+            blueprintRepo.getById(build.bpcId)?.let { bpc ->
+
+                val typeSet = mutableSetOf<Long>()
+                val products = calcReactionItemForRun(bpc.products, build.run)
+                val materials = calcReactionItemForRun(bpc.materials, build.run)
 
                 products.forEach { product -> typeSet.add(product.typeId) }
                 materials.forEach { material -> typeSet.add(material.typeId) }

@@ -61,7 +61,7 @@ fun ReactionsScreen(
                     BlueprintItem(
                         modifier = Modifier.animateItemPlacement(animationSpec = tween()),
                         item = item,
-                        onItemClick = {reactionId ->  router.buildReaction(reactionId)}
+                        onItemClick = {reactionId ->  router.buildReaction(reactionId, true)}
                     )
                 }
             }

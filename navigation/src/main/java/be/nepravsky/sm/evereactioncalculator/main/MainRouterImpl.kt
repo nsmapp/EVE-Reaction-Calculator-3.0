@@ -29,7 +29,7 @@ import kotlinx.serialization.Serializable
 class MainRouterImpl(
     tab: Tabs,
     private val onSearchSettings: () -> Unit,
-    private val onReaction: (Long) -> Unit,
+    private val onReaction: (reactionId: Long, isSingleReaction: Boolean) -> Unit,
     componentContext: ComponentContext
 ) : Rout(
     componentContext = componentContext,

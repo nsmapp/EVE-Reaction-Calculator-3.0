@@ -6,11 +6,12 @@ import be.nepravsky.sm.domain.utils.TEXT_EMPTY
 data class ReactorState(
     val data: ComplexReactionModel,
     val showProgress: Boolean,
+    val isSingleReaction: Boolean,
 ) {
     companion object {
         val EMPTY = ReactorState(
             data = ComplexReactionModel(
-                items = listOf(),
+                baseItems = listOf(),
 
                 productQuantity = TEXT_EMPTY,
                 productVolume = TEXT_EMPTY,
@@ -23,8 +24,21 @@ data class ReactorState(
                 materialSell = TEXT_EMPTY,
                 materialBuy = TEXT_EMPTY,
                 materialPriceDif = TEXT_EMPTY,
+
+                items = emptyList(),
+                fullProductQuantity = TEXT_EMPTY,
+                fullProductVolume = TEXT_EMPTY,
+                fullProductSell = TEXT_EMPTY,
+                fullProductBuy = TEXT_EMPTY,
+                fullProductPriceDif = TEXT_EMPTY,
+                fullMaterialQuantity = TEXT_EMPTY,
+                fullMaterialVolume = TEXT_EMPTY,
+                fullMaterialSell = TEXT_EMPTY,
+                fullMaterialBuy = TEXT_EMPTY,
+                fullMaterialPriceDif = TEXT_EMPTY,
             ),
             showProgress = false,
+            isSingleReaction = false,
         )
     }
 }

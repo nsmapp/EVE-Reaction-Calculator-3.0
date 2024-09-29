@@ -10,7 +10,7 @@ import com.arkivanov.decompose.ComponentContext
 
 class ReactionRouterImpl(
     private val onSearchSettings: () -> Unit,
-    private val onReaction: (Long) -> Unit,
+    private val onReaction: (reactionId: Long, isSingleReaction: Boolean) -> Unit,
     componentContext: ComponentContext,
 ) : Rout(
     componentContext = componentContext,
@@ -29,7 +29,7 @@ class ReactionRouterImpl(
         onSearchSettings.invoke()
     }
 
-    override fun buildReaction(id: Long) {
-        onReaction.invoke(id)
+    override fun buildReaction(id: Long, isSingleReaction: Boolean) {
+        onReaction.invoke(id, isSingleReaction)
     }
 }
