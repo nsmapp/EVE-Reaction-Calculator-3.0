@@ -41,12 +41,16 @@ class ReactorViewModel(
                 .collect { run ->
                     singleQuery.update { it.copy(run = run) }
                 }
+        }
 
+        viewModelScope.launch {
             meFlow.debounce(INPUT_DEBOUNCE)
                 .collect { me ->
                     singleQuery.update { it.copy(me = me) }
                 }
+        }
 
+        viewModelScope.launch {
             subMeFlow.debounce(INPUT_DEBOUNCE)
                 .collect { subMe ->
                     singleQuery.update { it.copy(subMe = subMe) }

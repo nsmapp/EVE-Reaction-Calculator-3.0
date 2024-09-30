@@ -49,7 +49,7 @@ fun ReactionControlView(viewModel: ReactorViewModel) {
             value = meText,
             onValueChange = { mes ->
                 val me = mes.toDoubleOrNull()
-                meText = me?.toString() ?: TEXT_EMPTY
+                meText = if (me == 0.0) TEXT_EMPTY else me?.toString() ?: TEXT_EMPTY
                 viewModel.setMe(me ?: 0.0)
             },
             keyboardOptions = decimalKeyboardOptions,
@@ -61,7 +61,7 @@ fun ReactionControlView(viewModel: ReactorViewModel) {
             value = subMeText,
             onValueChange = { subMes ->
                 val me = subMes.toDoubleOrNull()
-                subMeText = me?.toString() ?: TEXT_EMPTY
+                subMeText = if (me == 0.0) TEXT_EMPTY else me?.toString() ?: TEXT_EMPTY
                 viewModel.setSubMe(me ?: 0.0)
             },
             keyboardOptions = decimalKeyboardOptions,

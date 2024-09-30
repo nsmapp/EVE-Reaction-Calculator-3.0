@@ -86,10 +86,11 @@ class MakeReactionUseCase(
             blueprintRepo.getById(build.bpcId)?.let { bpc ->
 
                 val typeSet = mutableSetOf<Long>()
-                val products = calcReactionItemForRun(bpc.products, build.run)
+                val products = calcReactionItemForRun(bpc.products, build.run, 1.0)
                 val materials = mutableListOf<ReactionItem>()
+                val me = if (bpc.isFormula) 1.0 else build.me
 
-                var subMaterials = calcReactionItemForRun(bpc.materials, build.run)
+                var subMaterials = calcReactionItemForRun(bpc.materials, build.run, me)
 
                 do {
                     val subProducts = mutableListOf<ReactionItem>()
@@ -97,10 +98,12 @@ class MakeReactionUseCase(
 
                     subMaterials.forEach { item ->
                         val subBpc = blueprintRepo.getById(item.typeId)
+
                         if (subBpc == null) baseMaterials.add(item)
                         else {
+                            val subMe = if (subBpc.isFormula) 1.0 else build.subMe
                             val run = calculateRun(item, subBpc)
-                            subProducts.addAll(calcReactionItemForRun(subBpc.materials, run))
+                            subProducts.addAll(calcReactionItemForRun(subBpc.materials, run, subMe))
                         }
                     }
 
@@ -128,8 +131,9 @@ class MakeReactionUseCase(
             blueprintRepo.getById(build.bpcId)?.let { bpc ->
 
                 val typeSet = mutableSetOf<Long>()
-                val products = calcReactionItemForRun(bpc.products, build.run)
-                val materials = calcReactionItemForRun(bpc.materials, build.run)
+                val me = if (bpc.isFormula) 1.0 else build.me
+                val products = calcReactionItemForRun(bpc.products, build.run, 1.0)
+                val materials = calcReactionItemForRun(bpc.materials, build.run, me)
 
                 products.forEach { product -> typeSet.add(product.typeId) }
                 materials.forEach { material -> typeSet.add(material.typeId) }
@@ -148,6 +152,12 @@ class MakeReactionUseCase(
     private fun calcReactionItemForRun(
         items: List<ReactionItem>,
         run: Long,
-    ): List<ReactionItem> = items.map { item -> item.copy(quantity = item.quantity * run) }
+        me: Double,
+    ): List<ReactionItem> = items.map { item ->
+        val meForItem = if ( item.quantity == 1L) 1.0 else (1.0 - me / 100.0)
+        val quantity =  (item.quantity * run * meForItem)
+        println("!!! $quantity")
+        item.copy(quantity = ceil(quantity).toLong())
+    }
 
 }
