@@ -70,6 +70,7 @@ class MakeReactionUseCase(
         prices: Map<Long, TypePrice>
     ) = ReactionItemFull(
         id = item.typeId,
+        groupId = types[item.typeId]?.groupId ?: -1L,
         name = types[item.typeId]?.name ?: TEXT_EMPTY,
         quantity = item.quantity,
         volume = item.quantity * (types[item.typeId]?.volume ?: 0.0),
@@ -156,7 +157,6 @@ class MakeReactionUseCase(
     ): List<ReactionItem> = items.map { item ->
         val meForItem = if ( item.quantity == 1L) 1.0 else (1.0 - me / 100.0)
         val quantity =  (item.quantity * run * meForItem)
-        println("!!! $quantity")
         item.copy(quantity = ceil(quantity).toLong())
     }
 

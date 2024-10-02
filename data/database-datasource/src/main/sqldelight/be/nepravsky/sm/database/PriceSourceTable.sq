@@ -1,8 +1,0 @@
-CREATE TABLE price_source (
-    id   INTEGER PRIMARY KEY
-                 NOT NULL,
-    name TEXT    NOT NULL
-);
-
-getAll:
-SELECT * FROM price_source;

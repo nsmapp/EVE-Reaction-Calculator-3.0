@@ -2,6 +2,7 @@ package be.nepravsky.sm.evereactioncalculator.model
 
 class ReactionItemModel(
     val id: Long,
+    val groupId: Long,
     val name: String,
     val quantity: String,
     val volume: String,

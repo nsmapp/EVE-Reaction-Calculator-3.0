@@ -52,7 +52,9 @@ fun ReactorScreen(
 
     LaunchedEffect(null) { focusManager.clearFocus() }
 
-    Column {
+    Column(
+        modifier = Modifier.background(AppTheme.colors.foreground)
+    ) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()

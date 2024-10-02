@@ -12,8 +12,13 @@ class SettingsRouterImpl(componentContext: ComponentContext): Rout(
     componentContext = componentContext,
     viewModelKey = SettingsViewModel::class.viewModelKey(),
 ), SettingsRouter {
+
+
     @Composable
     override fun Content() {
-        SettingScreen()
+        SettingScreen(
+            viewModel = decomposeViewModel(),
+            router = this,
+        )
     }
 }

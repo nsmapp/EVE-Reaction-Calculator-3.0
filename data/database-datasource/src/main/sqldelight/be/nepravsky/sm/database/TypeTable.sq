@@ -1,21 +1,22 @@
 CREATE TABLE type (
-    id         INTEGER NOT NULL
-                       PRIMARY KEY,
+    id        INTEGER NOT NULL
+                      PRIMARY KEY,
+    groupId   INTEGER NOT NULL,
     basePrice REAL    NOT NULL,
-    volume     REAL    NOT NULL,
-    de         TEXT    NOT NULL,
-    en         TEXT    NOT NULL,
-    fr         TEXT    NOT NULL,
-    ja         TEXT    NOT NULL,
-    ru         TEXT    NOT NULL,
-    zh         TEXT    NOT NULL
+    volume    REAL    NOT NULL,
+    de        TEXT    NOT NULL,
+    en        TEXT    NOT NULL,
+    fr        TEXT    NOT NULL,
+    ja        TEXT    NOT NULL,
+    ru        TEXT    NOT NULL,
+    zh        TEXT    NOT NULL
 );
 
 getAll:
 SELECT * FROM type;
 
 getByIds:
-SELECT id, basePrice, volume,
+SELECT id, groupId, basePrice, volume,
 CASE (SELECT langId FROM settings WHERE id = 1)
   WHEN 12 THEN en
   WHEN 13 THEN fr

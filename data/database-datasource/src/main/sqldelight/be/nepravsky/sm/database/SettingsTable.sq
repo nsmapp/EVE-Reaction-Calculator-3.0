@@ -1,27 +1,36 @@
 CREATE TABLE settings (
-    id                  INTEGER NOT NULL
-                                PRIMARY KEY,
-    langId             INTEGER NOT NULL
-                                DEFAULT (12),
-    systemId           INTEGER NOT NULL
-                                DEFAULT (30000142),
-    regionId           INTEGER NOT NULL
-                                DEFAULT (10000002),
-    bpoMe              INTEGER NOT NULL
-                                DEFAULT (0),
-    bpoTe              INTEGER NOT NULL
-                                DEFAULT (0),
-    subBpoMe          INTEGER NOT NULL
-                                DEFAULT (0),
-    subBpoTe          INTEGER NOT NULL
-                                DEFAULT (0),
-    priceUpdateSource INTEGER NOT NULL
-                                DEFAULT (1)
+    id                INTEGER NOT NULL
+                              PRIMARY KEY,
+    langId            INTEGER NOT NULL
+                              DEFAULT (12),
+    systemId          INTEGER NOT NULL
+                              DEFAULT (30000142),
+    regionId          INTEGER NOT NULL
+                              DEFAULT (10000002),
+    isOfflineMode     INTEGER NOT NULL
+                              DEFAULT (1),
+    isIgnoreFuelBlock INTEGER DEFAULT (0)
+                              NOT NULL
 );
 
 
 getAll:
 SELECT * FROM settings;
 
+getSettings:
+SELECT * FROM settings WHERE id == 1;
+
 getPriceSource:
-SELECT priceUpdateSource FROM settings WHERE id == 1;
+SELECT isOfflineMode FROM settings WHERE id == 1;
+
+enableOfflineMode:
+UPDATE settings SET isOfflineMode = 1 WHERE id == 1;
+
+disableOfflineMode:
+UPDATE settings SET isOfflineMode = 0 WHERE id == 1;
+
+enableIgnoreFuelBlockBpc:
+UPDATE settings SET isIgnoreFuelBlock = 1 WHERE id == 1;
+
+disableIgnoreFuelBlockBpc:
+UPDATE settings SET isIgnoreFuelBlock = 0 WHERE id == 1;

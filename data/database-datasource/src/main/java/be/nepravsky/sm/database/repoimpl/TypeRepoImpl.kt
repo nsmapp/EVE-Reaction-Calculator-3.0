@@ -13,9 +13,10 @@ class TypeRepoImpl(
 
 
     override fun getByIds(ids: List<Long>): List<Type> = typeTableQueries
-        .getByIds(ids) { id, basePrice, volume, name ->
+        .getByIds(ids) { id, groupId, basePrice, volume, name ->
             Type(
                 id = id,
+                groupId = groupId,
                 basePrice = basePrice,
                 volume = volume,
                 name = name,

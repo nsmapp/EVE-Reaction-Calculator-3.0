@@ -26,4 +26,8 @@
     <string name="feature_reactor_sub_me_percent">Sub ME, %</string>
     <string name="feature_reactor_reaction">Reaction</string>
     <string name="feature_reactor_base">Base</string>
+
+<!--    Settings-->
+    <string name="feature_settings_offline_mode">Offline mode</string>
+    <string name="feature_settings_ignore_fuel_bpc">Ignore fuel bpc</string>
 </resources>

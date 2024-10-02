@@ -17,21 +17,25 @@ class ComplexReactionMapper {
             val baseProducts: List<ReactionItemModel> = reaction.baseReactions
                 .map { it.products }
                 .run { mapReactionItems(this, true) }
+                .sortedBy { it.groupId }
             val baseProductPriceDif = reaction.productSell - reaction.productBuy
 
             val baseMaterials: List<ReactionItemModel> = reaction.baseReactions
                 .map { it.materials }
                 .run { mapReactionItems(this, false) }
+                .sortedBy { it.groupId }
             val baseMaterialPriceDif = reaction.materialSell - reaction.materialBuy
 
             val products: List<ReactionItemModel> = reaction.reactions
                 .map { it.products }
                 .run { mapReactionItems(this, true) }
+                .sortedBy { it.groupId }
             val productPriceDif = reaction.fullProductSell - reaction.fullProductBuy
 
             val materials: List<ReactionItemModel> = reaction.reactions
                 .map { it.materials }
                 .run { mapReactionItems(this, false) }
+                .sortedBy { it.groupId }
             val materialPriceDif = reaction.fullMaterialSell - reaction.fullMaterialBuy
 
 
@@ -71,6 +75,7 @@ class ComplexReactionMapper {
         .map { items ->
             ReactionItemModel(
                 id = items.first().id,
+                groupId = items.first().groupId,
                 quantity = items.sumOf { it.quantity }.toString(),
                 name = items.first().name,
                 volume = items.sumOf { it.volume }.toVolume(),
