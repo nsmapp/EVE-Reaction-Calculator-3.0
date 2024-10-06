@@ -4,7 +4,6 @@
 
 <!--    ui kit  -->
     <string name="view_blueprint_base_reaction_time">Base reaction time</string>
-    <string name="view_blueprint_unit_per_run">Unit per run</string>
 
     <string name="feature_reaction_search">Search</string>
 
@@ -26,6 +25,9 @@
     <string name="feature_reactor_sub_me_percent">Sub ME, %</string>
     <string name="feature_reactor_reaction">Reaction</string>
     <string name="feature_reactor_base">Base</string>
+    <string name="feature_reactor_rich_eve_note">Rich EVE note</string>
+    <string name="feature_reactor_simple_text">Simple text</string>
+    <string name="feature_reactor_select_a_sharing_method">Select a sharing method</string>
 
 <!--    Settings-->
     <string name="feature_settings_offline_mode">Offline mode</string>

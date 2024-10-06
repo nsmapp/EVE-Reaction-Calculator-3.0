@@ -7,6 +7,7 @@ data class ReactorState(
     val data: ComplexReactionModel,
     val showProgress: Boolean,
     val isSingleReaction: Boolean,
+    val isShowShareDialog: Boolean,
 ) {
     companion object {
         val EMPTY = ReactorState(
@@ -39,6 +40,7 @@ data class ReactorState(
             ),
             showProgress = false,
             isSingleReaction = false,
+            isShowShareDialog = false,
         )
     }
 }

@@ -18,7 +18,7 @@ class SettingRepoImpl(
         val source = settingsTableQueries.getPriceSource()
             .executeAsOne()
 
-        return if (source == 1L) PriceSource.ESI_EVE_TECH else PriceSource.OFFLINE
+        return if (source == 1L) PriceSource.OFFLINE else PriceSource.ESI_EVE_TECH
     }
 
     override fun getSettings(): Flow<Settings> = settingsTableQueries

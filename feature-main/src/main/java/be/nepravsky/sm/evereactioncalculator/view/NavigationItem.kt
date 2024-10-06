@@ -1,6 +1,7 @@
 package be.nepravsky.sm.evereactioncalculator.view
 
 import androidx.compose.foundation.layout.RowScope
+//noinspection UsingMaterialAndMaterial3Libraries
 import androidx.compose.material.BottomNavigationItem
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf

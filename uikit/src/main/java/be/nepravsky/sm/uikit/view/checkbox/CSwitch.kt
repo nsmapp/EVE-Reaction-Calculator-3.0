@@ -3,6 +3,7 @@ package be.nepravsky.sm.uikit.view.checkbox
 
 
 
+//noinspection UsingMaterialAndMaterial3Libraries
 import androidx.compose.material.Switch
 import androidx.compose.material.SwitchDefaults
 import androidx.compose.runtime.Composable

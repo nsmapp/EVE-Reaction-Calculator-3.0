@@ -32,4 +32,28 @@ interface ReactionContract {
      * @param query
      */
     fun makeReaction(query: List<ReactionQuery>)
+
+    /**
+     * Show s hare dialog
+     *
+     */
+    fun showShareDialog()
+
+    /**
+     * Hide share dialog
+     *
+     */
+    fun hideShareDialog()
+
+    /**
+     * Share as simple text
+     *
+     */
+    fun shareAsSimpleText(isBaseMaterials: Boolean)
+
+    /**
+     * Share as eve note text
+     *
+     */
+    fun shareAsEveNoteText(isBaseMaterials: Boolean)
 }

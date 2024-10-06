@@ -10,6 +10,7 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.shape.RoundedCornerShape
+//noinspection UsingMaterialAndMaterial3Libraries
 import androidx.compose.material.Tab
 import androidx.compose.material.TabRow
 import androidx.compose.material.TabRowDefaults
@@ -82,7 +83,7 @@ fun ReactionItemsView(
         Column(modifier = Modifier.fillMaxSize()) {
 
             when (index) {
-                0 -> LazyColumn(modifier = Modifier, content = {
+                ReactionTab.REACTION.ordinal -> LazyColumn(modifier = Modifier, content = {
                     itemsIndexed(
                         items = state.value.data.items,
                         key = { _, item -> item.id }) { _, item ->
@@ -90,7 +91,7 @@ fun ReactionItemsView(
                     }
                 })
 
-                1 -> LazyColumn(modifier = Modifier, content = {
+                ReactionTab.BASE_TYPE.ordinal -> LazyColumn(modifier = Modifier, content = {
                     itemsIndexed(
                         items = state.value.data.baseItems,
                         key = { _, item -> item.id }) { _, item ->
