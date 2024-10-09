@@ -56,4 +56,10 @@ interface ReactionContract {
      *
      */
     fun shareAsEveNoteText(isBaseMaterials: Boolean)
+
+    /**
+     * Change reaction information visibility
+     *
+     */
+    fun changeReactionInformationVisibility()
 }

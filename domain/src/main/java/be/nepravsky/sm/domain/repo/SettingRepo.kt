@@ -17,4 +17,6 @@ interface SettingRepo {
     fun enableIgnoreFuelBlockBpc()
 
     fun disableIgnoreFuelBlockBpc()
+
+    fun updateSearchLanguage(languageId: Long)
 }

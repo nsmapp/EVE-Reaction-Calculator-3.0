@@ -22,10 +22,6 @@ import androidx.compose.material.icons.filled.Share
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.platform.LocalContext
@@ -54,14 +50,13 @@ fun ReactorScreen(
 
     val state = viewModel.state.collectAsState()
 
-    var isShowReactionInformation by remember { mutableStateOf(true) }
     val pagerState = rememberPagerState(pageCount = { ReactionTab.entries.size })
     val selectedTabIndex = pagerState.currentPage
 
     LaunchedEffect(null) {
         focusManager.clearFocus()
-        viewModel.sideEffect.collect{ effect ->
-            when{
+        viewModel.sideEffect.collect { effect ->
+            when {
                 effect is ReactorSideEffect.ShareReaction -> {
                     val sendIntent = Intent(Intent.ACTION_SEND).apply {
                         putExtra(Intent.EXTRA_TEXT, effect.text)
@@ -70,6 +65,7 @@ fun ReactorScreen(
                     val shareIntent = Intent.createChooser(sendIntent, null)
                     startActivity(context, shareIntent, null)
                 }
+
                 else -> {
                     //do nothing
                 }
@@ -78,15 +74,10 @@ fun ReactorScreen(
         }
     }
 
-
     if (state.value.isShowShareDialog) ShareReactionDialog(
-        onSimpleTextShare = {
-            viewModel.shareAsSimpleText(selectedTabIndex == ReactionTab.BASE_TYPE.ordinal)
-        },
-        onRichTextShare = {
-            viewModel.shareAsEveNoteText(selectedTabIndex == ReactionTab.BASE_TYPE.ordinal)
-        },
-        onDismiss = { viewModel.hideShareDialog() }
+        onDismiss = { viewModel.hideShareDialog() },
+        onSimpleTextShare = { viewModel.shareAsSimpleText(selectedTabIndex.isBaseType()) },
+        onRichTextShare = { viewModel.shareAsEveNoteText(selectedTabIndex.isBaseType()) },
     )
 
     Column(
@@ -118,10 +109,8 @@ fun ReactorScreen(
                 SmallIcon(
                     modifier = Modifier
                         .padding(AppTheme.padding.s_2)
-                        .clickable {
-                            isShowReactionInformation = isShowReactionInformation.not()
-                        },
-                    imageVector = if (isShowReactionInformation)
+                        .clickable { viewModel.changeReactionInformationVisibility() },
+                    imageVector = if (state.value.isShowReactionInformation)
                         Icons.Default.MoreVert else Icons.Default.Menu,
                     colorFilter = ColorFilter.tint(AppTheme.colors.accent)
                 )
@@ -139,7 +128,7 @@ fun ReactorScreen(
 
             AnimatedVisibility(
                 modifier = Modifier.padding(AppTheme.padding.s_4),
-                visible = isShowReactionInformation,
+                visible = state.value.isShowReactionInformation,
             ) {
                 ReactionInformationView(state, selectedTabIndex)
             }
@@ -155,3 +144,6 @@ fun ReactorScreen(
         ReactionItemsView(selectedTabIndex, pagerState, state, gradient1, gradient2)
     }
 }
+
+
+private fun Int.isBaseType(): Boolean = this == ReactionTab.BASE_TYPE.ordinal

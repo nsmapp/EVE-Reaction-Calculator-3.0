@@ -130,6 +130,10 @@ class ReactorViewModel(
         viewModelScope.launch { _sideEffect.send(ReactorSideEffect.ShareReaction(text)) }
     }
 
+    override fun changeReactionInformationVisibility() {
+        _state.update { it.copy(isShowReactionInformation = it.isShowReactionInformation.not()) }
+    }
+
     private fun updatePriceAndStartReaction() {
         viewModelScope.launch {
             updatePriceUseCase.invoke(reactionId)

@@ -21,8 +21,8 @@ SELECT id, category, isFormula, isSelected, iconId,
 CASE (SELECT langId FROM settings WHERE id = 1)
   WHEN 12 THEN en
   WHEN 13 THEN fr
-  WHEN 14 THEN ja
-  WHEN 15 THEN zh
+  WHEN 16 THEN ja
+  WHEN 17 THEN zh
   ELSE en
   END AS name
 FROM type_group

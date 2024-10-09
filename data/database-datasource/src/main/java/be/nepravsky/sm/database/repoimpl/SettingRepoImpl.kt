@@ -1,7 +1,9 @@
 package be.nepravsky.sm.database.repoimpl
 
 import app.cash.sqldelight.coroutines.asFlow
+import be.nepravsky.sm.database.LanguageTableQueries
 import be.nepravsky.sm.database.SettingsTableQueries
+import be.nepravsky.sm.domain.model.settings.Language
 import be.nepravsky.sm.domain.model.settings.PriceSource
 import be.nepravsky.sm.domain.model.settings.Settings
 import be.nepravsky.sm.domain.repo.SettingRepo
@@ -11,7 +13,8 @@ import org.koin.core.annotation.Single
 
 @Single(binds = [SettingRepo::class])
 class SettingRepoImpl(
-    private val settingsTableQueries: SettingsTableQueries
+    private val settingsTableQueries: SettingsTableQueries,
+    private val languageTableQueries: LanguageTableQueries,
 ) : SettingRepo {
 
     override fun getPriceSource(): PriceSource {
@@ -22,14 +25,18 @@ class SettingRepoImpl(
     }
 
     override fun getSettings(): Flow<Settings> = settingsTableQueries
-        .getSettings(mapper = { id, langId, systemId, regionId, isOfflineMode, isIgnoreFuelBlock ->
+        .getSettings(mapper = { id, langId, systemId, regionId, isOfflineMode, isIgnoreFuelBlock, langName, systemName ->
             Settings(
                 id = id,
                 langId = langId,
+                langName = langName,
                 systemId = systemId,
+                systemName = systemName,
                 regionId = regionId,
                 isOfflineMode = isOfflineMode == 1L,
-                isIgnoreFuelBlock = isIgnoreFuelBlock == 1L
+                isIgnoreFuelBlock = isIgnoreFuelBlock == 1L,
+                languages = getLanguage()
+
             )
         })
         .asFlow()
@@ -50,5 +57,13 @@ class SettingRepoImpl(
     override fun disableIgnoreFuelBlockBpc() {
         settingsTableQueries.disableIgnoreFuelBlockBpc()
     }
+
+    override fun updateSearchLanguage(languageId: Long) {
+        settingsTableQueries.updateSearchLanguage(languageId)
+    }
+
+    private fun getLanguage(): List<Language> =
+        languageTableQueries.getAll(mapper = { id: Long, name: String -> Language(id, name) })
+            .executeAsList()
 
 }

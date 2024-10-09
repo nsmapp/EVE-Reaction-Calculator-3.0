@@ -5,6 +5,8 @@ import be.nepravsky.sm.domain.model.settings.Settings
 import be.nepravsky.sm.domain.usecase.settings.GetSettingsUseCase
 import be.nepravsky.sm.domain.usecase.settings.UpdateIgnoreFuelBlockSettingUseCase
 import be.nepravsky.sm.domain.usecase.settings.UpdateOfflineModeSettingUseCase
+import be.nepravsky.sm.domain.usecase.settings.UpdateSearchLanguageSettingUseCase
+import be.nepravsky.sm.evereactioncalculator.mapper.SettingsStateMapper
 import be.nepravsky.sm.evereactioncalculator.model.SettingsState
 import be.nepravsky.sm.evereactioncalculator.viewmodel.BaseViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -19,7 +21,9 @@ class SettingsViewModel(
     private val getSettingsUseCase: GetSettingsUseCase,
     private val updateOfflineModeSettingUseCase: UpdateOfflineModeSettingUseCase,
     private val updateIgnoreFuelBlockSettingUseCase: UpdateIgnoreFuelBlockSettingUseCase,
-) : BaseViewModel() {
+    private val updateSearchLanguageSettingUseCase: UpdateSearchLanguageSettingUseCase,
+    private val settingsStateMapper: SettingsStateMapper,
+) : BaseViewModel(), SettingsContract {
 
 
     private val _state: MutableStateFlow<SettingsState> = MutableStateFlow(SettingsState.EMPTY)
@@ -29,38 +33,34 @@ class SettingsViewModel(
 
         viewModelScope.launch {
             getSettingsUseCase.invoke()
-                .collectLatest { settings ->
-                    handleSettings(settings)
-                }
+                .collectLatest { settings -> handleSettings(settings) }
         }
 
     }
 
-    private fun handleSettings(settings: Settings) {
-        _state.update {
-            SettingsState(
-                id = settings.id,
-                langId = settings.langId,
-                systemId = settings.systemId,
-                regionId = settings.regionId,
-                isOfflineMode = settings.isOfflineMode,
-                isIgnoreFuelBlock = settings.isIgnoreFuelBlock,
-                isProgress = false,
-            )
-        }
+    override fun handleSettings(settings: Settings) {
+        _state.update { settingsStateMapper.map(settings) }
     }
 
-    fun setOfflineMode(checked: Boolean) {
-        viewModelScope.launch {
-            updateOfflineModeSettingUseCase.invoke(checked)
-        }
+    override fun setOfflineMode(checked: Boolean) {
+        viewModelScope.launch { updateOfflineModeSettingUseCase.invoke(checked) }
     }
 
-    fun setIsIgnoreFuelBlockBpc(checked: Boolean) {
-        viewModelScope.launch {
-            updateIgnoreFuelBlockSettingUseCase.invoke(checked)
-        }
+    override fun setIsIgnoreFuelBlockBpc(checked: Boolean) {
+        viewModelScope.launch { updateIgnoreFuelBlockSettingUseCase.invoke(checked) }
+    }
 
+    override fun hideDialogs() {
+        _state.update { it.copy(isShowLanguageDialog = false) }
+    }
+
+    override fun showSearchLanguageDialog() {
+        _state.update { it.copy(isShowLanguageDialog = true) }
+    }
+
+    override fun setSearchLanguage(languageId: Long) {
+        hideDialogs()
+        viewModelScope.launch { updateSearchLanguageSettingUseCase.invoke(languageId) }
     }
 
 }

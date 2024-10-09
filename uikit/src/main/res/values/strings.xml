@@ -32,4 +32,7 @@
 <!--    Settings-->
     <string name="feature_settings_offline_mode">Offline mode</string>
     <string name="feature_settings_ignore_fuel_bpc">Ignore fuel bpc</string>
+    <string name="feature_settings_select_search_language">Select search language</string>
+    <string name="feature_settings_search_language">Search language</string>
+    <string name="feature_settings_price_location">Price location</string>
 </resources>

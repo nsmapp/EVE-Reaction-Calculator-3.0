@@ -22,23 +22,23 @@ CREATE TABLE reaction (
 getAll:
 SELECT * FROM reaction;
 
-getFilteredByEng:
-SELECT *
-FROM reaction
-WHERE en LIKE ('%' || :query || '%')  AND groupId IN ?
-ORDER BY groupId, en ASC;
-
 getBpcShort:
 SELECT id, groupId, baseTime, runLimit,
 CASE (SELECT langId FROM settings WHERE id = 1)
   WHEN 12 THEN en
   WHEN 13 THEN fr
-  WHEN 14 THEN ja
-  WHEN 15 THEN zh
+  WHEN 16 THEN ja
+  WHEN 17 THEN zh
   ELSE en
   END AS name
 FROM reaction
-WHERE en LIKE ('%' || :query || '%')  AND groupId IN ?
+WHERE CASE (SELECT langId FROM settings WHERE id = 1)
+  WHEN 12 THEN en LIKE ('%' || :query || '%') AND groupId IN :groupId
+  WHEN 13 THEN fr LIKE ('%' || :query || '%') AND groupId IN :groupId
+  WHEN 16 THEN ja LIKE ('%' || :query || '%') AND groupId IN :groupId
+  WHEN 17 THEN zh LIKE ('%' || :query || '%') AND groupId IN :groupId
+  ELSE en LIKE ('%' || :query || '%')  AND groupId IN :groupId
+  END
 ORDER BY groupId, name ASC;
 
 getBpcFull:
@@ -46,8 +46,8 @@ SELECT id, groupId, isFormula, baseTime, runLimit, materials, products,
 CASE (SELECT langId FROM settings WHERE id = 1)
   WHEN 12 THEN en
   WHEN 13 THEN fr
-  WHEN 14 THEN ja
-  WHEN 15 THEN zh
+  WHEN 16 THEN ja
+  WHEN 17 THEN zh
   ELSE en
   END AS name
 FROM reaction
@@ -60,8 +60,8 @@ SELECT id, groupId, isFormula, baseTime, runLimit, materials, products,
 CASE (SELECT langId FROM settings WHERE id = 1)
   WHEN 12 THEN en
   WHEN 13 THEN fr
-  WHEN 14 THEN ja
-  WHEN 15 THEN zh
+  WHEN 16 THEN ja
+  WHEN 17 THEN zh
   ELSE en
   END AS name
 FROM reaction
