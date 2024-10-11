@@ -26,3 +26,10 @@ WHERE
     typeId IN ? AND
     regionId == (SELECT regionId FROM settings WHERE id == 1) AND
     systemId == (SELECT systemId FROM settings WHERE id == 1);
+
+getPriceById:
+SELECT * FROM type_price
+WHERE
+    typeId == :id AND
+    regionId == (SELECT regionId FROM settings WHERE id == 1) AND
+    systemId == (SELECT systemId FROM settings WHERE id == 1);

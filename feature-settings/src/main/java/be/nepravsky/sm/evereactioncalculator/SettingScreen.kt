@@ -14,6 +14,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import be.nepravsky.sm.evereactioncalculator.uikit.R
+import be.nepravsky.sm.evereactioncalculator.view.SelectPriceLocationDialog
 import be.nepravsky.sm.evereactioncalculator.view.SelectSearchLanguageDialog
 import be.nepravsky.sm.uikit.theme.AppTheme
 import be.nepravsky.sm.uikit.view.row.KeyCheckRow
@@ -31,6 +32,12 @@ fun SettingScreen(
         onItemClick = { languageModel -> viewModel.setSearchLanguage(languageModel.id) },
         onDismissDialog = { viewModel.hideDialogs() },
         languages = state.languages
+    )
+
+    if (state.isShowPriceLocationDialog) SelectPriceLocationDialog(
+        onItemClick = { systemModel ->  viewModel.setPriceLocation(systemModel)},
+        onDismissDialog = {viewModel.hideDialogs()},
+        systems = state.systems
     )
 
     Column(
@@ -57,7 +64,7 @@ fun SettingScreen(
 
         KeyValueRow(
             modifier = Modifier
-                .clickable { }
+                .clickable { viewModel.showPriceLocationDialog() }
                 .padding(vertical = AppTheme.padding.s_12)
                 .padding(start = AppTheme.padding.s_8, end = AppTheme.padding.s_16)
                 .fillMaxWidth()

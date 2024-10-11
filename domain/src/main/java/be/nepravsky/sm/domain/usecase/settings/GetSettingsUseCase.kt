@@ -13,7 +13,7 @@ class GetSettingsUseCase(
     private val dispatcherProvider: DispatcherProvider,
 ) {
 
-    fun invoke(): Flow<Settings> = settingRepo.getSettings()
+    fun invoke(): Flow<Settings> = settingRepo.getSettingsFlow()
         .flowOn(dispatcherProvider.io)
         .flowOn(dispatcherProvider.main)
 

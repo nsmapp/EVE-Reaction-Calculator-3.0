@@ -35,4 +35,5 @@
     <string name="feature_settings_select_search_language">Select search language</string>
     <string name="feature_settings_search_language">Search language</string>
     <string name="feature_settings_price_location">Price location</string>
+    <string name="feature_settings_select_price_location">Select price location</string>
 </resources>

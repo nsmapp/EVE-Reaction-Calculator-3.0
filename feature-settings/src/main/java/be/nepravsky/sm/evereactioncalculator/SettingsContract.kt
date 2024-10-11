@@ -1,6 +1,7 @@
 package be.nepravsky.sm.evereactioncalculator
 
 import be.nepravsky.sm.domain.model.settings.Settings
+import be.nepravsky.sm.evereactioncalculator.model.SystemModel
 
 interface SettingsContract {
 
@@ -43,4 +44,17 @@ interface SettingsContract {
      *
      */
     fun showSearchLanguageDialog()
+
+    /**
+     * Show price location dialog
+     *
+     */
+    fun showPriceLocationDialog()
+
+    /**
+     * Set price location
+     *
+     * @param systemModel
+     */
+    fun setPriceLocation(systemModel: SystemModel)
 }

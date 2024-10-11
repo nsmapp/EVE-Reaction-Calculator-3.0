@@ -13,7 +13,9 @@ data class SettingsState(
     val isIgnoreFuelBlock: Boolean,
     val isProgress: Boolean,
     val isShowLanguageDialog: Boolean,
-    val languages: List<LanguageModel>
+    val isShowPriceLocationDialog: Boolean,
+    val languages: List<LanguageModel>,
+    val systems: List<SystemModel>,
 ) {
     companion object {
         val EMPTY = SettingsState(
@@ -27,7 +29,9 @@ data class SettingsState(
             isIgnoreFuelBlock = false,
             isProgress = true,
             isShowLanguageDialog = false,
-            languages = listOf()
+            isShowPriceLocationDialog = false,
+            languages = listOf(),
+            systems = listOf(),
         )
     }
 }

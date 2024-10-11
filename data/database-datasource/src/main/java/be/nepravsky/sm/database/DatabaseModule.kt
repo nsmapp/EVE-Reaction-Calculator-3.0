@@ -67,6 +67,10 @@ class DatabaseModule {
     @Single
     fun provideLangDao(database: Database): LanguageTableQueries =
         database.languageTableQueries
+
+    @Single
+    fun provideSystemsDao(database: Database): SystemsTableQueries =
+        database.systemsTableQueries
 }
 
 

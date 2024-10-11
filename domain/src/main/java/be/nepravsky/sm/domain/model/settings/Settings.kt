@@ -9,5 +9,6 @@ data class Settings(
     val regionId: Long,
     val isOfflineMode: Boolean,
     val isIgnoreFuelBlock: Boolean,
-    val languages: List<Language>
+    val languages: List<Language>,
+    val systems: List<Systems>,
 )

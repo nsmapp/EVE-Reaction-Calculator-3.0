@@ -1,13 +1,16 @@
 package be.nepravsky.sm.evereactioncalculator
 
 import androidx.lifecycle.viewModelScope
+import be.nepravsky.sm.domain.model.query.PriceLocationQuery
 import be.nepravsky.sm.domain.model.settings.Settings
 import be.nepravsky.sm.domain.usecase.settings.GetSettingsUseCase
 import be.nepravsky.sm.domain.usecase.settings.UpdateIgnoreFuelBlockSettingUseCase
 import be.nepravsky.sm.domain.usecase.settings.UpdateOfflineModeSettingUseCase
+import be.nepravsky.sm.domain.usecase.settings.UpdatePriceLocationSettingUseCase
 import be.nepravsky.sm.domain.usecase.settings.UpdateSearchLanguageSettingUseCase
 import be.nepravsky.sm.evereactioncalculator.mapper.SettingsStateMapper
 import be.nepravsky.sm.evereactioncalculator.model.SettingsState
+import be.nepravsky.sm.evereactioncalculator.model.SystemModel
 import be.nepravsky.sm.evereactioncalculator.viewmodel.BaseViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -22,6 +25,7 @@ class SettingsViewModel(
     private val updateOfflineModeSettingUseCase: UpdateOfflineModeSettingUseCase,
     private val updateIgnoreFuelBlockSettingUseCase: UpdateIgnoreFuelBlockSettingUseCase,
     private val updateSearchLanguageSettingUseCase: UpdateSearchLanguageSettingUseCase,
+    private val updatePriceLocationSettingUseCase: UpdatePriceLocationSettingUseCase,
     private val settingsStateMapper: SettingsStateMapper,
 ) : BaseViewModel(), SettingsContract {
 
@@ -51,11 +55,30 @@ class SettingsViewModel(
     }
 
     override fun hideDialogs() {
-        _state.update { it.copy(isShowLanguageDialog = false) }
+        _state.update {
+            it.copy(
+                isShowLanguageDialog = false,
+                isShowPriceLocationDialog = false,
+            )
+        }
     }
 
     override fun showSearchLanguageDialog() {
         _state.update { it.copy(isShowLanguageDialog = true) }
+    }
+
+    override fun showPriceLocationDialog() {
+        _state.update { it.copy(isShowPriceLocationDialog = true) }
+    }
+
+    override fun setPriceLocation(systemModel: SystemModel) {
+        hideDialogs()
+        val query = PriceLocationQuery(
+            systemId = systemModel.systemId,
+            reactionId = systemModel.regionId,
+        )
+
+        viewModelScope.launch { updatePriceLocationSettingUseCase.invoke(query) }
     }
 
     override fun setSearchLanguage(languageId: Long) {

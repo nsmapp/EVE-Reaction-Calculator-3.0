@@ -26,6 +26,12 @@ WHERE settings.id == 1;
 getPriceSource:
 SELECT isOfflineMode FROM settings WHERE id == 1;
 
+getDefaultRegion:
+SELECT regionId FROM settings WHERE id == 1;
+
+getDefaultSolarSystem:
+SELECT systemId FROM settings WHERE id == 1;
+
 enableOfflineMode:
 UPDATE settings SET isOfflineMode = 1 WHERE id == 1;
 
@@ -40,3 +46,6 @@ UPDATE settings SET isIgnoreFuelBlock = 0 WHERE id == 1;
 
 updateSearchLanguage:
 UPDATE settings SET langId = ? WHERE id == 1;
+
+updatePriceLocation:
+UPDATE settings SET systemId = :systemId, regionId = :regionId WHERE id == 1;

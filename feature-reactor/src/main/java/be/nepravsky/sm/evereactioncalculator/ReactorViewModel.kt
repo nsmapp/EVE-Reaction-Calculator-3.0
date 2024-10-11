@@ -46,6 +46,9 @@ class ReactorViewModel(
     init {
         updatePriceAndStartReaction()
 
+    }
+
+    private fun initTextWatchersFlows() {
         viewModelScope.launch {
             runFlow.debounce(INPUT_DEBOUNCE)
                 .collect { run ->
@@ -73,7 +76,6 @@ class ReactorViewModel(
                     makeReaction(listOf(query))
                 }
         }
-
     }
 
     override fun setRuns(run: Long) {
@@ -138,12 +140,17 @@ class ReactorViewModel(
         viewModelScope.launch {
             updatePriceUseCase.invoke(reactionId)
                 .onSuccess {
-                    makeReaction(query = listOf(singleQuery.value))
+                    launchReactionWithInitWatchers()
                 }
                 .onFailure {
-                    makeReaction(query = listOf(singleQuery.value))
+                    launchReactionWithInitWatchers()
                 }
         }
+    }
+
+    private fun launchReactionWithInitWatchers() {
+        initTextWatchersFlows()
+        makeReaction(query = listOf(singleQuery.value))
     }
 
     companion object {

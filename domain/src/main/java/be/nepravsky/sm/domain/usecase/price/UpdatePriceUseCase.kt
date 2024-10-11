@@ -7,6 +7,7 @@ import be.nepravsky.sm.domain.repo.BlueprintRepo
 import be.nepravsky.sm.domain.repo.SettingRepo
 import be.nepravsky.sm.domain.repo.TypePriceRepo
 import be.nepravsky.sm.domain.utils.DispatcherProvider
+import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
@@ -46,29 +47,55 @@ class UpdatePriceUseCase(
 
         return coroutineScope {
 
-            val itemsIds = getItemIds(bpcFull)
+            val defRegion = settingRepo.getDefaultRegionId()
+            val defSystem = settingRepo.getDefaultSolarSystemId()
 
-            val priceForUpdate = priceRepo.getByIds(itemsIds)
+            val typeIds = getTypeIds(bpcFull)
+
+            val pricesExist = priceRepo.getByIds(typeIds)
+            val existTypeIds = pricesExist.map { price -> price.id }
+            val pricesNotExist = typeIds
+                .filter { typeId -> typeId !in existTypeIds }
+                .map { typeId ->
+                    TypePrice(
+                        id = typeId,
+                        systemId = defSystem, regionId = defRegion,
+                        sell = 0.0,
+                        buy = 0.0,
+                        updateTime = 0
+                    )
+                }
+
+            val allPrices = (pricesExist + pricesNotExist)
                 .filter { type -> (time - type.updateTime) > minTimeForUpdate }
                 .map { type -> async { priceRepo.getRemoteById(type) } }
 
-            val prices = mutableListOf<TypePrice>()
-            priceForUpdate
-                .chunked(requestChunk)
-                .forEach { chunk ->
-                    delay(requestDelay)
-                    val priceChunk = chunk.awaitAll()
-                    priceRepo.updatePrice(priceChunk)
-                    prices.addAll(priceChunk)
-                }
+            val prices = requestPrices(allPrices)
 
             return@coroutineScope prices
         }
 
     }
 
+    private suspend fun requestPrices(allPrices: List<Deferred<TypePrice>>): MutableList<TypePrice> {
+        val prices = mutableListOf<TypePrice>()
 
-    private fun getItemIds(
+        allPrices
+            .chunked(requestChunk)
+            .forEach { chunk ->
+                delay(requestDelay)
+
+                val priceChunk = chunk.awaitAll()
+
+                priceRepo.updatePrice(priceChunk)
+                prices.addAll(priceChunk)
+            }
+
+        return prices
+    }
+
+
+    private fun getTypeIds(
         bpcFull: BpcFull,
     ): List<Long> {
 
