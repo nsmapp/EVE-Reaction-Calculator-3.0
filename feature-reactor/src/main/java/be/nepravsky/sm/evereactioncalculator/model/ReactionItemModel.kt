@@ -9,4 +9,6 @@ class ReactionItemModel(
     val sell: String,
     val buy: String,
     val isProduct: Boolean,
+    val updateTime: String,
+    val hasZeroPrice: Boolean
 )

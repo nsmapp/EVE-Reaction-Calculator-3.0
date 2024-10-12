@@ -76,6 +76,7 @@ class MakeReactionUseCase(
         volume = item.quantity * (types[item.typeId]?.volume ?: 0.0),
         sell = item.quantity * (prices[item.typeId]?.sell ?: 0.0),
         buy = item.quantity * (prices[item.typeId]?.buy ?: 0.0),
+        updateTime = prices[item.typeId]?.updateTime ?: 0
     )
 
 
@@ -155,8 +156,8 @@ class MakeReactionUseCase(
         run: Long,
         me: Double,
     ): List<ReactionItem> = items.map { item ->
-        val meForItem = if ( item.quantity == 1L) 1.0 else (1.0 - me / 100.0)
-        val quantity =  (item.quantity * run * meForItem)
+        val meForItem = if (item.quantity == 1L) 1.0 else (1.0 - me / 100.0)
+        val quantity = (item.quantity * run * meForItem)
         item.copy(quantity = ceil(quantity).toLong())
     }
 

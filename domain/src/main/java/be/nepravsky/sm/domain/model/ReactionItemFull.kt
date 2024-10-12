@@ -9,4 +9,5 @@ data class ReactionItemFull(
     val volume: Double,
     val sell: Double,
     val buy: Double,
+    val updateTime: Long,
 )

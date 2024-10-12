@@ -5,10 +5,11 @@ import be.nepravsky.sm.domain.utils.TEXT_EMPTY
 
 data class ReactorState(
     val data: ComplexReactionModel,
-    val showProgress: Boolean,
+    val isShowProgress: Boolean,
     val isSingleReaction: Boolean,
     val isShowShareDialog: Boolean,
     val isShowReactionInformation: Boolean,
+    val isOfflineMode: Boolean,
 ) {
     companion object {
         val EMPTY = ReactorState(
@@ -39,10 +40,11 @@ data class ReactorState(
                 fullMaterialBuy = TEXT_EMPTY,
                 fullMaterialPriceDif = TEXT_EMPTY,
             ),
-            showProgress = false,
+            isShowProgress = false,
             isSingleReaction = false,
             isShowShareDialog = false,
-            isShowReactionInformation = true
+            isShowReactionInformation = false,
+            isOfflineMode = false,
         )
     }
 }

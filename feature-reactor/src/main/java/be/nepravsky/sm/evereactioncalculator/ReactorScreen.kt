@@ -29,6 +29,7 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.core.content.ContextCompat.startActivity
 import be.nepravsky.sm.evereactioncalculator.model.ReactionTab
 import be.nepravsky.sm.evereactioncalculator.model.ReactorSideEffect
+import be.nepravsky.sm.evereactioncalculator.view.OfflineModeInformationView
 import be.nepravsky.sm.evereactioncalculator.view.ReactionControlView
 import be.nepravsky.sm.evereactioncalculator.view.ReactionInformationView
 import be.nepravsky.sm.evereactioncalculator.view.ReactionItemsView
@@ -36,6 +37,7 @@ import be.nepravsky.sm.evereactioncalculator.view.ShareReactionDialog
 import be.nepravsky.sm.uikit.theme.AppTheme
 import be.nepravsky.sm.uikit.theme.colors.gradient1
 import be.nepravsky.sm.uikit.theme.colors.gradient2
+import be.nepravsky.sm.uikit.view.FullScreenProgressBox
 import be.nepravsky.sm.uikit.view.icons.SmallIcon
 
 
@@ -74,75 +76,86 @@ fun ReactorScreen(
         }
     }
 
+
     if (state.value.isShowShareDialog) ShareReactionDialog(
         onDismiss = { viewModel.hideShareDialog() },
         onSimpleTextShare = { viewModel.shareAsSimpleText(selectedTabIndex.isBaseType()) },
         onRichTextShare = { viewModel.shareAsEveNoteText(selectedTabIndex.isBaseType()) },
     )
 
-    Column(
-        modifier = Modifier.background(AppTheme.colors.foreground)
+    FullScreenProgressBox(
+        isShowProgress = state.value.isShowProgress
     ) {
-
         Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .wrapContentHeight()
-                .padding(AppTheme.padding.s_2)
-                .border(
-                    BorderStroke(
-                        AppTheme.viewSize.border_small,
-                        AppTheme.colors.foreground_hard
-                    ), RoundedCornerShape(AppTheme.radius.r_8)
-                )
-                .background(
-                    AppTheme.colors.foreground_light,
-                    RoundedCornerShape(AppTheme.radius.r_4)
-                )
+            modifier = Modifier.background(AppTheme.colors.foreground)
         ) {
 
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .wrapContentHeight()
+                    .padding(AppTheme.padding.s_2)
+                    .border(
+                        BorderStroke(
+                            AppTheme.viewSize.border_small,
+                            AppTheme.colors.foreground_hard
+                        ), RoundedCornerShape(AppTheme.radius.r_8)
+                    )
+                    .background(
+                        AppTheme.colors.foreground_light,
+                        RoundedCornerShape(AppTheme.radius.r_4)
+                    )
             ) {
-                //TODO add collapse icon
-                SmallIcon(
-                    modifier = Modifier
-                        .padding(AppTheme.padding.s_2)
-                        .clickable { viewModel.changeReactionInformationVisibility() },
-                    imageVector = if (state.value.isShowReactionInformation)
-                        Icons.Default.MoreVert else Icons.Default.Menu,
-                    colorFilter = ColorFilter.tint(AppTheme.colors.accent)
-                )
 
-                SmallIcon(
-                    modifier = Modifier
-                        .padding(AppTheme.padding.s_2)
-                        .clickable {
-                            viewModel.showShareDialog()
-                        },
-                    imageVector = Icons.Default.Share,
-                    colorFilter = ColorFilter.tint(AppTheme.colors.accent)
-                )
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    //TODO add collapse icon
+                    SmallIcon(
+                        modifier = Modifier
+                            .padding(AppTheme.padding.s_2)
+                            .clickable { viewModel.changeReactionInformationVisibility() },
+                        imageVector = if (state.value.isShowReactionInformation)
+                            Icons.Default.MoreVert else Icons.Default.Menu,
+                        colorFilter = ColorFilter.tint(AppTheme.colors.accent)
+                    )
+
+                    SmallIcon(
+                        modifier = Modifier
+                            .padding(AppTheme.padding.s_2)
+                            .clickable {
+                                viewModel.showShareDialog()
+                            },
+                        imageVector = Icons.Default.Share,
+                        colorFilter = ColorFilter.tint(AppTheme.colors.accent)
+                    )
+                }
+
+                AnimatedVisibility(
+                    modifier = Modifier.padding(AppTheme.padding.s_4),
+                    visible = state.value.isShowReactionInformation,
+                ) {
+                    ReactionInformationView(state, selectedTabIndex)
+                }
+
+                AnimatedVisibility(
+                    visible = state.value.isSingleReaction
+                ) {
+                    ReactionControlView(viewModel)
+                }
             }
 
-            AnimatedVisibility(
-                modifier = Modifier.padding(AppTheme.padding.s_4),
-                visible = state.value.isShowReactionInformation,
-            ) {
-                ReactionInformationView(state, selectedTabIndex)
-            }
 
-            AnimatedVisibility(
-                visible = state.value.isSingleReaction
-            ) {
-                ReactionControlView(viewModel)
-            }
+            ReactionItemsView(selectedTabIndex, pagerState, state, gradient1, gradient2)
+
+            if (state.value.isOfflineMode) OfflineModeInformationView(
+                onDisableOfflineMode = { viewModel.disableOfflineMode() }
+            )
+
         }
-
-
-        ReactionItemsView(selectedTabIndex, pagerState, state, gradient1, gradient2)
     }
+
 }
 
 

@@ -28,6 +28,9 @@
     <string name="feature_reactor_rich_eve_note">Rich EVE note</string>
     <string name="feature_reactor_simple_text">Simple text</string>
     <string name="feature_reactor_select_a_sharing_method">Select a sharing method</string>
+    <string name="feature_reactor_offline_mode_enabled">Offline mode enabled</string>
+    <string name="feature_reactor_disable">disable</string>
+    <string name="feature_reactor_price_updated">Price updated</string>
 
 <!--    Settings-->
     <string name="feature_settings_offline_mode">Offline mode</string>

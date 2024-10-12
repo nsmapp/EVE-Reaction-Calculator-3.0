@@ -11,12 +11,13 @@ class UpdateOfflineModeSettingUseCase(
     private val dispatcherProvider: DispatcherProvider,
 ) {
 
-    suspend fun invoke(isOfflineMode: Boolean): Unit {
+    suspend fun invoke(isOfflineMode: Boolean): Result<Boolean> =
         withContext(dispatcherProvider.io) {
             runCatching {
                 if (isOfflineMode) settingsRepo.enableOfflineMode()
                 else settingsRepo.disableOfflineMode()
+
+                isOfflineMode
             }
         }
-    }
 }

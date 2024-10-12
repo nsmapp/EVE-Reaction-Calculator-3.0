@@ -62,4 +62,16 @@ interface ReactionContract {
      *
      */
     fun changeReactionInformationVisibility()
+
+    /**
+     * Get price source
+     *
+     */
+    fun getPriceSource()
+
+    /**
+     * Disable offline mode
+     *
+     */
+    fun disableOfflineMode()
 }

@@ -1,9 +1,11 @@
 package be.nepravsky.sm.evereactioncalculator.view
 
+//noinspection UsingMaterialAndMaterial3Libraries
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.ColumnScope
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
@@ -12,12 +14,16 @@ import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.shape.RoundedCornerShape
 //noinspection UsingMaterialAndMaterial3Libraries
 import androidx.compose.material.Tab
+//noinspection UsingMaterialAndMaterial3Libraries
 import androidx.compose.material.TabRow
+//noinspection UsingMaterialAndMaterial3Libraries
 import androidx.compose.material.TabRowDefaults
+//noinspection UsingMaterialAndMaterial3Libraries
 import androidx.compose.material.TabRowDefaults.tabIndicatorOffset
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
@@ -31,7 +37,7 @@ import kotlinx.coroutines.launch
 
 @Composable
 @OptIn(ExperimentalFoundationApi::class)
-fun ReactionItemsView(
+fun ColumnScope.ReactionItemsView(
     selectedTabIndex: Int,
     pagerState: PagerState,
     state: State<ReactorState>,
@@ -78,9 +84,11 @@ fun ReactionItemsView(
     }
 
     HorizontalPager(
-        state = pagerState
+        modifier = Modifier.weight(1f),
+        state = pagerState,
+        verticalAlignment = Alignment.Top,
     ) { index ->
-        Column(modifier = Modifier.fillMaxSize()) {
+        Column(modifier = Modifier.fillMaxWidth()) {
 
             when (index) {
                 ReactionTab.REACTION.ordinal -> LazyColumn(modifier = Modifier, content = {

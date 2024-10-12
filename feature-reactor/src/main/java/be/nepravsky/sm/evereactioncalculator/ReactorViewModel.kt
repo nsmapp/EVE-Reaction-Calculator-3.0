@@ -2,8 +2,11 @@ package be.nepravsky.sm.evereactioncalculator
 
 import androidx.lifecycle.viewModelScope
 import be.nepravsky.sm.domain.model.query.ReactionQuery
+import be.nepravsky.sm.domain.model.settings.PriceSource
 import be.nepravsky.sm.domain.usecase.price.UpdatePriceUseCase
 import be.nepravsky.sm.domain.usecase.reactor.MakeReactionUseCase
+import be.nepravsky.sm.domain.usecase.settings.GetPriceSourceUseCase
+import be.nepravsky.sm.domain.usecase.settings.UpdateOfflineModeSettingUseCase
 import be.nepravsky.sm.evereactioncalculator.mapper.ComplexReactionMapper
 import be.nepravsky.sm.evereactioncalculator.mapper.SharedReactionMapper
 import be.nepravsky.sm.evereactioncalculator.model.ReactorSideEffect
@@ -28,6 +31,8 @@ class ReactorViewModel(
     private val makeReactionUseCase: MakeReactionUseCase,
     private val complexReactionMapper: ComplexReactionMapper,
     private val sharedReactionMapper: SharedReactionMapper,
+    private val getPriceSourceUseCase: GetPriceSourceUseCase,
+    private val updateOfflineModeSettingUseCase: UpdateOfflineModeSettingUseCase,
 ) : BaseViewModel(), ReactionContract {
 
     private val _state = MutableStateFlow(ReactorState.EMPTY)
@@ -45,6 +50,7 @@ class ReactorViewModel(
 
     init {
         updatePriceAndStartReaction()
+        getPriceSource()
 
     }
 
@@ -97,8 +103,9 @@ class ReactorViewModel(
                     _state.update {
                         it.copy(
                             data = complexReactionMapper.map(reaction),
-                            showProgress = false,
-                            isSingleReaction = isSingleReaction
+                            isShowProgress = false,
+                            isSingleReaction = isSingleReaction,
+                            isShowReactionInformation = true,
                         )
                     }
                 }
@@ -136,8 +143,29 @@ class ReactorViewModel(
         _state.update { it.copy(isShowReactionInformation = it.isShowReactionInformation.not()) }
     }
 
+    override fun getPriceSource() {
+        viewModelScope.launch {
+            getPriceSourceUseCase.invoke()
+                .onSuccess { source ->
+                    _state.update { it.copy(isOfflineMode = source == PriceSource.OFFLINE) }
+                }
+        }
+    }
+
+    override fun disableOfflineMode() {
+        viewModelScope.launch {
+            updateOfflineModeSettingUseCase.invoke(false)
+                .onSuccess { isOffline ->
+                    _state.update { it.copy(isOfflineMode = isOffline) }
+                    updatePriceAndStartReaction()
+                }
+        }
+    }
+
     private fun updatePriceAndStartReaction() {
         viewModelScope.launch {
+
+            _state.update { it.copy(isShowProgress = true) }
             updatePriceUseCase.invoke(reactionId)
                 .onSuccess {
                     launchReactionWithInitWatchers()

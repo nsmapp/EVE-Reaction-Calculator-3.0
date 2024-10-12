@@ -31,17 +31,20 @@ import be.nepravsky.sm.uikit.theme.AppTheme
 import be.nepravsky.sm.uikit.view.row.KeyValueRow
 import be.nepravsky.sm.uikit.view.text.TextBold
 import coil.compose.AsyncImage
+
 //TODO add price update time
 @Composable
 fun ReactorItemView(
     item: ReactionItemModel,
     gradient1: Brush,
-    gradient2: Brush
+    gradient2: Brush,
 ) {
     var isFullInfoVisible by remember { mutableStateOf(false) }
     val startPadding = if (item.isProduct) AppTheme.padding.zero else AppTheme.padding.s_8
 
     val background = if (item.isProduct) gradient1 else gradient2
+    val borderColor =
+        if (item.hasZeroPrice) AppTheme.colors.warning else AppTheme.colors.foreground_hard
 
     Column(
         modifier = Modifier
@@ -55,7 +58,7 @@ fun ReactorItemView(
             .clickable { isFullInfoVisible = isFullInfoVisible.not() }
             .border(
                 AppTheme.viewSize.border_small,
-                AppTheme.colors.foreground_hard,
+                borderColor,
                 RoundedCornerShape(AppTheme.radius.r_8)
             ),
     ) {
@@ -111,6 +114,14 @@ fun ReactorItemView(
                     value = item.buy,
                     style = AppTheme.typography.medium,
                 )
+
+                KeyValueRow(
+                    modifier = Modifier.fillMaxWidth(),
+                    key = stringResource(R.string.feature_reactor_price_updated),
+                    value = item.updateTime,
+                    style = AppTheme.typography.medium,
+                )
+
             }
         }
 

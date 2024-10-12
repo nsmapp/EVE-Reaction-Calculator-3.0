@@ -7,9 +7,14 @@ import be.nepravsky.sm.domain.utils.toVolume
 import be.nepravsky.sm.evereactioncalculator.model.ComplexReactionModel
 import be.nepravsky.sm.evereactioncalculator.model.ReactionItemModel
 import org.koin.core.annotation.Factory
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 @Factory
 class ComplexReactionMapper {
+
+    private val sdf = SimpleDateFormat("yyyy.MM.dd hh:mm", Locale.getDefault())
 
     fun map(reaction: ComplexReaction): ComplexReactionModel =
         with(reaction) {
@@ -37,7 +42,6 @@ class ComplexReactionMapper {
                 .run { mapReactionItems(this, false) }
                 .sortedBy { it.groupId }
             val materialPriceDif = reaction.fullMaterialSell - reaction.fullMaterialBuy
-
 
             ComplexReactionModel(
                 baseItems = baseProducts + baseMaterials,
@@ -73,15 +77,25 @@ class ComplexReactionMapper {
         .flatten()
         .groupBy { it.id }.values
         .map { items ->
+
+            val buy = items.sumOf { it.buy }
+            val sell = items.sumOf { it.sell }
+            val updateTime = if (items.first().updateTime == 0L) "-"
+            else sdf.format(Date(items.first().updateTime))
+
+            val hasZeroPrice = buy <= 0.0 || sell <= 0.0
+
             ReactionItemModel(
                 id = items.first().id,
                 groupId = items.first().groupId,
                 quantity = items.sumOf { it.quantity }.toString(),
                 name = items.first().name,
                 volume = items.sumOf { it.volume }.toVolume(),
-                buy = items.sumOf { it.buy }.toISK(),
-                sell = items.sumOf { it.sell }.toISK(),
+                buy = buy.toISK(),
+                sell = sell.toISK(),
                 isProduct = isProduct,
+                updateTime = updateTime,
+                hasZeroPrice = hasZeroPrice
             )
         }
 }
