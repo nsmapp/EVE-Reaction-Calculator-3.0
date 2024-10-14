@@ -1,7 +1,7 @@
-package be.nepravsky.sm.evereactioncalculator
+package be.nepravsky.sm.evereactioncalculator.core
 
 import be.nepravsky.sm.domain.model.settings.Settings
-import be.nepravsky.sm.evereactioncalculator.model.SystemModel
+import be.nepravsky.sm.evereactioncalculator.core.model.SystemModel
 
 interface SettingsContract {
 

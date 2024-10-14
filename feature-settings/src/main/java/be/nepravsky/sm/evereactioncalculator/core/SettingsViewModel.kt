@@ -1,4 +1,4 @@
-package be.nepravsky.sm.evereactioncalculator
+package be.nepravsky.sm.evereactioncalculator.core
 
 import androidx.lifecycle.viewModelScope
 import be.nepravsky.sm.domain.model.query.PriceLocationQuery
@@ -8,9 +8,9 @@ import be.nepravsky.sm.domain.usecase.settings.UpdateIgnoreFuelBlockSettingUseCa
 import be.nepravsky.sm.domain.usecase.settings.UpdateOfflineModeSettingUseCase
 import be.nepravsky.sm.domain.usecase.settings.UpdatePriceLocationSettingUseCase
 import be.nepravsky.sm.domain.usecase.settings.UpdateSearchLanguageSettingUseCase
-import be.nepravsky.sm.evereactioncalculator.mapper.SettingsStateMapper
-import be.nepravsky.sm.evereactioncalculator.model.SettingsState
-import be.nepravsky.sm.evereactioncalculator.model.SystemModel
+import be.nepravsky.sm.evereactioncalculator.core.mapper.SettingsStateMapper
+import be.nepravsky.sm.evereactioncalculator.core.model.SettingsState
+import be.nepravsky.sm.evereactioncalculator.core.model.SystemModel
 import be.nepravsky.sm.evereactioncalculator.viewmodel.BaseViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow

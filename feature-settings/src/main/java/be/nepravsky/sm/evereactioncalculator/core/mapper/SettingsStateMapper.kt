@@ -1,11 +1,11 @@
-package be.nepravsky.sm.evereactioncalculator.mapper
+package be.nepravsky.sm.evereactioncalculator.core.mapper
 
 import be.nepravsky.sm.domain.model.settings.Language
 import be.nepravsky.sm.domain.model.settings.Settings
 import be.nepravsky.sm.domain.model.settings.Systems
-import be.nepravsky.sm.evereactioncalculator.model.LanguageModel
-import be.nepravsky.sm.evereactioncalculator.model.SettingsState
-import be.nepravsky.sm.evereactioncalculator.model.SystemModel
+import be.nepravsky.sm.evereactioncalculator.core.model.LanguageModel
+import be.nepravsky.sm.evereactioncalculator.core.model.SettingsState
+import be.nepravsky.sm.evereactioncalculator.core.model.SystemModel
 import org.koin.core.annotation.Factory
 
 @Factory

@@ -8,6 +8,7 @@ import be.nepravsky.sm.evereactioncalculator.model.Tabs
 import be.nepravsky.sm.evereactioncalculator.navigation.Rout
 import be.nepravsky.sm.evereactioncalculator.reaction.searchettings.SearchSettingsRouterImpl
 import be.nepravsky.sm.evereactioncalculator.reactor.ReactorRouterImpl
+import be.nepravsky.sm.evereactioncalculator.settings.about.AboutRouterImpl
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.DefaultComponentContext
 import com.arkivanov.decompose.extensions.compose.stack.Children
@@ -59,7 +60,19 @@ class RootRouterImpl(
                 )
             )
 
+            is RootConfig.About -> RootChild.AboutChild(
+                aboutComponent(
+                    componentContext
+                )
+            )
+
         }
+
+    private fun aboutComponent(componentContext: ComponentContext): AboutRouterImpl =
+        AboutRouterImpl(
+            componentContext = componentContext,
+            onBackPressed = { navigation.pop() }
+        )
 
     private fun searchComponent(componentContext: ComponentContext): SearchSettingsRouterImpl =
         SearchSettingsRouterImpl(
@@ -72,6 +85,9 @@ class RootRouterImpl(
             tab = Tabs.REACTIONS,
             onSearchSettings = {
                 navigation.push(RootConfig.SearchSettings)
+            },
+            onOpenAboutScreen = {
+                navigation.push(RootConfig.About)
             },
             onReaction = { reactionId, isSingleReaction ->
                 navigation.push(RootConfig.Reactor(reactionId, isSingleReaction))
@@ -122,6 +138,7 @@ sealed interface RootChild {
     class MainRootChild(override val rout: MainRouterImpl) : RootChild
     class SearchSettings(override val rout: SearchSettingsRouterImpl) : RootChild
     class ReactorChild(override val rout: ReactorRouterImpl) : RootChild
+    class AboutChild(override val rout: AboutRouterImpl) : RootChild
 
 }
 
@@ -131,4 +148,5 @@ sealed interface RootConfig {
     data object Main : RootConfig
     data object SearchSettings : RootConfig
     data class Reactor(val reactionId: Long, val isSingeReaction: Boolean) : RootConfig
+    data object About : RootConfig
 }

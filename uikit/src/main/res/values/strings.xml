@@ -39,4 +39,10 @@
     <string name="feature_settings_search_language">Search language</string>
     <string name="feature_settings_price_location">Price location</string>
     <string name="feature_settings_select_price_location">Select price location</string>
+    <string name="feature_settings_about">About</string>
+    <string name="feature_settings_eve_reaction_calculator_version">EVE Reaction Calculator v3.0</string>
+    <string name="feature_settings_rights">EVE Online and the EVE logo are the registered trademarks of CCP hf. All rights are reserved worldwide. All other trademarks are the property of their respective owners. EVE Online, the EVE logo, EVE and all associated logos and designs are the intellectual property of CCP hf. All artwork, screenshots, characters, vehicles, storylines, world facts or other recognizable features of the intellectual property relating to these trademarks are likewise the intellectual property of CCP hf. CCP hf. CCP is in no way responsible for the content on or functioning of this app, nor can it be liable for any damage arising from the use of this app.</string>
+    <string name="feature_settings_gitgab_link">https://github.com/nsmapp/EVE-Reaction-Calculator-3.0</string>
+    <string name="feature_settings_nsmappinfo_gmail_com">nsmappinfo@gmail.com</string>
+    <string name="featuew_settings_reaction_calculator">Reaction calculator</string>
 </resources>

@@ -29,6 +29,7 @@ import kotlinx.serialization.Serializable
 class MainRouterImpl(
     tab: Tabs,
     private val onSearchSettings: () -> Unit,
+    private val onOpenAboutScreen: () -> Unit,
     private val onReaction: (reactionId: Long, isSingleReaction: Boolean) -> Unit,
     componentContext: ComponentContext
 ) : Rout(
@@ -58,7 +59,12 @@ class MainRouterImpl(
         }
 
     private fun settingsComponent(componentContext: ComponentContext): MainChild =
-        MainChild.SettingsChild(SettingsRouterImpl(componentContext))
+        MainChild.SettingsChild(
+            SettingsRouterImpl(
+                componentContext,
+                onOpenAboutScreen,
+            )
+        )
 
     private fun reactionsComponent(componentContext: ComponentContext): MainChild =
         MainChild.ReactionsChild(

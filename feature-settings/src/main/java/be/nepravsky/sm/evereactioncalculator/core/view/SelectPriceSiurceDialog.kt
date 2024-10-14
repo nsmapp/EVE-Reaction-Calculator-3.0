@@ -1,4 +1,4 @@
-package be.nepravsky.sm.evereactioncalculator.view
+package be.nepravsky.sm.evereactioncalculator.core.view
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
@@ -13,7 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.window.Dialog
-import be.nepravsky.sm.evereactioncalculator.model.SystemModel
+import be.nepravsky.sm.evereactioncalculator.core.model.SystemModel
 import be.nepravsky.sm.evereactioncalculator.uikit.R
 import be.nepravsky.sm.uikit.theme.AppTheme
 import be.nepravsky.sm.uikit.view.button.CButton

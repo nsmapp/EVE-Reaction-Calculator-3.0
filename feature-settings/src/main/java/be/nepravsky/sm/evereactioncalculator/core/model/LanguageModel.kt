@@ -1,4 +1,4 @@
-package be.nepravsky.sm.evereactioncalculator.model
+package be.nepravsky.sm.evereactioncalculator.core.model
 
 data class LanguageModel(
     val id: Long,
