@@ -31,6 +31,7 @@
     <string name="feature_reactor_offline_mode_enabled">Offline mode enabled</string>
     <string name="feature_reactor_disable">disable</string>
     <string name="feature_reactor_price_updated">Price updated</string>
+    <string name="feature_reactor_failed_to_update_some_prices">Failed to update some prices</string>
 
 <!--    Settings-->
     <string name="feature_settings_offline_mode">Offline mode</string>

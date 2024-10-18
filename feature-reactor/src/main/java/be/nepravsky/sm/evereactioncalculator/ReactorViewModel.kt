@@ -172,6 +172,7 @@ class ReactorViewModel(
                 }
                 .onFailure {
                     launchReactionWithInitWatchers()
+                    _sideEffect.send(ReactorSideEffect.PriceUpdateError)
                 }
         }
     }

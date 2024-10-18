@@ -31,6 +31,7 @@ class MainRouterImpl(
     private val onSearchSettings: () -> Unit,
     private val onOpenAboutScreen: () -> Unit,
     private val onReaction: (reactionId: Long, isSingleReaction: Boolean) -> Unit,
+    private val onAddProject: () -> Unit,
     componentContext: ComponentContext
 ) : Rout(
     componentContext = componentContext,
@@ -76,7 +77,12 @@ class MainRouterImpl(
         )
 
     private fun libraryComponent(componentContext: ComponentContext): MainChild =
-        MainChild.LibraryChild(LibraryRouterImpl(componentContext))
+        MainChild.LibraryChild(
+            LibraryRouterImpl(
+                componentContext = componentContext,
+                onAddProject = { onAddProject() }
+            )
+        )
 
 
     override fun selectTab(tab: Tabs) {

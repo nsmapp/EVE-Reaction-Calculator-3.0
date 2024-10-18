@@ -3,6 +3,7 @@ package be.nepravsky.sm.uikit.view
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.CircularProgressIndicator
@@ -17,7 +18,7 @@ import be.nepravsky.sm.uikit.theme.AppTheme
 fun FullScreenProgressBox(
     size: Dp = 64.dp,
     isShowProgress: Boolean,
-    content: @Composable () -> Unit,
+    content: @Composable BoxScope.() -> Unit,
 ) {
 
     Box(

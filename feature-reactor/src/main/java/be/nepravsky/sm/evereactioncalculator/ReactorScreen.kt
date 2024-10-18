@@ -19,9 +19,15 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.filled.Share
+import androidx.compose.material3.SnackbarDuration
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.platform.LocalContext
@@ -29,6 +35,7 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.core.content.ContextCompat.startActivity
 import be.nepravsky.sm.evereactioncalculator.model.ReactionTab
 import be.nepravsky.sm.evereactioncalculator.model.ReactorSideEffect
+import be.nepravsky.sm.evereactioncalculator.uikit.R
 import be.nepravsky.sm.evereactioncalculator.view.OfflineModeInformationView
 import be.nepravsky.sm.evereactioncalculator.view.ReactionControlView
 import be.nepravsky.sm.evereactioncalculator.view.ReactionInformationView
@@ -39,6 +46,7 @@ import be.nepravsky.sm.uikit.theme.colors.gradient1
 import be.nepravsky.sm.uikit.theme.colors.gradient2
 import be.nepravsky.sm.uikit.view.FullScreenProgressBox
 import be.nepravsky.sm.uikit.view.icons.SmallIcon
+import kotlinx.coroutines.launch
 
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -49,6 +57,8 @@ fun ReactorScreen(
 ) {
     val focusManager = LocalFocusManager.current
     val context = LocalContext.current
+    val snackbarHostState = remember { SnackbarHostState() }
+    val coroutineScope = rememberCoroutineScope()
 
     val state = viewModel.state.collectAsState()
 
@@ -58,14 +68,24 @@ fun ReactorScreen(
     LaunchedEffect(null) {
         focusManager.clearFocus()
         viewModel.sideEffect.collect { effect ->
-            when {
-                effect is ReactorSideEffect.ShareReaction -> {
+            when (effect) {
+                is ReactorSideEffect.ShareReaction -> {
                     val sendIntent = Intent(Intent.ACTION_SEND).apply {
                         putExtra(Intent.EXTRA_TEXT, effect.text)
                         type = "text/plain"
                     }
                     val shareIntent = Intent.createChooser(sendIntent, null)
                     startActivity(context, shareIntent, null)
+                }
+
+                is ReactorSideEffect.PriceUpdateError -> {
+                    coroutineScope.launch {
+                        snackbarHostState.showSnackbar(
+                            context.getString(R.string.feature_reactor_failed_to_update_some_prices),
+                            duration = SnackbarDuration.Short
+                        )
+
+                    }
                 }
 
                 else -> {
@@ -154,6 +174,12 @@ fun ReactorScreen(
             )
 
         }
+
+        //TODO custom snack bar
+        SnackbarHost(
+            hostState = snackbarHostState,
+            modifier = Modifier.align(Alignment.BottomCenter)
+        )
     }
 
 }

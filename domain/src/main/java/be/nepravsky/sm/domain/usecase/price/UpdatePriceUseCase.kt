@@ -42,11 +42,9 @@ class UpdatePriceUseCase(
 
 
     private suspend fun update(bpcFull: BpcFull?): List<TypePrice> {
-
         bpcFull ?: return emptyList()
 
         return coroutineScope {
-
             val defRegion = settingRepo.getDefaultRegionId()
             val defSystem = settingRepo.getDefaultSolarSystemId()
 

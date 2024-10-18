@@ -16,5 +16,6 @@ android{
         implementation(project(":feature-reactions"))
         implementation(project(":feature-reactor"))
         implementation(project(":feature-settings"))
+        implementation(project(":feature-project-builder"))
     }
 }

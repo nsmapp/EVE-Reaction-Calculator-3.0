@@ -1,8 +1,8 @@
-package be.nepravsky.sm.evereactioncalculator
+package be.belveb.builder
 
 import be.nepravsky.sm.evereactioncalculator.viewmodel.BaseViewModel
 import org.koin.core.annotation.Factory
 
 @Factory(binds = [BaseViewModel::class])
-class LibraryViewModel: BaseViewModel(){
+class BuilderViewModel: BaseViewModel(), BuilderContract {
 }

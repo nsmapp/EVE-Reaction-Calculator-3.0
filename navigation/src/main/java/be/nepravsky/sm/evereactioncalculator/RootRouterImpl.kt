@@ -6,6 +6,7 @@ import androidx.compose.ui.Modifier
 import be.nepravsky.sm.evereactioncalculator.main.MainRouterImpl
 import be.nepravsky.sm.evereactioncalculator.model.Tabs
 import be.nepravsky.sm.evereactioncalculator.navigation.Rout
+import be.nepravsky.sm.evereactioncalculator.projectbuilder.ProjectBuilderRouterImpl
 import be.nepravsky.sm.evereactioncalculator.reaction.searchettings.SearchSettingsRouterImpl
 import be.nepravsky.sm.evereactioncalculator.reactor.ReactorRouterImpl
 import be.nepravsky.sm.evereactioncalculator.settings.about.AboutRouterImpl
@@ -66,7 +67,21 @@ class RootRouterImpl(
                 )
             )
 
+            is RootConfig.ProjectBuilder -> RootChild.ProjectBuilderChild(
+                projectBuilderComponent(
+                    componentContext
+                )
+
+            )
+
         }
+
+    private fun projectBuilderComponent(
+        componentContext: ComponentContext
+    ): ProjectBuilderRouterImpl =
+        ProjectBuilderRouterImpl(
+            componentContext = componentContext
+        )
 
     private fun aboutComponent(componentContext: ComponentContext): AboutRouterImpl =
         AboutRouterImpl(
@@ -91,6 +106,9 @@ class RootRouterImpl(
             },
             onReaction = { reactionId, isSingleReaction ->
                 navigation.push(RootConfig.Reactor(reactionId, isSingleReaction))
+            },
+            onAddProject = {
+                navigation.push(RootConfig.ProjectBuilder)
             },
             componentContext = componentContext
         )
@@ -139,6 +157,7 @@ sealed interface RootChild {
     class SearchSettings(override val rout: SearchSettingsRouterImpl) : RootChild
     class ReactorChild(override val rout: ReactorRouterImpl) : RootChild
     class AboutChild(override val rout: AboutRouterImpl) : RootChild
+    class ProjectBuilderChild(override val rout: ProjectBuilderRouterImpl) : RootChild
 
 }
 
@@ -149,4 +168,5 @@ sealed interface RootConfig {
     data object SearchSettings : RootConfig
     data class Reactor(val reactionId: Long, val isSingeReaction: Boolean) : RootConfig
     data object About : RootConfig
+    data object ProjectBuilder : RootConfig
 }
