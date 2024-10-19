@@ -5,4 +5,10 @@ import org.koin.core.annotation.Factory
 
 @Factory(binds = [BaseViewModel::class])
 class BuilderViewModel: BaseViewModel(), BuilderContract {
+
+
+
+    fun getBpcList(text: String) {
+        TODO("Not yet implemented")
+    }
 }

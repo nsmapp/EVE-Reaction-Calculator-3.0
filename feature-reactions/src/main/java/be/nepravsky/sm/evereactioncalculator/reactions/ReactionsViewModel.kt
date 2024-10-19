@@ -5,6 +5,7 @@ import be.nepravsky.sm.domain.model.query.ReactionsQuery
 import be.nepravsky.sm.domain.usecase.groups.GetActiveGroupIdsUseCase
 import be.nepravsky.sm.domain.usecase.GetBpcListUseCase
 import be.nepravsky.sm.evereactioncalculator.reactions.contract.ReactionsContract
+import be.nepravsky.sm.evereactioncalculator.reactions.mappers.BpcShortModelMapper
 import be.nepravsky.sm.evereactioncalculator.reactions.model.ReactionsState
 import be.nepravsky.sm.evereactioncalculator.utils.TEXT_EMPTY
 import be.nepravsky.sm.evereactioncalculator.viewmodel.BaseViewModel
@@ -19,7 +20,8 @@ import org.koin.core.annotation.Factory
 @Factory(binds = [BaseViewModel::class])
 class ReactionsViewModel(
     private val getBpcListUseCase: GetBpcListUseCase,
-    private val getActiveGroupIdsUseCase: GetActiveGroupIdsUseCase
+    private val getActiveGroupIdsUseCase: GetActiveGroupIdsUseCase,
+    private val bpcShortModelMapper: BpcShortModelMapper,
 ) : BaseViewModel(), ReactionsContract {
 
     private val _state = MutableStateFlow<ReactionsState>(ReactionsState.EMPTY)
@@ -40,7 +42,7 @@ class ReactionsViewModel(
         viewModelScope.launch {
             getBpcListUseCase.invoke(ReactionsQuery(query, _activeGroupIds.value))
                 .onSuccess { bpcList ->
-                    _state.update { it.copy(bpcShortList = bpcList) }
+                    _state.update { it.copy(bpcShortList = bpcList.map { bpcShortModelMapper.map(it) }) }
                 }
                 .onFailure {
                     TODO("getBpcListUseCase don't implemented")

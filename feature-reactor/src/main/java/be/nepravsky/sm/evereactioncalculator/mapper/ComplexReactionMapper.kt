@@ -2,8 +2,8 @@ package be.nepravsky.sm.evereactioncalculator.mapper
 
 import be.nepravsky.sm.domain.model.ComplexReaction
 import be.nepravsky.sm.domain.model.ReactionItemFull
-import be.nepravsky.sm.domain.utils.toISK
-import be.nepravsky.sm.domain.utils.toVolume
+import be.nepravsky.sm.evereactioncalculator.utils.toISK
+import be.nepravsky.sm.evereactioncalculator.utils.toVolume
 import be.nepravsky.sm.evereactioncalculator.model.ComplexReactionModel
 import be.nepravsky.sm.evereactioncalculator.model.ReactionItemModel
 import org.koin.core.annotation.Factory

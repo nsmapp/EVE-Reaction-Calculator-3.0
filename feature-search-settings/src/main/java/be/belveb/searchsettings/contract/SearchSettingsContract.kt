@@ -1,4 +1,4 @@
-package be.nepravsky.sm.evereactioncalculator.searchsetttings.contract
+package be.belveb.searchsettings.contract
 
 import be.nepravsky.sm.domain.model.query.ActiveGroupQuery
 

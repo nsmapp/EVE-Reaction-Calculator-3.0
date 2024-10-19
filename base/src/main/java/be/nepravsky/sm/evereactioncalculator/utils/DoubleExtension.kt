@@ -1,4 +1,4 @@
-package be.nepravsky.sm.domain.utils
+package be.nepravsky.sm.evereactioncalculator.utils
 
 import java.text.DecimalFormat
 

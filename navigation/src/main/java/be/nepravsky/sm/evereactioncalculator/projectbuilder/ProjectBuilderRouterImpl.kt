@@ -9,7 +9,8 @@ import be.belveb.builder.BuilderViewModel
 import com.arkivanov.decompose.ComponentContext
 
 class ProjectBuilderRouterImpl(
-    componentContext: ComponentContext
+    componentContext: ComponentContext,
+    private val onOpenSearchSettings: () -> Unit,
 ) : Rout(componentContext, BuilderViewModel::class.viewModelKey()), BuilderRouter {
 
 
@@ -19,5 +20,9 @@ class ProjectBuilderRouterImpl(
             decomposeViewModel(),
             this,
         )
+    }
+
+    override fun openSearchSettings() {
+        onOpenSearchSettings.invoke()
     }
 }

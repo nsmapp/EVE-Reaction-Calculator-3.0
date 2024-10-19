@@ -1,4 +1,4 @@
-package be.nepravsky.sm.evereactioncalculator.searchsetttings.model
+package be.belveb.searchsettings.model
 
 import be.nepravsky.sm.domain.model.ReactionGroup
 
@@ -6,7 +6,7 @@ data class SearchSettingsState(
     val reactionGroups: List<ReactionGroup>
 ){
     companion object{
-        val INIT = SearchSettingsState(
+        val EMPTY = SearchSettingsState(
             reactionGroups = emptyList()
         )
     }

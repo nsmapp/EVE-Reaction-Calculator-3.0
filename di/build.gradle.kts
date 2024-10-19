@@ -17,5 +17,6 @@ android{
         implementation(project(":feature-reactor"))
         implementation(project(":feature-settings"))
         implementation(project(":feature-project-builder"))
+        implementation(project(":feature-search-settings"))
     }
 }

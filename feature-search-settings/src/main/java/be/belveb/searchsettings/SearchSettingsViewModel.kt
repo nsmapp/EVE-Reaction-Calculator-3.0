@@ -1,11 +1,11 @@
-package be.nepravsky.sm.evereactioncalculator.searchsetttings
+package be.belveb.searchsettings
 
 import androidx.lifecycle.viewModelScope
 import be.nepravsky.sm.domain.model.query.ActiveGroupQuery
 import be.nepravsky.sm.domain.usecase.groups.GetReactionGroupsUseCase
 import be.nepravsky.sm.domain.usecase.groups.UpdateActiveGroupUseCase
-import be.nepravsky.sm.evereactioncalculator.searchsetttings.contract.SearchSettingsContract
-import be.nepravsky.sm.evereactioncalculator.searchsetttings.model.SearchSettingsState
+import be.belveb.searchsettings.contract.SearchSettingsContract
+import be.belveb.searchsettings.model.SearchSettingsState
 import be.nepravsky.sm.evereactioncalculator.viewmodel.BaseViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -19,7 +19,7 @@ class SearchSettingsViewModel(
     private val updateActiveGroupUseCase: UpdateActiveGroupUseCase,
 ) : BaseViewModel(), SearchSettingsContract {
 
-    private val _state = MutableStateFlow<SearchSettingsState>(SearchSettingsState.INIT)
+    private val _state = MutableStateFlow<SearchSettingsState>(SearchSettingsState.EMPTY)
     val state = _state.asStateFlow()
 
 

@@ -1,3 +1,5 @@
+import ext.getLibs
+
 plugins {
     alias(libs.plugins.androidLibrary)
     id("common.feature")
@@ -9,5 +11,7 @@ android{
 }
 
 dependencies {
+    implementation(project(":base"))
+    implementation(getLibs().coil.coil)
     debugImplementation(libs.ui.tooling)
 }

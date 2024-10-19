@@ -80,7 +80,8 @@ class RootRouterImpl(
         componentContext: ComponentContext
     ): ProjectBuilderRouterImpl =
         ProjectBuilderRouterImpl(
-            componentContext = componentContext
+            componentContext = componentContext,
+            onOpenSearchSettings = { navigation.push(RootConfig.SearchSettings) }
         )
 
     private fun aboutComponent(componentContext: ComponentContext): AboutRouterImpl =

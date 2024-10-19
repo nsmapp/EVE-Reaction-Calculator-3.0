@@ -23,7 +23,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import be.nepravsky.sm.evereactioncalculator.reactions.contract.ReactionsRouter
-import be.nepravsky.sm.evereactioncalculator.reactions.view.BlueprintItem
+import be.nepravsky.sm.uikit.view.items.BlueprintItem
 import be.nepravsky.sm.evereactioncalculator.uikit.R
 import be.nepravsky.sm.evereactioncalculator.utils.TEXT_EMPTY
 import be.nepravsky.sm.uikit.theme.AppTheme
@@ -60,7 +60,9 @@ fun ReactionsScreen(
                     key = { _, item -> item.id }) { _, item ->
                     BlueprintItem(
                         modifier = Modifier.animateItemPlacement(animationSpec = tween()),
-                        item = item,
+                        id = item.id,
+                        name = item.name,
+                        baseTime = item.baseTime,
                         onItemClick = {reactionId ->  router.buildReaction(reactionId, true)}
                     )
                 }

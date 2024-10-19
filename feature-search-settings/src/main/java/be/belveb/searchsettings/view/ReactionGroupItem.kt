@@ -1,4 +1,4 @@
-package be.nepravsky.sm.evereactioncalculator.searchsetttings.view
+package be.belveb.searchsettings.view
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
