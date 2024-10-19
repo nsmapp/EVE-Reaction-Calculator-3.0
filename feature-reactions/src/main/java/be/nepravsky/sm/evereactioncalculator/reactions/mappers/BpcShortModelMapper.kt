@@ -1,7 +1,7 @@
 package be.nepravsky.sm.evereactioncalculator.reactions.mappers
 
 
-import be.nepravsky.sm.domain.model.BpcShort
+import be.nepravsky.sm.domain.model.bpc.BpcShort
 import be.nepravsky.sm.evereactioncalculator.reactions.model.BpcShortModel
 import be.nepravsky.sm.evereactioncalculator.utils.TEXT_EMPTY
 import org.koin.core.annotation.Factory

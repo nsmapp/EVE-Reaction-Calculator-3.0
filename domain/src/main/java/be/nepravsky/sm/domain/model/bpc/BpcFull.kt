@@ -1,4 +1,6 @@
-package be.nepravsky.sm.domain.model
+package be.nepravsky.sm.domain.model.bpc
+
+import be.nepravsky.sm.domain.model.ReactionItem
 
 data class BpcFull(
     val id: Long,

@@ -2,8 +2,8 @@ package be.nepravsky.sm.database.repoimpl
 
 import be.nepravsky.sm.database.ReactionTableQueries
 import be.nepravsky.sm.database.models.ReactionItemEntity
-import be.nepravsky.sm.domain.model.BpcFull
-import be.nepravsky.sm.domain.model.BpcShort
+import be.nepravsky.sm.domain.model.bpc.BpcFull
+import be.nepravsky.sm.domain.model.bpc.BpcShort
 import be.nepravsky.sm.domain.model.ReactionItem
 import be.nepravsky.sm.domain.model.query.ReactionsQuery
 import be.nepravsky.sm.domain.repo.BlueprintRepo

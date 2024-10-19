@@ -11,6 +11,7 @@ import com.arkivanov.decompose.ComponentContext
 class ProjectBuilderRouterImpl(
     componentContext: ComponentContext,
     private val onOpenSearchSettings: () -> Unit,
+    private val onBackPressed: () -> Unit,
 ) : Rout(componentContext, BuilderViewModel::class.viewModelKey()), BuilderRouter {
 
 
@@ -24,5 +25,9 @@ class ProjectBuilderRouterImpl(
 
     override fun openSearchSettings() {
         onOpenSearchSettings.invoke()
+    }
+
+    override fun onBackPressed() {
+        onBackPressed.invoke()
     }
 }

@@ -3,12 +3,6 @@ package be.nepravsky.sm.evereactioncalculator.projects
 interface LibraryContract {
 
     /**
-     * Load projects
-     *
-     */
-    fun loadProjects()
-
-    /**
      * Add project
      *
      */
@@ -34,5 +28,13 @@ interface LibraryContract {
      * @param projectId
      */
     fun deleteProject(projectId: Long)
+
+
+    /**
+     * Get all without items
+     *
+     * @return
+     */
+    fun getAllWithoutItems()
 
 }

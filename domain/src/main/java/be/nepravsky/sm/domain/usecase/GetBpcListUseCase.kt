@@ -1,6 +1,6 @@
 package be.nepravsky.sm.domain.usecase
 
-import be.nepravsky.sm.domain.model.BpcShort
+import be.nepravsky.sm.domain.model.bpc.BpcShort
 import be.nepravsky.sm.domain.model.query.ReactionsQuery
 import be.nepravsky.sm.domain.repo.BlueprintRepo
 import be.nepravsky.sm.domain.utils.DispatcherProvider

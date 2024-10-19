@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="feeture_project_builder">Project builder</string>
+    <string name="feature_project_builder_project_name">Project name</string>
+</resources>

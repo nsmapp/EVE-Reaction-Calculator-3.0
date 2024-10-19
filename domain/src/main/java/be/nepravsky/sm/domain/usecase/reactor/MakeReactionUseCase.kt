@@ -1,6 +1,6 @@
 package be.nepravsky.sm.domain.usecase.reactor
 
-import be.nepravsky.sm.domain.model.BpcFull
+import be.nepravsky.sm.domain.model.bpc.BpcFull
 import be.nepravsky.sm.domain.model.CompleteReactionFull
 import be.nepravsky.sm.domain.model.CompleteReactionShort
 import be.nepravsky.sm.domain.model.ComplexReaction

@@ -81,7 +81,8 @@ class RootRouterImpl(
     ): ProjectBuilderRouterImpl =
         ProjectBuilderRouterImpl(
             componentContext = componentContext,
-            onOpenSearchSettings = { navigation.push(RootConfig.SearchSettings) }
+            onOpenSearchSettings = { navigation.push(RootConfig.SearchSettings) },
+            onBackPressed = { navigation.pop() }
         )
 
     private fun aboutComponent(componentContext: ComponentContext): AboutRouterImpl =

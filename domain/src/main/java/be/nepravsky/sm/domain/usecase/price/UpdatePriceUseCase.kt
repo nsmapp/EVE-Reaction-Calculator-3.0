@@ -1,6 +1,6 @@
 package be.nepravsky.sm.domain.usecase.price
 
-import be.nepravsky.sm.domain.model.BpcFull
+import be.nepravsky.sm.domain.model.bpc.BpcFull
 import be.nepravsky.sm.domain.model.TypePrice
 import be.nepravsky.sm.domain.model.settings.PriceSource
 import be.nepravsky.sm.domain.repo.BlueprintRepo

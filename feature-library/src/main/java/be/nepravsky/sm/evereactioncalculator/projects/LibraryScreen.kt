@@ -44,7 +44,7 @@ fun LibraryScreen(
 ) {
 
     LaunchedEffect(null) {
-        viewModel.loadProjects()
+        viewModel.getAllWithoutItems()
     }
 
     val state = viewModel.state.collectAsState()
