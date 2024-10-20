@@ -1,13 +1,14 @@
 package be.nepravsky.sm.evereactioncalculator.projects
 
-interface LibraryRouter{
+interface LibraryRouter {
 
 
     /**
      * Add project
      *
+     * @param projectId
      */
-    fun addProject()
+    fun addProject(projectId: Long?)
 
     /**
      * Open project

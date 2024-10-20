@@ -1,10 +1,32 @@
 CREATE TABLE project_items (
-    id          INTEGER PRIMARY KEY
-                        NOT NULL,
+    id         INTEGER PRIMARY KEY AUTOINCREMENT
+                       NOT NULL,
     parentId   INTEGER NOT NULL,
     reactionId INTEGER NOT NULL,
-    run         INTEGER NOT NULL
+    run        INTEGER NOT NULL,
+    me         REAL    NOT NULL,
+    subMe      REAL    NOT NULL
 );
 
 getAll:
 SELECT * FROM project_items;
+
+insert:
+INSERT OR REPLACE INTO project_items VALUES (?,?,?,?,?,?);
+
+deleteByProjectId:
+DELETE FROM project_items WHERE parentId == :projectId;
+
+get:
+SELECT project_items.*,
+CASE (SELECT langId FROM settings WHERE id = 1)
+      WHEN 12 THEN type.en
+      WHEN 13 THEN type.fr
+      WHEN 16 THEN type.ja
+      WHEN 17 THEN type.zh
+      ELSE type.en
+      END AS name
+FROM project_items
+INNER JOIN type ON type.id = project_items.reactionId
+WHERE parentId == :projectId;
+

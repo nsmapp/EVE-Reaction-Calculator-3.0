@@ -21,6 +21,7 @@ import com.arkivanov.decompose.router.stack.childStack
 import com.arkivanov.decompose.router.stack.pop
 import com.arkivanov.decompose.router.stack.popTo
 import com.arkivanov.decompose.router.stack.push
+import com.arkivanov.decompose.router.stack.pushNew
 import com.arkivanov.decompose.value.Value
 import kotlinx.serialization.Serializable
 import org.koin.core.annotation.Factory
@@ -69,7 +70,8 @@ class RootRouterImpl(
 
             is RootConfig.ProjectBuilder -> RootChild.ProjectBuilderChild(
                 projectBuilderComponent(
-                    componentContext
+                    componentContext = componentContext,
+                    projectId = rootConfig.projectId,
                 )
 
             )
@@ -77,10 +79,12 @@ class RootRouterImpl(
         }
 
     private fun projectBuilderComponent(
-        componentContext: ComponentContext
+        componentContext: ComponentContext,
+        projectId: Long?,
     ): ProjectBuilderRouterImpl =
         ProjectBuilderRouterImpl(
             componentContext = componentContext,
+            projectId = projectId,
             onOpenSearchSettings = { navigation.push(RootConfig.SearchSettings) },
             onBackPressed = { navigation.pop() }
         )
@@ -109,8 +113,8 @@ class RootRouterImpl(
             onReaction = { reactionId, isSingleReaction ->
                 navigation.push(RootConfig.Reactor(reactionId, isSingleReaction))
             },
-            onAddProject = {
-                navigation.push(RootConfig.ProjectBuilder)
+            onAddProject = { projectId ->
+                navigation.pushNew(RootConfig.ProjectBuilder(projectId))
             },
             componentContext = componentContext
         )
@@ -170,5 +174,5 @@ sealed interface RootConfig {
     data object SearchSettings : RootConfig
     data class Reactor(val reactionId: Long, val isSingeReaction: Boolean) : RootConfig
     data object About : RootConfig
-    data object ProjectBuilder : RootConfig
+    data class ProjectBuilder(val projectId: Long?) : RootConfig
 }

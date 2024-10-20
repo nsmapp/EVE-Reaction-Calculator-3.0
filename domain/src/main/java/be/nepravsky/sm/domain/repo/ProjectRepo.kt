@@ -10,4 +10,8 @@ interface ProjectRepo {
     fun saveProject(project: Project)
 
     fun getMaxProjectId(): Long
+
+    fun getById(projectId: Long): Project
+
+    fun deleteProject(projectId: Long)
 }

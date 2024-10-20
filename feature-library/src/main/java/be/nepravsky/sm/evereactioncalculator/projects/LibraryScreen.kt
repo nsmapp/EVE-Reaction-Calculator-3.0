@@ -1,5 +1,6 @@
 package be.nepravsky.sm.evereactioncalculator.projects
 
+import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
@@ -60,59 +61,58 @@ fun LibraryScreen(
             .fillMaxSize(),
     ) {
 
-        LazyColumn(modifier = Modifier, content = {
+        LazyColumn(modifier = Modifier.animateContentSize(),
+            content = {
+                itemsIndexed(
+                    items = state.value.projects,
+                    key = { _, item -> item.id }) { _, item ->
 
+                    val swipeableState = rememberSwipeableState(0)
 
-            itemsIndexed(
-                items = state.value.projects,
-                key = { _, item -> item.id }) { _, item ->
-
-                val swipeableState = rememberSwipeableState(0)
-
-                Box(
-                    modifier = Modifier
-                        .swipeable(
-                            state = swipeableState,
-                            anchors = anchors,
-                            thresholds = { _, _ -> FractionalThreshold(0.3f) },
-                            orientation = Orientation.Horizontal
-                        ),
-                    contentAlignment = Alignment.CenterStart
-                ) {
-
-                    SwipeMenuView(
-                        onDeleteClick = {
-                            scope.launch { swipeableState.animateTo(0, tween()) }
-                            viewModel.deleteProject(item.id)
-                        },
-                        onEditClick = {
-                            scope.launch { swipeableState.animateTo(0, tween()) }
-                            viewModel.editProject(item.id)
-                        },
-                    )
-
-                    ProjectItemView(
+                    Box(
                         modifier = Modifier
-                            .offset { IntOffset(swipeableState.offset.value.roundToInt(), 0) },
-                        gradient1 = gradient1,
-                        item = item,
-                        onItemClick = { viewModel.runProject(item.id) }
-                    )
+                            .swipeable(
+                                state = swipeableState,
+                                anchors = anchors,
+                                thresholds = { _, _ -> FractionalThreshold(0.3f) },
+                                orientation = Orientation.Horizontal
+                            ),
+                        contentAlignment = Alignment.CenterStart
+                    ) {
+
+                        SwipeMenuView(
+                            onDeleteClick = {
+                                scope.launch { swipeableState.animateTo(0, tween()) }
+                                viewModel.deleteProject(item.id)
+                            },
+                            onEditClick = {
+                                scope.launch { swipeableState.animateTo(0, tween()) }
+                                router.addProject(item.id)
+                            },
+                        )
+
+                        ProjectItemView(
+                            modifier = Modifier
+                                .offset { IntOffset(swipeableState.offset.value.roundToInt(), 0) },
+                            gradient1 = gradient1,
+                            item = item,
+                            onItemClick = { viewModel.runProject(item.id) }
+                        )
+                    }
                 }
-            }
 
-            stickyHeader {
+                stickyHeader {
 
-                NormalIcon(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .clickable { router.addProject() },
-                    imageVector = Icons.Default.Add,
-                    colorFilter = ColorFilter.tint(AppTheme.colors.text)
-                )
+                    NormalIcon(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .clickable { router.addProject(null) },
+                        imageVector = Icons.Default.Add,
+                        colorFilter = ColorFilter.tint(AppTheme.colors.text)
+                    )
 
-            }
-        })
+                }
+            })
 
     }
 }

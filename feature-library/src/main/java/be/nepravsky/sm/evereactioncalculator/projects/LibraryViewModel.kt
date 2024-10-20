@@ -2,6 +2,7 @@ package be.nepravsky.sm.evereactioncalculator.projects
 
 import androidx.lifecycle.viewModelScope
 import be.nepravsky.sm.domain.model.project.Project
+import be.nepravsky.sm.domain.usecase.project.DeleteProjectUseCase
 import be.nepravsky.sm.domain.usecase.project.GetAllProjectsUseCase
 import be.nepravsky.sm.evereactioncalculator.projects.mapper.ProjectMapper
 import be.nepravsky.sm.evereactioncalculator.projects.model.LibraryState
@@ -16,6 +17,7 @@ import org.koin.core.annotation.Factory
 class LibraryViewModel(
     private val getAllProjectsUseCase: GetAllProjectsUseCase,
     private val projectMapper: ProjectMapper,
+    private val deleteProjectUseCase: DeleteProjectUseCase,
 ) : BaseViewModel(), LibraryContract {
 
     private val _state = MutableStateFlow(LibraryState.EMPTY)
@@ -32,7 +34,10 @@ class LibraryViewModel(
     }
 
     override fun deleteProject(projectId: Long) {
-
+        viewModelScope.launch {
+            deleteProjectUseCase.invoke(projectId)
+                .onSuccess {  }
+        }
     }
 
     override fun getAllWithoutItems(){

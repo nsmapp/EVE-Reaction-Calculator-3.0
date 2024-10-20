@@ -12,6 +12,12 @@ SELECT * FROM projects;
 insert:
 INSERT OR REPLACE INTO projects VALUES ?;
 
+getById:
+SELECT * FROM projects WHERE id == :projectId;
+
 getMaxProjectId:
 SELECT MAX(id) FROM projects;
+
+delete:
+DELETE FROM projects WHERE id == :projectId;
 

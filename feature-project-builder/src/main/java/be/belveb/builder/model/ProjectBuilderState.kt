@@ -5,7 +5,9 @@ import java.util.Date
 data class ProjectBuilderState(
     val id: Long?,
     val name: String,
-    val items: List<ProjectItemModel>
+    val items: MutableList<ProjectItemModel>,
+    val isShowTypeBottomSheet: Boolean,
+    val types: List<BpcShortModel>
 
 ){
     companion object{
@@ -13,7 +15,9 @@ data class ProjectBuilderState(
         val EMPTY = ProjectBuilderState(
             id = null,
             name = Date().time.toString(),
-            items = emptyList()
+            items = mutableListOf(),
+            isShowTypeBottomSheet = false,
+            types = emptyList()
         )
     }
 }

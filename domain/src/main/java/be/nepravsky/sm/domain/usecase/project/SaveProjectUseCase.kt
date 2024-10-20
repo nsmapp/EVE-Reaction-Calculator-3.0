@@ -16,7 +16,13 @@ class SaveProjectUseCase(
         withContext(dispatcherProvider.io) {
             runCatching {
                 val projectId = project.id ?: (projectRepo.getMaxProjectId() + 1)
-                projectRepo.saveProject(project.copy(id = projectId))
+                projectRepo.saveProject(
+                    project.copy(
+                        id = projectId,
+                        iconId = project.items.firstOrNull()?.reactionId ?: 34,
+                        items = project.items.map { it.copy(projectId = projectId) }
+                    )
+                )
             }
         }
 }
