@@ -24,10 +24,11 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.koin.core.annotation.Factory
 import org.koin.core.annotation.InjectedParam
+import java.util.Date
 
 @Factory(binds = [BaseViewModel::class])
 class BuilderViewModel(
-    @InjectedParam val reactionId: Long?,
+    @InjectedParam val projectId: Long?,
     private val saveProjectUseCase: SaveProjectUseCase,
     private val projectBuildMapper: ProjectBuildMapper,
     private val getActiveGroupIdsUseCase: GetActiveGroupIdsUseCase,
@@ -45,10 +46,13 @@ class BuilderViewModel(
     private val _activeGroupIds = MutableStateFlow<List<Long>>(emptyList())
     private var searchQuery = TEXT_EMPTY
 
-
     override fun initData() {
         getActiveReactionGroupIds()
-        reactionId?.let { id -> loadProject(id) } ?: _state.update { ProjectBuilderState.EMPTY }
+        projectId?.let { id -> loadProject(id) }
+            ?: _state.update { ProjectBuilderState.EMPTY.copy(
+                name = Date().time.toString(),
+                items = mutableListOf()
+            ) }
     }
 
     override fun setProjectName(name: String) {
@@ -118,6 +122,9 @@ class BuilderViewModel(
             getProjectUseCase.invoke(projectId)
                 .onSuccess { project ->
                     _state.update { projectBuildMapper.map(project) }
+                }
+                .onFailure {
+                    _state.update { ProjectBuilderState.EMPTY }
                 }
         }
     }

@@ -20,6 +20,7 @@ import com.arkivanov.decompose.router.stack.StackNavigation
 import com.arkivanov.decompose.router.stack.childStack
 import com.arkivanov.decompose.router.stack.pop
 import com.arkivanov.decompose.router.stack.popTo
+import com.arkivanov.decompose.router.stack.popToFirst
 import com.arkivanov.decompose.router.stack.push
 import com.arkivanov.decompose.router.stack.pushNew
 import com.arkivanov.decompose.value.Value
@@ -86,7 +87,7 @@ class RootRouterImpl(
             componentContext = componentContext,
             projectId = projectId,
             onOpenSearchSettings = { navigation.push(RootConfig.SearchSettings) },
-            onBackPressed = { navigation.pop() }
+            onBackPressed = { navigation.popToFirst() }
         )
 
     private fun aboutComponent(componentContext: ComponentContext): AboutRouterImpl =
@@ -149,7 +150,7 @@ class RootRouterImpl(
     init {
 //        lifecycle... // Access the Lifecycle
 //        stateKeeper... // Access the StateKeeper
-//        instanceKeeper... // Access the InstanceKeeper
+//        instanceKeeper
 //        backHandler... // Access the BackHandler
     }
 }

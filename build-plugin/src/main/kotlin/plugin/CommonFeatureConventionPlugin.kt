@@ -19,9 +19,9 @@ class CommonFeatureConventionPlugin : Plugin<Project> {
             }
 
             dependencies {
-                implementation(getLibs().androidx.lifecycle.runtime.ktx)
                 implementation(getLibs().androidx.core.ktx)
                 implementation(getLibs().androidx.lifecycle.runtime.ktx)
+                implementation(getLibs().androidx.lifecycle.compose)
                 implementation(getLibs().androidx.activity.compose)
                 implementation(platform(getLibs().androidx.compose.bom))
                 implementation(getLibs().androidx.ui.graphics)

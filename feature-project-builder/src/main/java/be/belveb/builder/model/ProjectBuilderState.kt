@@ -1,6 +1,6 @@
 package be.belveb.builder.model
 
-import java.util.Date
+import be.nepravsky.sm.domain.utils.TEXT_EMPTY
 
 data class ProjectBuilderState(
     val id: Long?,
@@ -14,7 +14,7 @@ data class ProjectBuilderState(
 
         val EMPTY = ProjectBuilderState(
             id = null,
-            name = Date().time.toString(),
+            name = TEXT_EMPTY,
             items = mutableListOf(),
             isShowTypeBottomSheet = false,
             types = emptyList()

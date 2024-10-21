@@ -1,5 +1,6 @@
 package be.belveb.builder
 
+import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
@@ -20,7 +21,6 @@ import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -28,6 +28,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.stringResource
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import be.belveb.builder.model.ProjectBuildSideEffect
 import be.belveb.builder.view.ProjectItemView
 import be.nepravsky.sm.evereactioncalculator.uikit.R
@@ -45,9 +46,11 @@ fun BuilderScreen(
     router: BuilderRouter
 ) {
 
-    val state = viewModel.state.collectAsState()
+    val state = viewModel.state.collectAsStateWithLifecycle()
 
-    val sheetState = rememberModalBottomSheetState()
+    val sheetState = rememberModalBottomSheetState(
+        skipPartiallyExpanded = true
+    )
 
     LaunchedEffect(null) {
         viewModel.sideEffect.collect { effect ->
@@ -94,30 +97,33 @@ fun BuilderScreen(
                 .fillMaxSize(),
         ) {
 
-            LazyColumn(modifier = Modifier, content = {
+            LazyColumn(modifier = Modifier.animateContentSize(
+                animationSpec = tween(durationMillis = 500)
+            ),
+                content = {
 
-                itemsIndexed(
-                    items = state.value.items,
-                    key = { _, item -> item.id }) { _, item ->
+                    itemsIndexed(
+                        items = state.value.items,
+                        key = { _, item -> item.id }) { _, item ->
 
-                    ProjectItemView(
-                        id = item.id,
-                        name = item.name,
-                    )
-                }
+                        ProjectItemView(
+                            id = item.id,
+                            name = item.name,
+                        )
+                    }
 
-                stickyHeader {
+                    stickyHeader {
 
-                    NormalIcon(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .clickable { viewModel.showTypeBottomSheet() },
-                        imageVector = Icons.Default.Add,
-                        colorFilter = ColorFilter.tint(AppTheme.colors.text)
-                    )
+                        NormalIcon(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .clickable { viewModel.showTypeBottomSheet() },
+                            imageVector = Icons.Default.Add,
+                            colorFilter = ColorFilter.tint(AppTheme.colors.text)
+                        )
 
-                }
-            })
+                    }
+                })
         }
     }
 
