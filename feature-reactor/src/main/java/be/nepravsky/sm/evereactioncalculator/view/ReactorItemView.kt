@@ -62,6 +62,8 @@ fun ReactorItemView(
                 RoundedCornerShape(AppTheme.radius.r_8)
             ),
     ) {
+
+
         Row(
             modifier = Modifier
                 .wrapContentHeight()
@@ -98,28 +100,24 @@ fun ReactorItemView(
                     modifier = Modifier.fillMaxWidth(),
                     key = stringResource(R.string.feature_reactor_volume),
                     value = item.volume,
-                    style = AppTheme.typography.medium,
                 )
 
                 KeyValueRow(
                     modifier = Modifier.fillMaxWidth(),
                     key = stringResource(R.string.feature_reactor_sell_price),
                     value = item.sell,
-                    style = AppTheme.typography.medium,
                 )
 
                 KeyValueRow(
                     modifier = Modifier.fillMaxWidth(),
                     key = stringResource(R.string.feature_reactor_buy_price),
                     value = item.buy,
-                    style = AppTheme.typography.medium,
                 )
 
                 KeyValueRow(
                     modifier = Modifier.fillMaxWidth(),
                     key = stringResource(R.string.feature_reactor_price_updated),
                     value = item.updateTime,
-                    style = AppTheme.typography.medium,
                 )
 
             }

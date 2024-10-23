@@ -39,6 +39,8 @@ data class ReactorState(
                 fullMaterialSell = TEXT_EMPTY,
                 fullMaterialBuy = TEXT_EMPTY,
                 fullMaterialPriceDif = TEXT_EMPTY,
+
+                hasZeroPrice = false,
             ),
             isShowProgress = false,
             isSingleReaction = false,

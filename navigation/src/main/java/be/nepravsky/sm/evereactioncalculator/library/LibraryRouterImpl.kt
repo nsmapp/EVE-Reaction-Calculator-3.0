@@ -11,6 +11,7 @@ import com.arkivanov.decompose.ComponentContext
 class LibraryRouterImpl(
     componentContext: ComponentContext,
     private val onAddProject: (projectId: Long?) -> Unit,
+    private val onRunProject: (projectId: Long) -> Unit,
 ): Rout(
     componentContext = componentContext,
     viewModelKey = LibraryViewModel::class.viewModelKey(),
@@ -33,6 +34,6 @@ class LibraryRouterImpl(
     }
 
     override fun runProject(projectId: Long) {
-
+        onRunProject.invoke(projectId)
     }
 }

@@ -29,26 +29,25 @@ class UpdatePriceUseCase(
     private val requestDelay = 100L
     private val requestChunk = 5
 
-    suspend fun invoke(reactionId: Long): Result<Int> =
+    suspend fun invoke(reactionIds: List<Long>): Result<Int> =
         withContext(dispatcherProvider.io) {
             runCatching {
                 val priceSource = settingRepo.getPriceSource()
                 if (priceSource == PriceSource.OFFLINE) return@runCatching emptyListSize
 
-                val bpc = blueprintRepo.getById(reactionId)
+                val bpc = blueprintRepo.getByIds(reactionIds)
                 update(bpc).size
             }
         }
 
 
-    private suspend fun update(bpcFull: BpcFull?): List<TypePrice> {
-        bpcFull ?: return emptyList()
+    private suspend fun update(bpcList: List<BpcFull>): List<TypePrice> {
 
         return coroutineScope {
             val defRegion = settingRepo.getDefaultRegionId()
             val defSystem = settingRepo.getDefaultSolarSystemId()
 
-            val typeIds = getTypeIds(bpcFull)
+            val typeIds = getTypeIds(bpcList)
 
             val pricesExist = priceRepo.getByIds(typeIds)
             val existTypeIds = pricesExist.map { price -> price.id }
@@ -94,20 +93,24 @@ class UpdatePriceUseCase(
 
 
     private fun getTypeIds(
-        bpcFull: BpcFull,
+        bpcList: List<BpcFull>,
     ): List<Long> {
 
         val itemSet = mutableSetOf<Long>()
-        bpcFull.products.forEach { item -> itemSet.add(item.typeId) }
-        var materials = bpcFull.materials
 
-        do {
-            itemSet.addAll(materials.map { item -> item.typeId })
-            val subProduct = materials.mapNotNull { item -> blueprintRepo.getById(item.typeId) }
-            materials = subProduct.map { items -> items.materials }
-                .flatten()
+        bpcList.forEach { bpc ->
+            bpc.products.forEach { item -> itemSet.add(item.typeId) }
+            var materials = bpc.materials
 
-        } while (subProduct.isNotEmpty())
+            do {
+                itemSet.addAll(materials.map { item -> item.typeId })
+                val subProduct = materials.mapNotNull { item -> blueprintRepo.getById(item.typeId) }
+                materials = subProduct.map { items -> items.materials }
+                    .flatten()
+
+            } while (subProduct.isNotEmpty())
+        }
+
 
         return itemSet.toList()
     }

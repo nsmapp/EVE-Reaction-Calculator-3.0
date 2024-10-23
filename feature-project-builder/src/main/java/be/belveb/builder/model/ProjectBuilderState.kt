@@ -5,7 +5,7 @@ import be.nepravsky.sm.domain.utils.TEXT_EMPTY
 data class ProjectBuilderState(
     val id: Long?,
     val name: String,
-    val items: MutableList<ProjectItemModel>,
+    val items: List<ProjectItemModel>,
     val isShowTypeBottomSheet: Boolean,
     val types: List<BpcShortModel>
 
@@ -15,7 +15,7 @@ data class ProjectBuilderState(
         val EMPTY = ProjectBuilderState(
             id = null,
             name = TEXT_EMPTY,
-            items = mutableListOf(),
+            items = listOf(),
             isShowTypeBottomSheet = false,
             types = emptyList()
         )

@@ -70,7 +70,7 @@ fun BuilderScreen(
     ) {
 
         CAppBar(
-            text = stringResource(be.nepravsky.sm.evereactioncalculator.builder.R.string.feeture_project_builder),
+            text = stringResource(R.string.feature_project_builder),
             onBackPressed = { router.onBackPressed() }
         )
 
@@ -87,7 +87,7 @@ fun BuilderScreen(
             onTrailingClick = { router.openSearchSettings() },
             leadingIcon = Icons.Default.ThumbUp,
             onLeadingClick = { viewModel.saveProject() },
-            hint = stringResource(be.nepravsky.sm.evereactioncalculator.builder.R.string.feature_project_builder_project_name),
+            hint = stringResource(R.string.feature_project_builder_project_name),
         )
 
 
@@ -107,8 +107,11 @@ fun BuilderScreen(
                         key = { _, item -> item.id }) { _, item ->
 
                         ProjectItemView(
+                            modifier = Modifier,
                             id = item.id,
                             name = item.name,
+                            run = item.runCount,
+                            onRunChanged = {run ->  viewModel.setRunCount(run, item.id)}
                         )
                     }
 

@@ -16,13 +16,6 @@ interface LibraryContract {
     fun editProject(projectId: Long)
 
     /**
-     * Run project
-     *
-     * @param projectId
-     */
-    fun runProject(projectId: Long)
-
-    /**
      * Delete project
      *
      * @param projectId

@@ -30,9 +30,6 @@ class LibraryViewModel(
     override fun editProject(projectId: Long) {
     }
 
-    override fun runProject(projectId: Long) {
-    }
-
     override fun deleteProject(projectId: Long) {
         viewModelScope.launch {
             deleteProjectUseCase.invoke(projectId)

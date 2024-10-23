@@ -96,7 +96,7 @@ fun LibraryScreen(
                                 .offset { IntOffset(swipeableState.offset.value.roundToInt(), 0) },
                             gradient1 = gradient1,
                             item = item,
-                            onItemClick = { viewModel.runProject(item.id) }
+                            onItemClick = { router.runProject(item.id) }
                         )
                     }
                 }

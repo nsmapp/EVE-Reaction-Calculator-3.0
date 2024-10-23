@@ -32,6 +32,7 @@ class MainRouterImpl(
     private val onOpenAboutScreen: () -> Unit,
     private val onReaction: (reactionId: Long, isSingleReaction: Boolean) -> Unit,
     private val onAddProject: (projectId: Long?) -> Unit,
+    private val onRunProject: (projectId: Long) -> Unit,
     componentContext: ComponentContext
 ) : Rout(
     componentContext = componentContext,
@@ -80,7 +81,8 @@ class MainRouterImpl(
         MainChild.LibraryChild(
             LibraryRouterImpl(
                 componentContext = componentContext,
-                onAddProject = { projectId -> onAddProject(projectId) }
+                onAddProject = { projectId -> onAddProject(projectId) },
+                onRunProject = { projectId -> onRunProject(projectId) }
             )
         )
 

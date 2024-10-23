@@ -28,4 +28,6 @@ data class ComplexReactionModel(
     val fullMaterialSell: String,
     val fullMaterialBuy: String,
     val fullMaterialPriceDif: String,
+
+    val hasZeroPrice: Boolean,
 )

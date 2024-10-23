@@ -80,7 +80,7 @@ class BuilderViewModel(
 
     override fun addProjectItem(type: BpcShortModel) {
 
-        val items: MutableList<ProjectItemModel> = _state.value.items
+        val items: List<ProjectItemModel> = _state.value.items
         val projectItem = ProjectItemModel(
             type.id,
             name = type.name,
@@ -88,11 +88,12 @@ class BuilderViewModel(
             me = 0.0,
             subMe = 0.0,
         )
-        if (items.none { it.id == projectItem.id }) items.add(projectItem)
+        val updated = if (items.none { it.id == projectItem.id }) items + projectItem else items
+
         _state.update {
             it.copy(
                 isShowTypeBottomSheet = false,
-                items = items
+                items = updated
             )
         }
     }
@@ -141,10 +142,9 @@ class BuilderViewModel(
     }
 
     fun setRunCount(runs: String, id: Long) {
-        val items = _state.value.items
-        val index = items.indexOfFirst { it.id == id }
-        val newItem = items[index].copy(runCount = runs)
-        items[index] = newItem
+        val items = _state.value.items.map { item ->
+            if (item.id == id) item.copy(runCount = runs) else item
+        }
 
         _state.update {
             it.copy(

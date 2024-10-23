@@ -31,6 +31,8 @@ class ComplexReactionMapper {
                 .sortedBy { it.groupId }
             val baseMaterialPriceDif = reaction.materialSell - reaction.materialBuy
 
+            val baseItems = baseProducts + baseMaterials
+
             val products: List<ReactionItemModel> = reaction.reactions
                 .map { it.products }
                 .run { mapReactionItems(this, true) }
@@ -42,9 +44,12 @@ class ComplexReactionMapper {
                 .run { mapReactionItems(this, false) }
                 .sortedBy { it.groupId }
             val materialPriceDif = reaction.fullMaterialSell - reaction.fullMaterialBuy
+            val items =  products + materials
+
+            val hasZeroPrice = baseItems.any { it.hasZeroPrice } || items.any { it.hasZeroPrice }
 
             ComplexReactionModel(
-                baseItems = baseProducts + baseMaterials,
+                baseItems = baseItems,
                 productQuantity = productQuantity.toString(),
                 productVolume = productVolume.toVolume(),
                 productSell = productSell.toISK(),
@@ -56,7 +61,7 @@ class ComplexReactionMapper {
                 materialBuy = materialBuy.toISK(),
                 materialPriceDif = baseMaterialPriceDif.toISK(),
 
-                items = products + materials,
+                items = items,
                 fullProductQuantity = fullProductQuantity.toString(),
                 fullProductVolume = fullProductVolume.toVolume(),
                 fullProductSell = fullProductSell.toISK(),
@@ -67,6 +72,8 @@ class ComplexReactionMapper {
                 fullMaterialSell = fullMaterialSell.toISK(),
                 fullMaterialBuy = fullMaterialBuy.toISK(),
                 fullMaterialPriceDif = materialPriceDif.toISK(),
+
+                hasZeroPrice = hasZeroPrice
             )
         }
 

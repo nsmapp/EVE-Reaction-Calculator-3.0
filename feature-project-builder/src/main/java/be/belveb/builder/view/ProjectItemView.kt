@@ -7,7 +7,9 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
@@ -16,10 +18,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
+import androidx.compose.ui.unit.dp
 import be.nepravsky.sm.evereactioncalculator.utils.getItemImageURL
 import be.nepravsky.sm.uikit.theme.AppTheme
 import be.nepravsky.sm.uikit.theme.colors.gradient1
 import be.nepravsky.sm.uikit.view.text.TextBold
+import be.nepravsky.sm.uikit.view.textfield.CBaseTextField
+import be.nepravsky.sm.uikit.view.textfield.decimalKeyboardOptions
 import coil.compose.AsyncImage
 
 
@@ -28,8 +33,9 @@ fun ProjectItemView(
     modifier: Modifier = Modifier,
     id: Long,
     name: String,
+    run: String,
+    onRunChanged: (run: String) -> Unit,
 ) {
-
 
     Row(
         modifier = modifier
@@ -54,6 +60,13 @@ fun ProjectItemView(
             contentDescription = null,
             //TODO change placeholder
             placeholder = rememberVectorPainter(Icons.Default.Close)
+        )
+
+        CBaseTextField(
+            modifier = Modifier.wrapContentSize().width(48.dp),
+            value = run,
+            onValueChange = { runs -> onRunChanged(runs)},
+            keyboardOptions = decimalKeyboardOptions,
         )
 
         Column(

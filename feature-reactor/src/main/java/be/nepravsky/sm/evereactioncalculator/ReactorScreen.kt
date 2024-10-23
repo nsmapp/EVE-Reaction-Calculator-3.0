@@ -39,7 +39,7 @@ import be.nepravsky.sm.evereactioncalculator.uikit.R
 import be.nepravsky.sm.evereactioncalculator.view.OfflineModeInformationView
 import be.nepravsky.sm.evereactioncalculator.view.ReactionControlView
 import be.nepravsky.sm.evereactioncalculator.view.ReactionInformationView
-import be.nepravsky.sm.evereactioncalculator.view.ReactionItemsView
+import be.nepravsky.sm.evereactioncalculator.view.ReactionPageView
 import be.nepravsky.sm.evereactioncalculator.view.ShareReactionDialog
 import be.nepravsky.sm.uikit.theme.AppTheme
 import be.nepravsky.sm.uikit.theme.colors.gradient1
@@ -167,7 +167,7 @@ fun ReactorScreen(
             }
 
 
-            ReactionItemsView(selectedTabIndex, pagerState, state, gradient1, gradient2)
+            ReactionPageView(selectedTabIndex, pagerState, state, gradient1, gradient2)
 
             if (state.value.isOfflineMode) OfflineModeInformationView(
                 onDisableOfflineMode = { viewModel.disableOfflineMode() }

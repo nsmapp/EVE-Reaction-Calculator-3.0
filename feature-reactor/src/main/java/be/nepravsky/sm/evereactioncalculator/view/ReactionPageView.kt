@@ -33,11 +33,12 @@ import be.nepravsky.sm.evereactioncalculator.model.ReactorState
 import be.nepravsky.sm.evereactioncalculator.uikit.R
 import be.nepravsky.sm.uikit.theme.AppTheme
 import be.nepravsky.sm.uikit.view.text.TextBold
+import be.nepravsky.sm.uikit.view.text.TextMedium
 import kotlinx.coroutines.launch
 
 @Composable
 @OptIn(ExperimentalFoundationApi::class)
-fun ColumnScope.ReactionItemsView(
+fun ColumnScope.ReactionPageView(
     selectedTabIndex: Int,
     pagerState: PagerState,
     state: State<ReactorState>,
@@ -89,6 +90,12 @@ fun ColumnScope.ReactionItemsView(
         verticalAlignment = Alignment.Top,
     ) { index ->
         Column(modifier = Modifier.fillMaxWidth()) {
+
+            if (state.value.data.hasZeroPrice) TextMedium(
+                modifier = Modifier.align(Alignment.CenterHorizontally),
+                text = stringResource(R.string.feature_reaction_missing_information_on_some_prices),
+                color = AppTheme.colors.warning,
+            )
 
             when (index) {
                 ReactionTab.REACTION.ordinal -> LazyColumn(modifier = Modifier, content = {

@@ -1,13 +1,16 @@
 package be.nepravsky.sm.evereactioncalculator
 
 import androidx.lifecycle.viewModelScope
+import be.nepravsky.sm.domain.model.project.Project
 import be.nepravsky.sm.domain.model.query.ReactionQuery
 import be.nepravsky.sm.domain.model.settings.PriceSource
 import be.nepravsky.sm.domain.usecase.price.UpdatePriceUseCase
+import be.nepravsky.sm.domain.usecase.project.GetProjectUseCase
 import be.nepravsky.sm.domain.usecase.reactor.MakeReactionUseCase
 import be.nepravsky.sm.domain.usecase.settings.GetPriceSourceUseCase
 import be.nepravsky.sm.domain.usecase.settings.UpdateOfflineModeSettingUseCase
 import be.nepravsky.sm.evereactioncalculator.mapper.ComplexReactionMapper
+import be.nepravsky.sm.evereactioncalculator.mapper.ProjectMapper
 import be.nepravsky.sm.evereactioncalculator.mapper.SharedReactionMapper
 import be.nepravsky.sm.evereactioncalculator.model.ReactorSideEffect
 import be.nepravsky.sm.evereactioncalculator.model.ReactorState
@@ -29,10 +32,12 @@ class ReactorViewModel(
     @InjectedParam val isSingleReaction: Boolean,
     private val updatePriceUseCase: UpdatePriceUseCase,
     private val makeReactionUseCase: MakeReactionUseCase,
-    private val complexReactionMapper: ComplexReactionMapper,
-    private val sharedReactionMapper: SharedReactionMapper,
     private val getPriceSourceUseCase: GetPriceSourceUseCase,
     private val updateOfflineModeSettingUseCase: UpdateOfflineModeSettingUseCase,
+    private val getProjectUseCase: GetProjectUseCase,
+    private val complexReactionMapper: ComplexReactionMapper,
+    private val sharedReactionMapper: SharedReactionMapper,
+    private val projectMapper: ProjectMapper,
 ) : BaseViewModel(), ReactionContract {
 
     private val _state = MutableStateFlow(ReactorState.EMPTY)
@@ -42,6 +47,7 @@ class ReactorViewModel(
     val sideEffect: Flow<ReactorSideEffect> by lazy { _sideEffect.receiveAsFlow() }
 
 
+    private var projectQuery = listOf<ReactionQuery>()
     private var singleQuery = MutableStateFlow(ReactionQuery(reactionId))
     private val runFlow = MutableStateFlow(1L)
     private val meFlow = MutableStateFlow(1.0)
@@ -49,31 +55,41 @@ class ReactorViewModel(
 
 
     init {
-        updatePriceAndStartReaction()
-        getPriceSource()
+        initReactor()
+        checkOfflineMode()
 
+    }
+
+    private fun initReactor() {
+        if (isSingleReaction) updatePriceAndStartReaction()
+        else viewModelScope.launch {
+            getProjectUseCase.invoke(reactionId)
+                .onSuccess { project -> handleProject(project) }
+        }
+    }
+
+    private fun handleProject(project: Project) {
+        projectQuery = projectMapper.mapToReactionQuery(project)
+        updatePriceAndStartReaction()
     }
 
     private fun initTextWatchersFlows() {
         viewModelScope.launch {
-            runFlow.debounce(INPUT_DEBOUNCE)
-                .collect { run ->
-                    singleQuery.update { it.copy(run = run) }
-                }
+            runFlow.debounce(INPUT_DEBOUNCE).collect { run ->
+                singleQuery.update { it.copy(run = run) }
+            }
         }
 
         viewModelScope.launch {
-            meFlow.debounce(INPUT_DEBOUNCE)
-                .collect { me ->
-                    singleQuery.update { it.copy(me = me) }
-                }
+            meFlow.debounce(INPUT_DEBOUNCE).collect { me ->
+                singleQuery.update { it.copy(me = me) }
+            }
         }
 
         viewModelScope.launch {
-            subMeFlow.debounce(INPUT_DEBOUNCE)
-                .collect { subMe ->
-                    singleQuery.update { it.copy(subMe = subMe) }
-                }
+            subMeFlow.debounce(INPUT_DEBOUNCE).collect { subMe ->
+                singleQuery.update { it.copy(subMe = subMe) }
+            }
         }
 
         viewModelScope.launch {
@@ -143,7 +159,7 @@ class ReactorViewModel(
         _state.update { it.copy(isShowReactionInformation = it.isShowReactionInformation.not()) }
     }
 
-    override fun getPriceSource() {
+    override fun checkOfflineMode() {
         viewModelScope.launch {
             getPriceSourceUseCase.invoke()
                 .onSuccess { source ->
@@ -166,21 +182,27 @@ class ReactorViewModel(
         viewModelScope.launch {
 
             _state.update { it.copy(isShowProgress = true) }
-            updatePriceUseCase.invoke(reactionId)
+            val bpcIds = if (isSingleReaction) listOf(reactionId)
+            else projectQuery.map { it.bpcId }
+
+            updatePriceUseCase.invoke(bpcIds)
                 .onSuccess {
-                    launchReactionWithInitWatchers()
+                    launchReactor()
                 }
                 .onFailure {
-                    launchReactionWithInitWatchers()
+                    launchReactor()
                     _sideEffect.send(ReactorSideEffect.PriceUpdateError)
                 }
         }
     }
 
-    private fun launchReactionWithInitWatchers() {
-        initTextWatchersFlows()
-        makeReaction(query = listOf(singleQuery.value))
+    private fun launchReactor() {
+        if (isSingleReaction) {
+            initTextWatchersFlows()
+            makeReaction(query = listOf(singleQuery.value))
+        } else makeReaction(projectQuery)
     }
+
 
     companion object {
         private const val INPUT_DEBOUNCE = 500L

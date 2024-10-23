@@ -2,7 +2,7 @@
 <resources>
 
 
-<!--    ui kit  -->
+    <!--    ui kit  -->
     <string name="view_blueprint_base_reaction_time">Base reaction time</string>
 
     <string name="feature_reaction_search">Search</string>
@@ -14,7 +14,7 @@
     <string name="time_min_short">m</string>
     <string name="time_sec_short">s</string>
 
-<!--  Reactor  -->
+    <!--  Reactor  -->
     <string name="feature_reactor_volume">Volume</string>
     <string name="feature_reactor_sell_price">Sell price</string>
     <string name="feature_reactor_buy_price">Buy price</string>
@@ -32,8 +32,9 @@
     <string name="feature_reactor_disable">disable</string>
     <string name="feature_reactor_price_updated">Price updated</string>
     <string name="feature_reactor_failed_to_update_some_prices">Failed to update some prices</string>
+    <string name="feature_reaction_missing_information_on_some_prices">Missing information on some prices</string>
 
-<!--    Settings-->
+    <!--    Settings-->
     <string name="feature_settings_offline_mode">Offline mode</string>
     <string name="feature_settings_ignore_fuel_bpc">Ignore fuel bpc</string>
     <string name="feature_settings_select_search_language">Select search language</string>
@@ -46,4 +47,10 @@
     <string name="feature_settings_gitgab_link">https://github.com/nsmapp/EVE-Reaction-Calculator-3.0</string>
     <string name="feature_settings_nsmappinfo_gmail_com">nsmappinfo@gmail.com</string>
     <string name="featuew_settings_reaction_calculator">Reaction calculator</string>
+
+    <!--    Project builder-->
+    <string name="feature_project_builder">Project builder</string>
+    <string name="feature_project_builder_project_name">Project name</string>
+
+
 </resources>

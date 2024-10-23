@@ -67,7 +67,7 @@ interface ReactionContract {
      * Get price source
      *
      */
-    fun getPriceSource()
+    fun checkOfflineMode()
 
     /**
      * Disable offline mode

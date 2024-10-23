@@ -117,6 +117,9 @@ class RootRouterImpl(
             onAddProject = { projectId ->
                 navigation.pushNew(RootConfig.ProjectBuilder(projectId))
             },
+            onRunProject = {projectId ->
+                navigation.push(RootConfig.Reactor(projectId, false))
+            },
             componentContext = componentContext
         )
 
