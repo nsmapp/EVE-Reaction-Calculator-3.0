@@ -46,7 +46,9 @@ class ComplexReactionMapper {
             val materialPriceDif = reaction.fullMaterialSell - reaction.fullMaterialBuy
             val items =  products + materials
 
-            val hasZeroPrice = baseItems.any { it.hasZeroPrice } || items.any { it.hasZeroPrice }
+            val hasZeroPrice = (baseItems.any { it.hasZeroPrice } || items.any { it.hasZeroPrice })
+                    && baseItems.isNotEmpty()
+                    && items.isNotEmpty()
 
             ComplexReactionModel(
                 baseItems = baseItems,

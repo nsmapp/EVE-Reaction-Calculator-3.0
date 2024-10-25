@@ -18,6 +18,7 @@ class KoinConventionPlugin: Plugin<Project>{
             }
 
             dependencies {
+                implementation(project.dependencies.platform(getLibs().koin.bom))
                 implementation(getLibs().koin.core)
                 implementation(getLibs().koin.coroutines)
                 implementation(getLibs().koin.annotations)

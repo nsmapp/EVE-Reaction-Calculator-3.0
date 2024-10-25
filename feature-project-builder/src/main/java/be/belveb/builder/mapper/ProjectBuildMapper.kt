@@ -7,6 +7,7 @@ import be.nepravsky.sm.domain.model.project.Project
 import be.nepravsky.sm.domain.model.project.ProjectItem
 import be.nepravsky.sm.evereactioncalculator.utils.TEXT_EMPTY
 import org.koin.core.annotation.Factory
+import java.util.Date
 
 @Factory
 class ProjectBuildMapper {
@@ -42,7 +43,7 @@ class ProjectBuildMapper {
             Project(
                 id = id,
                 iconId = items.firstOrNull()?.id ?: 34,
-                name = projectName,
+                name = projectName.ifEmpty { Date().time.toString() },
                 description = TEXT_EMPTY,
                 items = items.map { item ->
 

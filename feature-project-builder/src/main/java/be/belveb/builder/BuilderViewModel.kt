@@ -50,7 +50,6 @@ class BuilderViewModel(
         getActiveReactionGroupIds()
         projectId?.let { id -> loadProject(id) }
             ?: _state.update { ProjectBuilderState.EMPTY.copy(
-                name = Date().time.toString(),
                 items = mutableListOf()
             ) }
     }
@@ -94,6 +93,15 @@ class BuilderViewModel(
             it.copy(
                 isShowTypeBottomSheet = false,
                 items = updated
+            )
+        }
+    }
+
+    override fun deleteProjectItem(typeId: Long) {
+        val items = _state.value.items.filter { it.id != typeId }
+        _state.update {
+            it.copy(
+                items = items
             )
         }
     }

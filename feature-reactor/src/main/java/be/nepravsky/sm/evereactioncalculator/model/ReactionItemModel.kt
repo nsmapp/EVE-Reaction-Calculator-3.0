@@ -1,6 +1,6 @@
 package be.nepravsky.sm.evereactioncalculator.model
 
-class ReactionItemModel(
+data class ReactionItemModel(
     val id: Long,
     val groupId: Long,
     val name: String,

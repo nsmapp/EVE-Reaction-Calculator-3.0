@@ -24,10 +24,10 @@ class DatabaseModule {
 
     @Single
     fun provideSqlDriver(context: Context): SqlDriver {
-        val database = context.getDatabasePath("reactionsv402.db")
+        val database = context.getDatabasePath("reactionsv412.db")
 
         if (!database.exists()) {
-            val inputStream = context.assets.open("reactionsv40.db")
+            val inputStream = context.assets.open("reactionsv41.db")
             val outputStream = FileOutputStream(database.absolutePath)
 
             inputStream.use { input: InputStream ->
@@ -40,7 +40,7 @@ class DatabaseModule {
         return AndroidSqliteDriver(
             Database.Schema,
             context,
-            "reactionsv402.db"
+            "reactionsv412.db"
         )
     }
 

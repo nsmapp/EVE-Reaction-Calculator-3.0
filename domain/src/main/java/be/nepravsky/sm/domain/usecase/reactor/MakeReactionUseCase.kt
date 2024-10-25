@@ -84,7 +84,9 @@ class MakeReactionUseCase(
 
         val completeReactionsShort = mutableListOf<CompleteReactionShort>()
 
-        query.forEach { build ->
+        query
+            .filter { it.run > 0 }
+            .forEach { build ->
             blueprintRepo.getById(build.bpcId)?.let { bpc ->
 
                 val typeSet = mutableSetOf<Long>()
@@ -129,7 +131,9 @@ class MakeReactionUseCase(
 
         val completeReactionsShort = mutableListOf<CompleteReactionShort>()
 
-        query.forEach { build ->
+        query
+            .filter { it.run > 0 }
+            .forEach { build ->
             blueprintRepo.getById(build.bpcId)?.let { bpc ->
 
                 val typeSet = mutableSetOf<Long>()

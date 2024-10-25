@@ -5,5 +5,5 @@ plugins {
 }
 
 android {
-    namespace = "be.nepravsky.sm.evereactioncalculator.settings"
+    namespace = "be.nepravsky.sm.evereactioncalculator.search.settings"
 }

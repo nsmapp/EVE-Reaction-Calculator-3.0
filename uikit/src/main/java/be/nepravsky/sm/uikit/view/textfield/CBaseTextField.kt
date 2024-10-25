@@ -15,6 +15,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import be.nepravsky.sm.uikit.theme.AppTheme
@@ -22,7 +23,7 @@ import be.nepravsky.sm.uikit.theme.TEXT_EMPTY
 import be.nepravsky.sm.uikit.view.text.TextBase
 
 
-val decimalKeyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Decimal)
+val numberKeyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
 
 @Composable
 fun CBaseTextField(
@@ -38,7 +39,8 @@ fun CBaseTextField(
     textStyle: TextStyle = AppTheme.typography.medium,
     cursorBrush: Brush = SolidColor(AppTheme.colors.accent),
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
-    accentColor: Color = AppTheme.colors.accent
+    accentColor: Color = AppTheme.colors.accent,
+    textAlign: TextAlign? = null,
 ) {
     Column(
         modifier = modifier
@@ -46,7 +48,7 @@ fun CBaseTextField(
             .padding(AppTheme.padding.s_4)
     ) {
 
-        TextBase(
+        if (label.isNotEmpty()) TextBase(
             text = label,
             style = AppTheme.typography.regular_nano,
             color = AppTheme.colors.text
@@ -74,6 +76,7 @@ fun CBaseTextField(
             minLines = minLines,
             textStyle = textStyle.copy(
                 color = AppTheme.colors.text,
+                textAlign = textAlign ?: TextAlign.Start
             ),
             cursorBrush = cursorBrush,
             keyboardOptions = keyboardOptions,

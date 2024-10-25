@@ -50,8 +50,8 @@ class ReactorViewModel(
     private var projectQuery = listOf<ReactionQuery>()
     private var singleQuery = MutableStateFlow(ReactionQuery(reactionId))
     private val runFlow = MutableStateFlow(1L)
-    private val meFlow = MutableStateFlow(1.0)
-    private val subMeFlow = MutableStateFlow(1.0)
+    private val meFlow = MutableStateFlow(0.0)
+    private val subMeFlow = MutableStateFlow(0.0)
 
 
     init {
@@ -96,6 +96,11 @@ class ReactorViewModel(
             singleQuery.debounce(INPUT_DEBOUNCE)
                 .collect { query ->
                     makeReaction(listOf(query))
+                    _state.update { it.copy(
+                        run = query.run.toString(),
+                        me = query.me.toString(),
+                        subMe = query.subMe.toString(),
+                    ) }
                 }
         }
     }
@@ -205,7 +210,7 @@ class ReactorViewModel(
 
 
     companion object {
-        private const val INPUT_DEBOUNCE = 500L
+        private const val INPUT_DEBOUNCE = 250L
     }
 
 }

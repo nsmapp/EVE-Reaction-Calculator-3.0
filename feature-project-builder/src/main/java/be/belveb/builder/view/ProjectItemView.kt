@@ -2,7 +2,6 @@ package be.belveb.builder.view
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -18,13 +17,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import be.nepravsky.sm.evereactioncalculator.utils.getItemImageURL
 import be.nepravsky.sm.uikit.theme.AppTheme
-import be.nepravsky.sm.uikit.theme.colors.gradient1
+import be.nepravsky.sm.uikit.theme.colors.rightLeftGradient
 import be.nepravsky.sm.uikit.view.text.TextBold
 import be.nepravsky.sm.uikit.view.textfield.CBaseTextField
-import be.nepravsky.sm.uikit.view.textfield.decimalKeyboardOptions
+import be.nepravsky.sm.uikit.view.textfield.numberKeyboardOptions
 import coil.compose.AsyncImage
 
 
@@ -43,7 +43,7 @@ fun ProjectItemView(
             .fillMaxWidth()
             .padding(top = AppTheme.padding.s_4)
             .clip(RoundedCornerShape(AppTheme.radius.r_8))
-            .background(gradient1)
+            .background(rightLeftGradient)
             .border(
                 AppTheme.viewSize.border_small,
                 AppTheme.colors.foreground_hard,
@@ -63,22 +63,19 @@ fun ProjectItemView(
         )
 
         CBaseTextField(
-            modifier = Modifier.wrapContentSize().width(48.dp),
+            modifier = Modifier
+                .wrapContentSize()
+                .width(48.dp),
             value = run,
-            onValueChange = { runs -> onRunChanged(runs)},
-            keyboardOptions = decimalKeyboardOptions,
+            onValueChange = { runs -> onRunChanged(runs) },
+            keyboardOptions = numberKeyboardOptions,
+            textAlign = TextAlign.Center,
         )
 
-        Column(
-            Modifier
-                .fillMaxWidth()
-                .wrapContentHeight()
-        ) {
-
-            TextBold(
-                text = name,
-                maxLines = 1,
-            )
-        }
+        TextBold(
+            modifier = Modifier.padding(start = AppTheme.padding.s_8),
+            text = name,
+            maxLines = 1,
+        )
     }
 }

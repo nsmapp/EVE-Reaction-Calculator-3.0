@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.ExperimentalMaterialApi
@@ -32,7 +33,6 @@ import androidx.compose.ui.unit.dp
 import be.nepravsky.sm.evereactioncalculator.projects.view.ProjectItemView
 import be.nepravsky.sm.evereactioncalculator.projects.view.SwipeMenuView
 import be.nepravsky.sm.uikit.theme.AppTheme
-import be.nepravsky.sm.uikit.theme.colors.gradient1
 import be.nepravsky.sm.uikit.view.icons.NormalIcon
 import kotlinx.coroutines.launch
 import kotlin.math.roundToInt
@@ -51,14 +51,15 @@ fun LibraryScreen(
     val state = viewModel.state.collectAsState()
 
     val scope = rememberCoroutineScope()
-    val sizePx = with(LocalDensity.current) { 80.dp.toPx() }
+    val sizePx = with(LocalDensity.current) { 90.dp.toPx() }
     val anchors = mapOf(0f to 0, -sizePx to 1)
 
 
     Column(
         modifier = Modifier
+            .fillMaxSize()
             .background(color = AppTheme.colors.foreground)
-            .fillMaxSize(),
+            .padding(horizontal = AppTheme.padding.s_8)
     ) {
 
         LazyColumn(modifier = Modifier.animateContentSize(),
@@ -94,7 +95,6 @@ fun LibraryScreen(
                         ProjectItemView(
                             modifier = Modifier
                                 .offset { IntOffset(swipeableState.offset.value.roundToInt(), 0) },
-                            gradient1 = gradient1,
                             item = item,
                             onItemClick = { router.runProject(item.id) }
                         )

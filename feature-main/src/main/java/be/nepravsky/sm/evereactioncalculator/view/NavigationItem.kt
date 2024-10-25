@@ -21,7 +21,7 @@ fun RowScope.NavigationItem(
 
     val selectedColor = AppTheme.colors.accent
     val unselectedColor = AppTheme.colors.text
-    val tint by remember {
+    val tint by remember(isSelected) {
         derivedStateOf {
             if (isSelected) selectedColor else unselectedColor
         }

@@ -21,7 +21,7 @@ import androidx.compose.ui.res.stringResource
 import be.nepravsky.sm.evereactioncalculator.uikit.R
 import be.nepravsky.sm.evereactioncalculator.utils.getItemImageURL
 import be.nepravsky.sm.uikit.theme.AppTheme
-import be.nepravsky.sm.uikit.theme.colors.gradient1
+import be.nepravsky.sm.uikit.theme.colors.rightLeftGradient
 import be.nepravsky.sm.uikit.view.row.KeyValueRow
 import be.nepravsky.sm.uikit.view.text.TextBold
 import coil.compose.AsyncImage
@@ -43,7 +43,7 @@ fun BlueprintItem(
             .fillMaxWidth()
             .padding(top = AppTheme.padding.s_4)
             .clip(RoundedCornerShape(AppTheme.radius.r_8))
-            .background(gradient1)
+            .background(rightLeftGradient)
             .clickable { onItemClick(id) }
             .border(
                 AppTheme.viewSize.border_small,

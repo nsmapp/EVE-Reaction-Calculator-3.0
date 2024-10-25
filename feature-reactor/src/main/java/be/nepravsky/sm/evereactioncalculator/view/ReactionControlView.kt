@@ -12,14 +12,19 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import be.nepravsky.sm.domain.utils.TEXT_EMPTY
-import be.nepravsky.sm.evereactioncalculator.ReactorViewModel
+import androidx.compose.ui.text.style.TextAlign
+import be.nepravsky.sm.evereactioncalculator.model.ReactorState
 import be.nepravsky.sm.evereactioncalculator.uikit.R
 import be.nepravsky.sm.uikit.view.textfield.CBaseTextField
-import be.nepravsky.sm.uikit.view.textfield.decimalKeyboardOptions
+import be.nepravsky.sm.uikit.view.textfield.numberKeyboardOptions
 
 @Composable
-fun ReactionControlView(viewModel: ReactorViewModel) {
+fun ReactionControlView(
+    state: ReactorState,
+    onRunChanged: (run: Long) -> Unit,
+    onMeChanged: (me: Double) -> Unit,
+    onSubMeChanged: (subMe: Double) -> Unit,
+) {
 
     var runText by remember { mutableStateOf("1") }
     var meText by remember { mutableStateOf("0") }
@@ -33,38 +38,41 @@ fun ReactionControlView(viewModel: ReactorViewModel) {
     ) {
         CBaseTextField(
             modifier = Modifier.wrapContentSize(),
-            label = stringResource(R.string.feature_run_count),
+            label = stringResource(R.string.feature_run_count, state.run),
             value = runText,
             onValueChange = { runs ->
                 val run: Long? = runs.toLongOrNull()
-                runText = run?.toString() ?: TEXT_EMPTY
-                viewModel.setRuns(run ?: 0)
+                runText = runs
+                onRunChanged(run ?: 0)
             },
-            keyboardOptions = decimalKeyboardOptions,
+            keyboardOptions = numberKeyboardOptions,
+            textAlign = TextAlign.Center,
         )
 
         CBaseTextField(
             modifier = Modifier,
-            label = stringResource(R.string.feature_reactor_me_percent),
+            label = stringResource(R.string.feature_reactor_me_percent, state.me),
             value = meText,
             onValueChange = { mes ->
                 val me = mes.toDoubleOrNull()
-                meText = if (me == 0.0) TEXT_EMPTY else me?.toString() ?: TEXT_EMPTY
-                viewModel.setMe(me ?: 0.0)
+                meText = mes
+                onMeChanged(me ?: 0.0)
             },
-            keyboardOptions = decimalKeyboardOptions,
+            keyboardOptions = numberKeyboardOptions,
+            textAlign = TextAlign.Center,
         )
 
         CBaseTextField(
             modifier = Modifier,
-            label = stringResource(R.string.feature_reactor_sub_me_percent),
+            label = stringResource(R.string.feature_reactor_sub_me_percent, state.subMe),
             value = subMeText,
             onValueChange = { subMes ->
                 val me = subMes.toDoubleOrNull()
-                subMeText = if (me == 0.0) TEXT_EMPTY else me?.toString() ?: TEXT_EMPTY
-                viewModel.setSubMe(me ?: 0.0)
+                subMeText = subMes
+                onSubMeChanged(me ?: 0.0)
             },
-            keyboardOptions = decimalKeyboardOptions,
+            keyboardOptions = numberKeyboardOptions,
+            textAlign = TextAlign.Center,
         )
     }
 }

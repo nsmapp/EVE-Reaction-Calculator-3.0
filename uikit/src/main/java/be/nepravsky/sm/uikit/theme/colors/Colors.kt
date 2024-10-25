@@ -43,9 +43,8 @@ val dayColorScheme = darkColorScheme(
     onSurface = defBackground
 )
 
-//TODO change gradient names
 @Stable
-val gradient1: Brush
+val rightLeftGradient: Brush
     @Composable
     get () = Brush.linearGradient(
     colors = listOf(
@@ -58,7 +57,7 @@ val gradient1: Brush
 )
 
 @Stable
-val gradient2: Brush
+val leftRightGradient: Brush
     @Composable
     get () = Brush.linearGradient(
         colors = listOf(

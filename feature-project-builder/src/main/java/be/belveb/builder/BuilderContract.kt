@@ -43,6 +43,13 @@ interface BuilderContract {
     fun addProjectItem(type: BpcShortModel)
 
     /**
+     * Delete project item
+     *
+     * @param typeId
+     */
+    fun deleteProjectItem(typeId: Long)
+
+    /**
      * Get bpc list
      *
      * @param text

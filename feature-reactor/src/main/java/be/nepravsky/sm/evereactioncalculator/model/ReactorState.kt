@@ -10,6 +10,9 @@ data class ReactorState(
     val isShowShareDialog: Boolean,
     val isShowReactionInformation: Boolean,
     val isOfflineMode: Boolean,
+    val run: String,
+    val me: String,
+    val subMe: String,
 ) {
     companion object {
         val EMPTY = ReactorState(
@@ -47,6 +50,9 @@ data class ReactorState(
             isShowShareDialog = false,
             isShowReactionInformation = false,
             isOfflineMode = false,
+            run = "1",
+            me = "0",
+            subMe = "0"
         )
     }
 }

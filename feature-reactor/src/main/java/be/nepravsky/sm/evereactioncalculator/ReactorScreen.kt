@@ -42,14 +42,13 @@ import be.nepravsky.sm.evereactioncalculator.view.ReactionInformationView
 import be.nepravsky.sm.evereactioncalculator.view.ReactionPageView
 import be.nepravsky.sm.evereactioncalculator.view.ShareReactionDialog
 import be.nepravsky.sm.uikit.theme.AppTheme
-import be.nepravsky.sm.uikit.theme.colors.gradient1
-import be.nepravsky.sm.uikit.theme.colors.gradient2
+import be.nepravsky.sm.uikit.theme.colors.rightLeftGradient
+import be.nepravsky.sm.uikit.theme.colors.leftRightGradient
 import be.nepravsky.sm.uikit.view.FullScreenProgressBox
 import be.nepravsky.sm.uikit.view.icons.SmallIcon
 import kotlinx.coroutines.launch
 
 
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun ReactorScreen(
     viewModel: ReactorViewModel,
@@ -162,12 +161,24 @@ fun ReactorScreen(
                 AnimatedVisibility(
                     visible = state.value.isSingleReaction
                 ) {
-                    ReactionControlView(viewModel)
+                    ReactionControlView(
+                        state = state.value,
+                        onRunChanged = { run: Long -> viewModel.setRuns(run) },
+                        onMeChanged = { me: Double -> viewModel.setMe(me) },
+                        onSubMeChanged = { subMe: Double -> viewModel.setSubMe(subMe) },
+
+                        )
                 }
             }
 
 
-            ReactionPageView(selectedTabIndex, pagerState, state, gradient1, gradient2)
+            ReactionPageView(
+                selectedTabIndex = selectedTabIndex,
+                pagerState = pagerState,
+                state = state,
+                gradient1 = rightLeftGradient,
+                gradient2 = leftRightGradient
+            )
 
             if (state.value.isOfflineMode) OfflineModeInformationView(
                 onDisableOfflineMode = { viewModel.disableOfflineMode() }

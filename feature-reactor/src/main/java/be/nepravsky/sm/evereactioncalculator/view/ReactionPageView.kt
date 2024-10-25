@@ -101,7 +101,7 @@ fun ColumnScope.ReactionPageView(
                 ReactionTab.REACTION.ordinal -> LazyColumn(modifier = Modifier, content = {
                     itemsIndexed(
                         items = state.value.data.items,
-                        key = { _, item -> item.id }) { _, item ->
+                        key = { _, item -> "${item.id}${item.isProduct}" }) { _, item ->
                         ReactorItemView(item, gradient1, gradient2)
                     }
                 })
@@ -109,7 +109,7 @@ fun ColumnScope.ReactionPageView(
                 ReactionTab.BASE_TYPE.ordinal -> LazyColumn(modifier = Modifier, content = {
                     itemsIndexed(
                         items = state.value.data.baseItems,
-                        key = { _, item -> item.id }) { _, item ->
+                        key = { _, item -> "${item.id}${item.isProduct}" }) { _, item ->
                         ReactorItemView(item, gradient1, gradient2)
                     }
                 })

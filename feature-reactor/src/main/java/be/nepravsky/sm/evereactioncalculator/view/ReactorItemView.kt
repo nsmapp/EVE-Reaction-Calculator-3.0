@@ -32,7 +32,7 @@ import be.nepravsky.sm.uikit.view.row.KeyValueRow
 import be.nepravsky.sm.uikit.view.text.TextBold
 import coil.compose.AsyncImage
 
-//TODO add price update time
+
 @Composable
 fun ReactorItemView(
     item: ReactionItemModel,

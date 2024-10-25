@@ -9,8 +9,6 @@ plugins{
     kotlin("android")
 }
 
-
-
 configure<BaseExtension> {
 
     compileSdkVersion(getLibs().versions.compileSDk.get().toInt())
