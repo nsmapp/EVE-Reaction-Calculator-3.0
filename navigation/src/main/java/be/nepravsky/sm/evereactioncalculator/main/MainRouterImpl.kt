@@ -3,6 +3,7 @@ package be.nepravsky.sm.evereactioncalculator.main
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.ViewModelProvider
 import be.nepravsky.sm.evereactioncalculator.MainRouter
 import be.nepravsky.sm.evereactioncalculator.MainScreen
 import be.nepravsky.sm.evereactioncalculator.MainViewModel
@@ -11,6 +12,7 @@ import be.nepravsky.sm.evereactioncalculator.model.Tabs
 import be.nepravsky.sm.evereactioncalculator.navigation.Rout
 import be.nepravsky.sm.evereactioncalculator.reaction.ReactionRouterImpl
 import be.nepravsky.sm.evereactioncalculator.settings.SettingsRouterImpl
+import be.nepravsky.sm.evereactioncalculator.viewmodel.KoinAssistedViewModelFactory
 import be.nepravsky.sm.evereactioncalculator.viewmodel.viewModelKey
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.extensions.compose.stack.Children
@@ -25,6 +27,7 @@ import com.arkivanov.decompose.router.stack.childStack
 import com.arkivanov.decompose.router.stack.popTo
 import com.arkivanov.decompose.value.Value
 import kotlinx.serialization.Serializable
+import org.koin.core.parameter.parametersOf
 
 class MainRouterImpl(
     tab: Tabs,
@@ -45,9 +48,15 @@ class MainRouterImpl(
         source = navigation,
         serializer = null,
         initialConfiguration = MainDestination.Reactions,
-        handleBackButton = true,
+        handleBackButton = false,
         childFactory = ::child,
     )
+
+    override val viewModelFactory: ViewModelProvider.Factory by lazy {
+        KoinAssistedViewModelFactory(
+            parametersOf(tab)
+        )
+    }
 
 
     private fun child(
@@ -102,7 +111,8 @@ class MainRouterImpl(
     @Composable
     override fun Content() {
         MainScreen(
-            mainRouter = this
+            viewModel = decomposeViewModel(),
+            router = this
         ) {
             Children(
                 modifier = Modifier.wrapContentSize(),
