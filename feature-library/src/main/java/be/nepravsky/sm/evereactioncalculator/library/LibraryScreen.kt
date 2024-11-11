@@ -1,4 +1,4 @@
-package be.nepravsky.sm.evereactioncalculator.projects
+package be.nepravsky.sm.evereactioncalculator.library
 
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.tween
@@ -30,8 +30,8 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
-import be.nepravsky.sm.evereactioncalculator.projects.view.ProjectItemView
-import be.nepravsky.sm.evereactioncalculator.projects.view.SwipeMenuView
+import be.nepravsky.sm.evereactioncalculator.library.view.ProjectItemView
+import be.nepravsky.sm.evereactioncalculator.library.view.SwipeMenuView
 import be.nepravsky.sm.uikit.theme.AppTheme
 import be.nepravsky.sm.uikit.view.icons.NormalIcon
 import kotlinx.coroutines.launch

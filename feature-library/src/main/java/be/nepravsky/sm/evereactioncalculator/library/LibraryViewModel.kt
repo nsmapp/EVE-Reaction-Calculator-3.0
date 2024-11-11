@@ -1,11 +1,11 @@
-package be.nepravsky.sm.evereactioncalculator.projects
+package be.nepravsky.sm.evereactioncalculator.library
 
 import androidx.lifecycle.viewModelScope
 import be.nepravsky.sm.domain.model.project.Project
 import be.nepravsky.sm.domain.usecase.project.DeleteProjectUseCase
 import be.nepravsky.sm.domain.usecase.project.GetAllProjectsUseCase
-import be.nepravsky.sm.evereactioncalculator.projects.mapper.ProjectMapper
-import be.nepravsky.sm.evereactioncalculator.projects.model.LibraryState
+import be.nepravsky.sm.evereactioncalculator.library.mapper.ProjectMapper
+import be.nepravsky.sm.evereactioncalculator.library.model.LibraryState
 import be.nepravsky.sm.evereactioncalculator.viewmodel.BaseViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow

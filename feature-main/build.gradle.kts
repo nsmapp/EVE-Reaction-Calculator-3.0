@@ -5,5 +5,5 @@ plugins {
 }
 
 android {
-    namespace = "be.nepravsky.sm.evereactioncalculator.main"
+    namespace = "be.nepravsky.sm.evereactioncalculator.mainscreen"
 }

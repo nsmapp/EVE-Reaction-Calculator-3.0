@@ -1,4 +1,4 @@
-package be.nepravsky.sm.evereactioncalculator.projects.model
+package be.nepravsky.sm.evereactioncalculator.library.model
 
 class ProjectModel(
     val id: Long,

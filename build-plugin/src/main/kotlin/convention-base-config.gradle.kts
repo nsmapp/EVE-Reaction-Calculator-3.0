@@ -22,6 +22,13 @@ configure<BaseExtension> {
         versionName = getLibs().versions.versionName.get()
     }
 
+    sourceSets{
+
+        getByName("main") {
+            java.srcDir("build/generated/ksp/$name/kotlin")
+            kotlin.srcDir("build/generated/ksp/$name/kotlin")
+        }
+    }
 
     compileOptions {
         sourceCompatibility = JavaVersion.toVersion(getLibs().versions.java.get())

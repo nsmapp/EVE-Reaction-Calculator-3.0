@@ -4,11 +4,11 @@ import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.ViewModelProvider
-import be.nepravsky.sm.evereactioncalculator.MainRouter
-import be.nepravsky.sm.evereactioncalculator.MainScreen
-import be.nepravsky.sm.evereactioncalculator.MainViewModel
+import be.nepravsky.sm.evereactioncalculator.mainscreen.MainRouter
+import be.nepravsky.sm.evereactioncalculator.mainscreen.MainScreen
+import be.nepravsky.sm.evereactioncalculator.mainscreen.MainViewModel
 import be.nepravsky.sm.evereactioncalculator.library.LibraryRouterImpl
-import be.nepravsky.sm.evereactioncalculator.model.Tabs
+import be.nepravsky.sm.evereactioncalculator.mainscreen.model.Tabs
 import be.nepravsky.sm.evereactioncalculator.navigation.Rout
 import be.nepravsky.sm.evereactioncalculator.reaction.ReactionRouterImpl
 import be.nepravsky.sm.evereactioncalculator.settings.SettingsRouterImpl

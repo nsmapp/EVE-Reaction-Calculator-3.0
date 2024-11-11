@@ -1,7 +1,7 @@
-package be.nepravsky.sm.evereactioncalculator
+package be.nepravsky.sm.evereactioncalculator.mainscreen
 
 import androidx.lifecycle.viewModelScope
-import be.nepravsky.sm.evereactioncalculator.model.Tabs
+import be.nepravsky.sm.evereactioncalculator.mainscreen.model.Tabs
 import be.nepravsky.sm.evereactioncalculator.viewmodel.BaseViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel
@@ -17,11 +17,9 @@ import org.koin.core.annotation.InjectedParam
 @Factory(binds = [BaseViewModel::class])
 class MainViewModel(
     @InjectedParam private val initialTab: Tabs,
-): BaseViewModel(
+): BaseViewModel() {
 
-) {
-
-    private val _activeTab = MutableStateFlow<Tabs>(initialTab)
+    private val _activeTab = MutableStateFlow(initialTab)
     val activeTab = _activeTab.asStateFlow()
 
     private val _channel = Channel<Tabs>()

@@ -1,4 +1,4 @@
-package be.nepravsky.sm.evereactioncalculator.view
+package be.nepravsky.sm.evereactioncalculator.mainscreen.view
 
 import androidx.compose.foundation.layout.RowScope
 //noinspection UsingMaterialAndMaterial3Libraries

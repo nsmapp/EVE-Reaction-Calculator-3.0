@@ -1,4 +1,4 @@
-package be.nepravsky.sm.evereactioncalculator.projects.view
+package be.nepravsky.sm.evereactioncalculator.library.view
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.BoxScope

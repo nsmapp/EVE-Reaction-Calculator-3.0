@@ -1,4 +1,4 @@
-package be.nepravsky.sm.evereactioncalculator.projects
+package be.nepravsky.sm.evereactioncalculator.library
 
 interface LibraryRouter {
 

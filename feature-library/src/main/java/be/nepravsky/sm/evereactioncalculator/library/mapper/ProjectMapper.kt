@@ -1,7 +1,7 @@
-package be.nepravsky.sm.evereactioncalculator.projects.mapper
+package be.nepravsky.sm.evereactioncalculator.library.mapper
 
 import be.nepravsky.sm.domain.model.project.Project
-import be.nepravsky.sm.evereactioncalculator.projects.model.ProjectModel
+import be.nepravsky.sm.evereactioncalculator.library.model.ProjectModel
 import org.koin.core.annotation.Factory
 
 @Factory

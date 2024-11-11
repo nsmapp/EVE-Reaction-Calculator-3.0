@@ -4,7 +4,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import be.nepravsky.sm.evereactioncalculator.main.MainRouterImpl
-import be.nepravsky.sm.evereactioncalculator.model.Tabs
+import be.nepravsky.sm.evereactioncalculator.mainscreen.model.Tabs
 import be.nepravsky.sm.evereactioncalculator.navigation.Rout
 import be.nepravsky.sm.evereactioncalculator.projectbuilder.ProjectBuilderRouterImpl
 import be.nepravsky.sm.evereactioncalculator.reaction.searchettings.SearchSettingsRouterImpl

@@ -1,4 +1,4 @@
-package be.nepravsky.sm.evereactioncalculator
+package be.nepravsky.sm.evereactioncalculator.mainscreen
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -17,8 +17,8 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import be.nepravsky.sm.evereactioncalculator.model.Tabs
-import be.nepravsky.sm.evereactioncalculator.view.NavigationItem
+import be.nepravsky.sm.evereactioncalculator.mainscreen.model.Tabs
+import be.nepravsky.sm.evereactioncalculator.mainscreen.view.NavigationItem
 import be.nepravsky.sm.uikit.theme.AppTheme
 
 

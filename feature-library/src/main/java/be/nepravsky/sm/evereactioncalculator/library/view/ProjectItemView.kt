@@ -1,4 +1,4 @@
-package be.nepravsky.sm.evereactioncalculator.projects.view
+package be.nepravsky.sm.evereactioncalculator.library.view
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -16,7 +16,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
-import be.nepravsky.sm.evereactioncalculator.projects.model.ProjectModel
+import be.nepravsky.sm.evereactioncalculator.library.model.ProjectModel
 import be.nepravsky.sm.evereactioncalculator.utils.getItemImageURL
 import be.nepravsky.sm.uikit.theme.AppTheme
 import be.nepravsky.sm.uikit.theme.colors.rightLeftGradient
