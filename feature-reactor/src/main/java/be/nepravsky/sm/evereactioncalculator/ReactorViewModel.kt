@@ -26,7 +26,7 @@ import kotlinx.coroutines.launch
 import org.koin.core.annotation.Factory
 import org.koin.core.annotation.InjectedParam
 
-@Factory(binds = [BaseViewModel::class])
+//@Factory(binds = [BaseViewModel::class])
 class ReactorViewModel(
     @InjectedParam val reactionId: Long,
     @InjectedParam val isSingleReaction: Boolean,

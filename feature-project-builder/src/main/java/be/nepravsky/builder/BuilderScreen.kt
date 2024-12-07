@@ -1,4 +1,4 @@
-package be.belveb.builder
+package be.nepravsky.builder
 
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.tween
@@ -21,7 +21,6 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Done
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Settings
-import androidx.compose.material.icons.filled.ThumbUp
 import androidx.compose.material.rememberSwipeableState
 import androidx.compose.material.swipeable
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -42,9 +41,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import be.belveb.builder.model.ProjectBuildSideEffect
-import be.belveb.builder.view.ProjectItemView
-import be.belveb.builder.view.SwipeMenuView
+import be.nepravsky.builder.model.ProjectBuildSideEffect
+import be.nepravsky.builder.view.ProjectItemView
+import be.nepravsky.builder.view.SwipeMenuView
 import be.nepravsky.sm.evereactioncalculator.uikit.R
 import be.nepravsky.sm.evereactioncalculator.utils.TEXT_EMPTY
 import be.nepravsky.sm.uikit.theme.AppTheme
@@ -78,8 +77,6 @@ fun BuilderScreen(
             }
         }
     }
-
-    LaunchedEffect(null) { viewModel.initData() }
 
     val scope = rememberCoroutineScope()
     val sizePx = with(LocalDensity.current) { 50.dp.toPx() }

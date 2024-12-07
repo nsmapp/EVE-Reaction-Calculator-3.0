@@ -1,4 +1,4 @@
-package be.belveb.searchsettings.contract
+package be.nepravsky.searchsettings.contract
 
 import be.nepravsky.sm.domain.model.query.ActiveGroupQuery
 

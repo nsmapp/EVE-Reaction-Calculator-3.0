@@ -1,4 +1,4 @@
-package be.belveb.builder.model
+package be.nepravsky.builder.model
 
 data class BpcShortModel(
     val id: Long,

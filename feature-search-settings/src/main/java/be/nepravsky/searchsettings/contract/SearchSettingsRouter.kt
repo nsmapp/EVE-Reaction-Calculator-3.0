@@ -1,4 +1,4 @@
-package be.belveb.searchsettings.contract
+package be.nepravsky.searchsettings.contract
 
 interface SearchSettingsRouter {
 

@@ -1,4 +1,4 @@
-package be.belveb.builder.model
+package be.nepravsky.builder.model
 
 import be.nepravsky.sm.domain.utils.TEXT_EMPTY
 

@@ -1,19 +1,18 @@
-package be.belveb.searchsettings
+package be.nepravsky.searchsettings
 
 import androidx.lifecycle.viewModelScope
 import be.nepravsky.sm.domain.model.query.ActiveGroupQuery
 import be.nepravsky.sm.domain.usecase.groups.GetReactionGroupsUseCase
 import be.nepravsky.sm.domain.usecase.groups.UpdateActiveGroupUseCase
-import be.belveb.searchsettings.contract.SearchSettingsContract
-import be.belveb.searchsettings.model.SearchSettingsState
+import be.nepravsky.searchsettings.contract.SearchSettingsContract
+import be.nepravsky.searchsettings.model.SearchSettingsState
 import be.nepravsky.sm.evereactioncalculator.viewmodel.BaseViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import org.koin.core.annotation.Factory
 
-@Factory(binds = [BaseViewModel::class])
+//@Factory(binds = [BaseViewModel::class])
 class SearchSettingsViewModel(
     private val getReactionGroupsUseCase: GetReactionGroupsUseCase,
     private val updateActiveGroupUseCase: UpdateActiveGroupUseCase,

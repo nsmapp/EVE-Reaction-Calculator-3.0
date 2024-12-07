@@ -1,12 +1,12 @@
-package be.belveb.builder
+package be.nepravsky.builder
 
 import androidx.lifecycle.viewModelScope
-import be.belveb.builder.mapper.BpcShortModelMapper
-import be.belveb.builder.mapper.ProjectBuildMapper
-import be.belveb.builder.model.BpcShortModel
-import be.belveb.builder.model.ProjectBuildSideEffect
-import be.belveb.builder.model.ProjectBuilderState
-import be.belveb.builder.model.ProjectItemModel
+import be.nepravsky.builder.mapper.BpcShortModelMapper
+import be.nepravsky.builder.mapper.ProjectBuildMapper
+import be.nepravsky.builder.model.BpcShortModel
+import be.nepravsky.builder.model.ProjectBuildSideEffect
+import be.nepravsky.builder.model.ProjectBuilderState
+import be.nepravsky.builder.model.ProjectItemModel
 import be.nepravsky.sm.domain.model.query.ReactionsQuery
 import be.nepravsky.sm.domain.usecase.GetBpcListUseCase
 import be.nepravsky.sm.domain.usecase.groups.GetActiveGroupIdsUseCase
@@ -22,11 +22,9 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import org.koin.core.annotation.Factory
 import org.koin.core.annotation.InjectedParam
-import java.util.Date
 
-@Factory(binds = [BaseViewModel::class])
+//@Factory(binds = [BaseViewModel::class])
 class BuilderViewModel(
     @InjectedParam val projectId: Long?,
     private val saveProjectUseCase: SaveProjectUseCase,
@@ -45,6 +43,10 @@ class BuilderViewModel(
 
     private val _activeGroupIds = MutableStateFlow<List<Long>>(emptyList())
     private var searchQuery = TEXT_EMPTY
+
+    init {
+        initData()
+    }
 
     override fun initData() {
         getActiveReactionGroupIds()

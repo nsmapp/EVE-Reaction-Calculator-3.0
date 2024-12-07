@@ -1,4 +1,4 @@
-package be.belveb.builder.model
+package be.nepravsky.builder.model
 
 sealed class ProjectBuildSideEffect(){
 

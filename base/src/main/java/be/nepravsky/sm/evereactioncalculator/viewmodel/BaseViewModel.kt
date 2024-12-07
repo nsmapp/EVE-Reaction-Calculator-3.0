@@ -2,7 +2,6 @@ package be.nepravsky.sm.evereactioncalculator.viewmodel
 
 import androidx.annotation.CallSuper
 import androidx.lifecycle.ViewModel
-import kotlin.experimental.ExperimentalObjCRefinement
 import kotlin.reflect.KClass
 
 open class BaseViewModel: ViewModel() {

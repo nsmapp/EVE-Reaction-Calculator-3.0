@@ -1,4 +1,4 @@
-package be.belveb.searchsettings.view
+package be.nepravsky.searchsettings.view
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable

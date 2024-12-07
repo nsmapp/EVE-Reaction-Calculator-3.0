@@ -1,4 +1,4 @@
-package be.belveb.searchsettings.model
+package be.nepravsky.searchsettings.model
 
 import be.nepravsky.sm.domain.model.ReactionGroup
 

@@ -1,8 +1,8 @@
-package be.belveb.builder.mapper
+package be.nepravsky.builder.mapper
 
 import android.os.SystemClock
-import be.belveb.builder.model.ProjectBuilderState
-import be.belveb.builder.model.ProjectItemModel
+import be.nepravsky.builder.model.ProjectBuilderState
+import be.nepravsky.builder.model.ProjectItemModel
 import be.nepravsky.sm.domain.model.project.Project
 import be.nepravsky.sm.domain.model.project.ProjectItem
 import be.nepravsky.sm.evereactioncalculator.utils.TEXT_EMPTY

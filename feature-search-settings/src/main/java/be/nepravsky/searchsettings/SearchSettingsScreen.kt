@@ -1,4 +1,4 @@
-package be.belveb.searchsettings
+package be.nepravsky.searchsettings
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -12,8 +12,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import be.nepravsky.sm.evereactioncalculator.uikit.R
-import be.belveb.searchsettings.contract.SearchSettingsRouter
-import be.belveb.searchsettings.view.ReactionGroupItem
+import be.nepravsky.searchsettings.contract.SearchSettingsRouter
+import be.nepravsky.searchsettings.view.ReactionGroupItem
 import be.nepravsky.sm.uikit.theme.AppTheme
 import be.nepravsky.sm.uikit.view.appbar.CAppBar
 

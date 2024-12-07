@@ -9,13 +9,20 @@ plugins {
 
 android {
     defaultConfig {
-        applicationId = "be.nepravsky.sm.evereactioncalculator"
+        applicationId = "by.nepravsky.sm.evereactioncalculator"
+        versionCode = 30000
+        versionName = "3.0c"
     }
     namespace = "be.nepravsky.sm.evereactioncalculator"
 
     buildTypes {
         getByName("release") {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
+            proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
+        }
+
+        getByName("debug") {
+            isMinifyEnabled = true
             proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
         }
     }

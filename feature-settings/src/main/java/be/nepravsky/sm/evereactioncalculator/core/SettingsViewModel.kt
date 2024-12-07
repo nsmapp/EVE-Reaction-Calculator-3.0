@@ -19,7 +19,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.koin.core.annotation.Factory
 
-@Factory(binds = [BaseViewModel::class])
+//@Factory(binds = [BaseViewModel::class])
 class SettingsViewModel(
     private val getSettingsUseCase: GetSettingsUseCase,
     private val updateOfflineModeSettingUseCase: UpdateOfflineModeSettingUseCase,

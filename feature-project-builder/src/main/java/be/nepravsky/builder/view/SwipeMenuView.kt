@@ -1,4 +1,4 @@
-package be.belveb.builder.view
+package be.nepravsky.builder.view
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.BoxScope

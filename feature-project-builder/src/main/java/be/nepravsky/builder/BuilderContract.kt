@@ -1,6 +1,6 @@
-package be.belveb.builder
+package be.nepravsky.builder
 
-import be.belveb.builder.model.BpcShortModel
+import be.nepravsky.builder.model.BpcShortModel
 
 interface BuilderContract {
 

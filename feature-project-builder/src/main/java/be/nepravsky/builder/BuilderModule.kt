@@ -1,4 +1,4 @@
-package be.belveb.builder
+package be.nepravsky.builder
 
 import org.koin.core.annotation.ComponentScan
 import org.koin.core.annotation.Module

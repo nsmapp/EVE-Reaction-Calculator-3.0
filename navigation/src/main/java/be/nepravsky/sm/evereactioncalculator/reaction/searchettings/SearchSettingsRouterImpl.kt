@@ -2,9 +2,9 @@ package be.nepravsky.sm.evereactioncalculator.reaction.searchettings
 
 import androidx.compose.runtime.Composable
 import be.nepravsky.sm.evereactioncalculator.navigation.Rout
-import be.belveb.searchsettings.SearchSettingsScreen
-import be.belveb.searchsettings.SearchSettingsViewModel
-import be.belveb.searchsettings.contract.SearchSettingsRouter
+import be.nepravsky.searchsettings.SearchSettingsScreen
+import be.nepravsky.searchsettings.SearchSettingsViewModel
+import be.nepravsky.searchsettings.contract.SearchSettingsRouter
 import be.nepravsky.sm.evereactioncalculator.viewmodel.viewModelKey
 import com.arkivanov.decompose.ComponentContext
 

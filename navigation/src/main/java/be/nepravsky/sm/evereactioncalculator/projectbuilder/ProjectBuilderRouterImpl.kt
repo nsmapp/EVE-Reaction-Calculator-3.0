@@ -4,9 +4,9 @@ import androidx.compose.runtime.Composable
 import androidx.lifecycle.ViewModelProvider
 import be.nepravsky.sm.evereactioncalculator.navigation.Rout
 import be.nepravsky.sm.evereactioncalculator.viewmodel.viewModelKey
-import be.belveb.builder.BuilderRouter
-import be.belveb.builder.BuilderScreen
-import be.belveb.builder.BuilderViewModel
+import be.nepravsky.builder.BuilderRouter
+import be.nepravsky.builder.BuilderScreen
+import be.nepravsky.builder.BuilderViewModel
 import be.nepravsky.sm.evereactioncalculator.viewmodel.KoinAssistedViewModelFactory
 import com.arkivanov.decompose.ComponentContext
 import org.koin.core.parameter.parametersOf

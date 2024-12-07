@@ -1,7 +1,7 @@
-package be.belveb.builder.mapper
+package be.nepravsky.builder.mapper
 
 
-import be.belveb.builder.model.BpcShortModel
+import be.nepravsky.builder.model.BpcShortModel
 import be.nepravsky.sm.domain.model.bpc.BpcShort
 import be.nepravsky.sm.evereactioncalculator.utils.TEXT_EMPTY
 import org.koin.core.annotation.Factory
