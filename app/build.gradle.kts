@@ -38,7 +38,6 @@ android {
         }
 
         getByName("debug") {
-            applicationIdSuffix = ".dev"
             isMinifyEnabled = true
             proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
         }

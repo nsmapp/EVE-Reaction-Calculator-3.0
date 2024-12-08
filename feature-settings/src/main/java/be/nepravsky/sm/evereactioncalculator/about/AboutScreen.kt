@@ -11,18 +11,20 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.MailOutline
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import be.nepravsky.sm.evereactioncalculator.uikit.R
+import be.nepravsky.sm.uikit.icons.Github
 import be.nepravsky.sm.uikit.theme.AppTheme
 import be.nepravsky.sm.uikit.view.appbar.CAppBar
 import be.nepravsky.sm.uikit.view.icons.NormalIcon
+import be.nepravsky.sm.uikit.view.text.TextBold
 import be.nepravsky.sm.uikit.view.text.TextMedium
 
 @Composable
@@ -50,7 +52,7 @@ fun AboutScreen(
             verticalArrangement = Arrangement.SpaceBetween
         ) {
             //TODO add build version
-            TextMedium(
+            TextBold(
                 modifier = Modifier
                     .padding(AppTheme.padding.s_16)
                     .align(Alignment.CenterHorizontally),
@@ -74,7 +76,9 @@ fun AboutScreen(
                             router.openGitHubLink(
                                 context, context.getString(R.string.feature_settings_gitgab_link)
                             )
-                        }, imageVector = Icons.Default.Info
+                        },
+                    imageVector = Github,
+                    colorFilter = ColorFilter.tint(AppTheme.colors.text),
                 )
                 NormalIcon(
                     modifier = Modifier
@@ -87,7 +91,9 @@ fun AboutScreen(
                                     R.string.featuew_settings_reaction_calculator
                                 )
                             )
-                        }, imageVector = Icons.Default.MailOutline
+                        },
+                    imageVector = Icons.Default.MailOutline,
+                    colorFilter = ColorFilter.tint(AppTheme.colors.text),
                 )
             }
         }
