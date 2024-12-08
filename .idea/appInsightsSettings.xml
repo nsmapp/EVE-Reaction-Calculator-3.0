@@ -22,10 +22,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="PLACEHOLDER" />
-                  <option name="mobileSdkAppId" value="" />
-                  <option name="projectId" value="" />
-                  <option name="projectNumber" value="" />
+                  <option name="appId" value="by.nepravsky.sm.evereactioncalculator" />
+                  <option name="mobileSdkAppId" value="1:630922408644:android:5b1a4efea5de068667cf91" />
+                  <option name="projectId" value="eve-reaction-calculator-5ad2f" />
+                  <option name="projectNumber" value="630922408644" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />

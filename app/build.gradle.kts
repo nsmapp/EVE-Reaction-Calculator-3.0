@@ -1,9 +1,12 @@
 import ext.getLibs
+import java.util.Properties
 
 plugins {
     id("com.android.application")
     id("common.feature")
     id("base.koin.config")
+    alias(libs.plugins.google.gms.google.services)
+    alias(libs.plugins.google.firebase.crashlytics)
 }
 
 
@@ -15,17 +18,32 @@ android {
     }
     namespace = "be.nepravsky.sm.evereactioncalculator"
 
+    val properties = Properties()
+    properties.load(project.rootProject.file("local.properties").inputStream())
+
+    signingConfigs {
+        create("release") {
+            keyAlias = properties.getProperty("SIGN_ALIAS", "")
+            keyPassword =  properties.getProperty("SIGN_ALIAS_PASS", "")
+            storeFile = file("../key/evereactioncalculator.jks")
+            storePassword =  properties.getProperty("SIGN_STORE", "")
+        }
+    }
+
     buildTypes {
         getByName("release") {
             isMinifyEnabled = true
             proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
+            signingConfig = signingConfigs.getByName("release")
         }
 
         getByName("debug") {
+            applicationIdSuffix = ".dev"
             isMinifyEnabled = true
             proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
         }
     }
+
 
 
     dependencies {
@@ -36,4 +54,8 @@ android {
         implementation(project(":di"))
         implementation(project(":navigation"))
     }
+}
+dependencies {
+    implementation(libs.firebase.crashlytics)
+    implementation(libs.firebase.analytics)
 }

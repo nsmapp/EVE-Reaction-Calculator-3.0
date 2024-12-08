@@ -5,6 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import com.arkivanov.decompose.DefaultComponentContext
 import com.arkivanov.decompose.defaultComponentContext
+import com.google.firebase.analytics.FirebaseAnalytics
 import org.koin.android.ext.android.getKoin
 import org.koin.android.ext.android.inject
 import org.koin.core.module.Module
@@ -12,6 +13,7 @@ import org.koin.dsl.module
 
 class MainActivity : ComponentActivity() {
 
+    private lateinit var firebaseAnalytics: FirebaseAnalytics
 
     private val initialDepsHolder: InitialDepsHolder by inject()
     private var defaultComponentContextModules: List<Module>? = null
@@ -20,6 +22,9 @@ class MainActivity : ComponentActivity() {
 
         defineDefaultComponentContext()
         super.onCreate(savedInstanceState)
+
+        firebaseAnalytics = FirebaseAnalytics.getInstance(this)
+
         setContent {
            App(initialDepsHolder)
         }
