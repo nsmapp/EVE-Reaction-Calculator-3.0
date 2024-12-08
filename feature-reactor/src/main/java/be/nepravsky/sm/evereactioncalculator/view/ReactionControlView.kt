@@ -41,8 +41,8 @@ fun ReactionControlView(
             label = stringResource(R.string.feature_run_count, state.run),
             value = runText,
             onValueChange = { runs ->
-                val run: Long? = runs.toLongOrNull()
                 runText = runs
+                val run: Long? = runs.toLongOrNull()
                 onRunChanged(run ?: 0)
             },
             keyboardOptions = numberKeyboardOptions,
@@ -54,9 +54,11 @@ fun ReactionControlView(
             label = stringResource(R.string.feature_reactor_me_percent, state.me),
             value = meText,
             onValueChange = { mes ->
-                val me = mes.toDoubleOrNull()
                 meText = mes
-                onMeChanged(me ?: 0.0)
+                if (mes.isEmpty()) onMeChanged(0.0)
+                else mes.toDoubleOrNull()
+                    ?.let { onMeChanged(it) }
+
             },
             keyboardOptions = numberKeyboardOptions,
             textAlign = TextAlign.Center,
@@ -67,9 +69,10 @@ fun ReactionControlView(
             label = stringResource(R.string.feature_reactor_sub_me_percent, state.subMe),
             value = subMeText,
             onValueChange = { subMes ->
-                val me = subMes.toDoubleOrNull()
                 subMeText = subMes
-                onSubMeChanged(me ?: 0.0)
+                if (subMeText.isEmpty()) onSubMeChanged(0.0)
+                else subMes.toDoubleOrNull()
+                    ?.let { onSubMeChanged(it) }
             },
             keyboardOptions = numberKeyboardOptions,
             textAlign = TextAlign.Center,

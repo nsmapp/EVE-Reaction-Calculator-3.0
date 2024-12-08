@@ -90,9 +90,9 @@ class MakeReactionUseCase(
             blueprintRepo.getById(build.bpcId)?.let { bpc ->
 
                 val typeSet = mutableSetOf<Long>()
-                val products = calcReactionItemForRun(bpc.products, build.run, 1.0)
+                val products = calcReactionItemForRun(bpc.products, build.run, 0.0)
                 val materials = mutableListOf<ReactionItem>()
-                val me = if (bpc.isFormula) 1.0 else build.me
+                val me = if (bpc.isFormula) 0.0 else build.me
 
                 var subMaterials = calcReactionItemForRun(bpc.materials, build.run, me)
 
@@ -105,7 +105,7 @@ class MakeReactionUseCase(
 
                         if (subBpc == null) baseMaterials.add(item)
                         else {
-                            val subMe = if (subBpc.isFormula) 1.0 else build.subMe
+                            val subMe = if (subBpc.isFormula) 0.0 else build.subMe
                             val run = calculateRun(item, subBpc)
                             subProducts.addAll(calcReactionItemForRun(subBpc.materials, run, subMe))
                         }
@@ -137,8 +137,8 @@ class MakeReactionUseCase(
             blueprintRepo.getById(build.bpcId)?.let { bpc ->
 
                 val typeSet = mutableSetOf<Long>()
-                val me = if (bpc.isFormula) 1.0 else build.me
-                val products = calcReactionItemForRun(bpc.products, build.run, 1.0)
+                val me = if (bpc.isFormula) 0.0 else build.me
+                val products = calcReactionItemForRun(bpc.products, build.run, 0.0)
                 val materials = calcReactionItemForRun(bpc.materials, build.run, me)
 
                 products.forEach { product -> typeSet.add(product.typeId) }
