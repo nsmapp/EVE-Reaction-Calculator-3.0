@@ -22,9 +22,10 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import org.koin.core.annotation.Factory
 import org.koin.core.annotation.InjectedParam
 
-//@Factory(binds = [BaseViewModel::class])
+@Factory(binds = [BaseViewModel::class])
 class BuilderViewModel(
     @InjectedParam val projectId: Long?,
     private val saveProjectUseCase: SaveProjectUseCase,

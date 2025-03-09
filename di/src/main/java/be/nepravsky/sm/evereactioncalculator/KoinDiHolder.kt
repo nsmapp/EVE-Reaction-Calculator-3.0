@@ -19,7 +19,7 @@ class KoinDiHolder private constructor(di: KoinApplication){
             val koinApp = startKoin {
                 modules(
                     module {single { context }},
-                    DiModule().module, initialDepsModule, viewModels
+                    DiModule().module, initialDepsModule,
                 )
             }
             instance = KoinDiHolder(koinApp)

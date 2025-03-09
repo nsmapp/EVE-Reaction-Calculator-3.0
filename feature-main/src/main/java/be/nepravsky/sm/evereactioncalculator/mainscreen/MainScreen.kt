@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.navigationBarsPadding
+import androidx.compose.foundation.layout.statusBarsPadding
 //noinspection UsingMaterialAndMaterial3Libraries
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.icons.Icons
@@ -37,11 +38,12 @@ fun MainScreen(
         }
     }
 
-    Column(verticalArrangement = Arrangement.SpaceBetween) {
-
+    Column(
+        modifier = Modifier.navigationBarsPadding().statusBarsPadding(),
+        verticalArrangement = Arrangement.SpaceBetween
+    ) {
         Box(
             modifier = Modifier
-                .navigationBarsPadding()
                 .weight(1f)
                 .fillMaxWidth()
         ) { content() }

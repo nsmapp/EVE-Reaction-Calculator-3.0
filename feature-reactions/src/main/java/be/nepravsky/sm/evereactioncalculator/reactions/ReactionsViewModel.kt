@@ -17,7 +17,7 @@ import kotlinx.coroutines.launch
 import org.koin.core.annotation.Factory
 
 
-//@Factory(binds = [BaseViewModel::class])
+@Factory(binds = [BaseViewModel::class])
 class ReactionsViewModel(
     private val getBpcListUseCase: GetBpcListUseCase,
     private val getActiveGroupIdsUseCase: GetActiveGroupIdsUseCase,

@@ -3,7 +3,7 @@
 
     <style name="Theme.EVEReactionCalculator" parent="android:Theme.Material.NoActionBar">
         <item name="android:windowSplashScreenBackground" tools:targetApi="s">#282a36</item>
-        <item name="android:windowBackground">#383B53</item>
+        <item name="android:windowBackground">#ff282a36</item>
         <item name="android:windowLightStatusBar">true</item>
     </style>
 </resources>

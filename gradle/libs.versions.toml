@@ -3,7 +3,7 @@
 java = "17"
 kotlin = "2.0.20"
 
-compileSDk = "34"
+compileSDk = "35"
 minSDK = "25"
 
 versionCode = "1"
@@ -15,13 +15,13 @@ ksp = "2.0.20-1.0.25"
 coroutines = "1.8.1"
 
 appcompat = "1.7.0"
-coreKtx = "1.13.1"
-lifecycleRuntimeKtx = "2.8.6"
-activityCompose = "1.9.3"
+coreKtx = "1.15.0"
+lifecycleRuntimeKtx = "2.8.7"
+activityCompose = "1.10.0"
 androidxComposeCompiler = "1.5.7"
-composeBom = "2024.10.00"
+composeBom = "2025.02.00"
 material3 = "1.12.0"
-material = "1.7.4"
+material = "1.7.8"
 systemUIcontroller = "0.34.0"
 serializationJson = "1.7.1"
 
@@ -29,7 +29,7 @@ ktor = "2.3.12"
 sqlDelight = "2.0.1"
 
 koin = "4.0.0"
-koinAnatations = "2.0.0-Beta2"
+koinAnatations = "2.0.0-RC4"
 
 decomposeVersion = "3.1.0"
 

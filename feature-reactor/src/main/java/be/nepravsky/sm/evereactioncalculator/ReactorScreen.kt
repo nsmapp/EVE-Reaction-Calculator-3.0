@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -106,7 +107,9 @@ fun ReactorScreen(
         isShowProgress = state.value.isShowProgress
     ) {
         Column(
-            modifier = Modifier.background(AppTheme.colors.foreground)
+            modifier = Modifier
+                .statusBarsPadding()
+                .background(AppTheme.colors.foreground)
         ) {
 
             Column(

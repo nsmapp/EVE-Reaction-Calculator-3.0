@@ -13,7 +13,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.koin.core.annotation.Factory
 
-//@Factory(binds = [BaseViewModel::class])
+@Factory(binds = [BaseViewModel::class])
 class LibraryViewModel(
     private val getAllProjectsUseCase: GetAllProjectsUseCase,
     private val projectMapper: ProjectMapper,
