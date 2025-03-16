@@ -12,6 +12,7 @@ plugins {
 
 android {
     defaultConfig {
+        targetSdk = libs.versions.compileSDk.get().toInt()
         applicationId = "by.nepravsky.sm.evereactioncalculator"
         versionCode = 30000
         versionName = "3.0c"
@@ -43,9 +44,18 @@ android {
         }
     }
 
-
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
+    kotlinOptions {
+        jvmTarget = "17"
+    }
 
     dependencies {
+        implementation(libs.firebase.crashlytics)
+        implementation(libs.firebase.analytics)
+
         implementation(getLibs().coil.coil)
         implementation(project(":base"))
         implementation(project(":uikit"))
@@ -53,8 +63,4 @@ android {
         implementation(project(":di"))
         implementation(project(":navigation"))
     }
-}
-dependencies {
-    implementation(libs.firebase.crashlytics)
-    implementation(libs.firebase.analytics)
 }

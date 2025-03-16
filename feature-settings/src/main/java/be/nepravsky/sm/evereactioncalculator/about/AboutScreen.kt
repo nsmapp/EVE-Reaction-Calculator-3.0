@@ -78,7 +78,7 @@ fun AboutScreen(
                             )
                         },
                     imageVector = Github,
-                    colorFilter = ColorFilter.tint(AppTheme.colors.text),
+                    colorFilter = ColorFilter.tint(AppTheme.colors.text_ligth),
                 )
                 NormalIcon(
                     modifier = Modifier
@@ -93,7 +93,7 @@ fun AboutScreen(
                             )
                         },
                     imageVector = Icons.Default.MailOutline,
-                    colorFilter = ColorFilter.tint(AppTheme.colors.text),
+                    colorFilter = ColorFilter.tint(AppTheme.colors.text_ligth),
                 )
             }
         }

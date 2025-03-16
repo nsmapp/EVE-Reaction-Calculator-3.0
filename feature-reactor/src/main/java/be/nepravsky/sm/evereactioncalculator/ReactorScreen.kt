@@ -75,7 +75,7 @@ fun ReactorScreen(
                         type = "text/plain"
                     }
                     val shareIntent = Intent.createChooser(sendIntent, null)
-                    startActivity(context, shareIntent, null)
+                    context.startActivity(shareIntent,null)
                 }
 
                 is ReactorSideEffect.PriceUpdateError -> {
