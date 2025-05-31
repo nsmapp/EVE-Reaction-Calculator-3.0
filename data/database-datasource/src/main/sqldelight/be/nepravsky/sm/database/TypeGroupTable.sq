@@ -26,7 +26,7 @@ CASE (SELECT langId FROM settings WHERE id = 1)
   ELSE en
   END AS name
 FROM type_group
-WHERE id != IIF((SELECT isIgnoreFuelBlock FROM settings WHERE id == 1) == 1, 1137, -1)
+WHERE id != CASE (SELECT isIgnoreFuelBlock FROM settings WHERE id == 1) WHEN 1 THEN 1137 ELSE -1 END
 ORDER BY isFormula, name ASC;
 
 getActiveGroupIds:

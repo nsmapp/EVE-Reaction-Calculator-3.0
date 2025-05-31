@@ -14,8 +14,8 @@ android {
     defaultConfig {
         targetSdk = libs.versions.compileSDk.get().toInt()
         applicationId = "by.nepravsky.sm.evereactioncalculator"
-        versionCode = 30000
-        versionName = "3.0c"
+        versionCode = 30001
+        versionName = "3.0d"
     }
     namespace = "be.nepravsky.sm.evereactioncalculator"
 
@@ -45,11 +45,11 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
     }
     kotlinOptions {
-        jvmTarget = "17"
+        jvmTarget = "21"
     }
 
     dependencies {

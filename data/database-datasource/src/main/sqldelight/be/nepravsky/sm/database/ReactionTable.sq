@@ -52,7 +52,7 @@ CASE (SELECT langId FROM settings WHERE id = 1)
   END AS name
 FROM reaction
 WHERE id = :id AND
-groupId != IIF((SELECT isIgnoreFuelBlock FROM settings WHERE id == 1) == 1, 1137, -1);
+groupId != CASE (SELECT isIgnoreFuelBlock FROM settings WHERE id == 1) WHEN 1 THEN 1137 ELSE -1 END;
 
 
 getBpcFullList:

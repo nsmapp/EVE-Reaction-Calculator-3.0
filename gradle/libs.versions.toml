@@ -1,6 +1,6 @@
 [versions]
 
-java = "17"
+java = "21"
 kotlin = "2.0.20"
 
 compileSDk = "35"
