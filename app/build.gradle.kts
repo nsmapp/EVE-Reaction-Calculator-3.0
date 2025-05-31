@@ -5,8 +5,8 @@ plugins {
     id("com.android.application")
     id("common.feature")
     id("base.koin.config")
-    alias(libs.plugins.google.gms.google.services)
-    alias(libs.plugins.google.firebase.crashlytics)
+//    alias(libs.plugins.google.gms.google.services)
+//    alias(libs.plugins.google.firebase.crashlytics)
 }
 
 
@@ -53,8 +53,8 @@ android {
     }
 
     dependencies {
-        implementation(libs.firebase.crashlytics)
-        implementation(libs.firebase.analytics)
+//        implementation(libs.firebase.crashlytics)
+//        implementation(libs.firebase.analytics)
 
         implementation(getLibs().coil.coil)
         implementation(project(":base"))
