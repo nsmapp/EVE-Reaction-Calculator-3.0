@@ -6,6 +6,7 @@ import be.nepravsky.sm.domain.usecase.groups.GetReactionGroupsUseCase
 import be.nepravsky.sm.domain.usecase.groups.UpdateActiveGroupUseCase
 import be.nepravsky.searchsettings.contract.SearchSettingsContract
 import be.nepravsky.searchsettings.model.SearchSettingsState
+import be.nepravsky.sm.domain.usecase.groups.ClearActiveGroupUseCase
 import be.nepravsky.sm.evereactioncalculator.viewmodel.BaseViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -17,6 +18,7 @@ import org.koin.core.annotation.Factory
 class SearchSettingsViewModel(
     private val getReactionGroupsUseCase: GetReactionGroupsUseCase,
     private val updateActiveGroupUseCase: UpdateActiveGroupUseCase,
+    private val clearActiveGroupUseCase: ClearActiveGroupUseCase,
 ) : BaseViewModel(), SearchSettingsContract {
 
     private val _state = MutableStateFlow<SearchSettingsState>(SearchSettingsState.EMPTY)
@@ -52,9 +54,18 @@ class SearchSettingsViewModel(
             updateActiveGroupUseCase.invoke(query)
                 .onSuccess {}
                 .onFailure {
-                    TODO("update active group don't implemented: ${it.message}")
+                    //TODO("update active group don't implemented: ${it.message}")
                 }
 
+        }
+    }
+
+    override fun cleanFilter() {
+        viewModelScope.launch {
+            clearActiveGroupUseCase.invoke()
+                .onSuccess {
+                    getReactionGroups()
+                }
         }
     }
 }

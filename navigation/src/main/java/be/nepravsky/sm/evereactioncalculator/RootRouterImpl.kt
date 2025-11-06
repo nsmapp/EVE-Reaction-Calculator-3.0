@@ -1,6 +1,7 @@
 package be.nepravsky.sm.evereactioncalculator
 
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import be.nepravsky.sm.evereactioncalculator.main.MainRouterImpl
@@ -142,7 +143,9 @@ class RootRouterImpl(
     @Composable
     override fun Content() {
         Children(
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier
+                .fillMaxSize()
+                .imePadding(),
             stack = stack,
             animation = stackAnimation(slide())
         ) { child ->

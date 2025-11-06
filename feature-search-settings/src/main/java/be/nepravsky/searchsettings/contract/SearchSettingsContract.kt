@@ -9,4 +9,6 @@ interface SearchSettingsContract {
     fun onReactionGroupClick(groupId: Long, isSelected: Boolean)
 
     fun updateActiveReactions(query: ActiveGroupQuery)
+
+    fun cleanFilter()
 }

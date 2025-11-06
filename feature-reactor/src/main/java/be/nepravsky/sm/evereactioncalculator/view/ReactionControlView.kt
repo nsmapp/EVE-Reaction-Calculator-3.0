@@ -41,9 +41,11 @@ fun ReactionControlView(
             label = stringResource(R.string.feature_run_count, state.run),
             value = runText,
             onValueChange = { runs ->
-                runText = runs
-                val run: Long? = runs.toLongOrNull()
-                onRunChanged(run ?: 0)
+                if (runs.length <= 4){
+                    runText = runs
+                    val run: Long? = runs.toLongOrNull()
+                    onRunChanged(run ?: 0)
+                }
             },
             keyboardOptions = numberKeyboardOptions,
             textAlign = TextAlign.Center,
@@ -54,11 +56,12 @@ fun ReactionControlView(
             label = stringResource(R.string.feature_reactor_me_percent, state.me),
             value = meText,
             onValueChange = { mes ->
-                meText = mes
-                if (mes.isEmpty()) onMeChanged(0.0)
-                else mes.toDoubleOrNull()
-                    ?.let { onMeChanged(it) }
-
+                if (mes.length <= 4){
+                    meText = mes
+                    if (mes.isEmpty()) onMeChanged(0.0)
+                    else mes.toDoubleOrNull()
+                        ?.let { onMeChanged(it) }
+                }
             },
             keyboardOptions = numberKeyboardOptions,
             textAlign = TextAlign.Center,
@@ -69,10 +72,12 @@ fun ReactionControlView(
             label = stringResource(R.string.feature_reactor_sub_me_percent, state.subMe),
             value = subMeText,
             onValueChange = { subMes ->
-                subMeText = subMes
-                if (subMeText.isEmpty()) onSubMeChanged(0.0)
-                else subMes.toDoubleOrNull()
-                    ?.let { onSubMeChanged(it) }
+                if (subMes.length <= 4){
+                    subMeText = subMes
+                    if (subMeText.isEmpty()) onSubMeChanged(0.0)
+                    else subMes.toDoubleOrNull()
+                        ?.let { onSubMeChanged(it) }
+                }
             },
             keyboardOptions = numberKeyboardOptions,
             textAlign = TextAlign.Center,

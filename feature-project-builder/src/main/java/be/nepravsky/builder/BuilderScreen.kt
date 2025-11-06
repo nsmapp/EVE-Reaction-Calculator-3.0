@@ -210,7 +210,7 @@ fun BuilderScreen(
                         items = state.value.types,
                         key = { _, item -> item.id }) { _, item ->
                         BlueprintItem(
-                            modifier = Modifier.animateItemPlacement(animationSpec = tween()),
+                            modifier = Modifier.animateItem(tween()),
                             id = item.id,
                             name = item.name,
                             baseTime = item.baseTime,

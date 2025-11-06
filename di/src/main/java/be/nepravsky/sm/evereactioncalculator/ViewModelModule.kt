@@ -60,7 +60,13 @@ val viewModels = module {
         )
     } bind BaseViewModel::class
 
-    factory { SearchSettingsViewModel(get(), get()) } bind BaseViewModel::class
+    factory {
+        SearchSettingsViewModel(
+            getReactionGroupsUseCase = get(),
+            updateActiveGroupUseCase = get(),
+            clearActiveGroupUseCase = get(),
+        )
+    } bind BaseViewModel::class
 
     factory {
         SettingsViewModel(

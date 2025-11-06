@@ -40,8 +40,13 @@ class ReactionGroupRepoImpl(
         .mapToList(dispatcherProvider.io)
 
 
-    override fun updateActiveGroups(query: ActiveGroupQuery) =
+    override fun updateActiveGroups(query: ActiveGroupQuery) {
         groupsSource.updateActiveGroups(query.isSelected, query.id)
+    }
+
+    override fun clearActiveGroups() {
+        groupsSource.clearActiveGroups()
+    }
 
 
 }

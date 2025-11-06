@@ -35,6 +35,7 @@ class CommonFeatureConventionPlugin : Plugin<Project> {
                 implementation(getLibs().decompose.core)
                 implementation(getLibs().decompose.extension)
                 implementation(getLibs().decompose.android.extension)
+                implementation(getLibs().androidx.icons)
             }
         }
     }

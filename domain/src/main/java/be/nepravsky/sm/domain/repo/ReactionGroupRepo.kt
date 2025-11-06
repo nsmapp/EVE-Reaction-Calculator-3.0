@@ -11,4 +11,6 @@ interface ReactionGroupRepo {
     fun getActiveGroupId(): Flow<List<Long>>
 
     fun updateActiveGroups(query: ActiveGroupQuery)
+
+    fun clearActiveGroups()
 }

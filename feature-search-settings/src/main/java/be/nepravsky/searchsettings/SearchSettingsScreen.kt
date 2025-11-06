@@ -5,6 +5,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Clear
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -38,8 +40,11 @@ fun SearchSettingsScreen(
         CAppBar(
             modifier = Modifier,
             text = stringResource(R.string.feature_search_settings_search_settings),
-            onBackPressed = { router.onFinish() }
+            onBackPressed = { router.onFinish() },
+            actionIcon = Icons.Default.Clear,
+            onActionClick = {viewModel.cleanFilter()}
         )
+
         LazyColumn(
             modifier = Modifier,
             content = {

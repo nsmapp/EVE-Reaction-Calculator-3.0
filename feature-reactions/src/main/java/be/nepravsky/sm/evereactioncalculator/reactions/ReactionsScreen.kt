@@ -5,7 +5,6 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -44,9 +43,9 @@ fun ReactionsScreen(
 
     Column(
         modifier = Modifier
-            .fillMaxSize()
             .background(AppTheme.colors.foreground)
-            .padding(horizontal = AppTheme.padding.s_8),
+            .padding(horizontal = AppTheme.padding.s_8)
+            ,
         verticalArrangement = Arrangement.SpaceBetween,
     ) {
 
@@ -59,7 +58,9 @@ fun ReactionsScreen(
                     items = state.bpcShortList,
                     key = { _, item -> item.id }) { _, item ->
                     BlueprintItem(
-                        modifier = Modifier.animateItemPlacement(animationSpec = tween()),
+                        modifier = Modifier
+                            .animateItem(tween())
+                        ,
                         id = item.id,
                         name = item.name,
                         baseTime = item.baseTime,
