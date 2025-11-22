@@ -122,11 +122,13 @@ class ReactorViewModel(
             makeReactionUseCase.invoke(query)
                 .onSuccess { reaction ->
                     _state.update {
+                        val data = complexReactionMapper.map(reaction)
                         it.copy(
-                            data = complexReactionMapper.map(reaction),
+                            data = data,
                             isShowProgress = false,
                             isSingleReaction = isSingleReaction,
                             isShowReactionInformation = true,
+                            isMeEnabled = reaction.isSingleMeReaction
                         )
                     }
                 }
@@ -195,6 +197,7 @@ class ReactorViewModel(
                     launchReactor()
                 }
                 .onFailure {
+                    println("!!! ${it.message}")
                     launchReactor()
                     _sideEffect.send(ReactorSideEffect.PriceUpdateError)
                 }

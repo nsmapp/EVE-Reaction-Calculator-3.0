@@ -2,7 +2,6 @@ package be.nepravsky.sm.uikit.view.appbar
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.sharp.Refresh
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -49,7 +48,7 @@ fun CAppBar(
                 IconButton(onActionClick){
                     Icon(
                         //TODO replace icon?
-                        imageVector = Icons.Sharp.Refresh,
+                        imageVector = actionIcon,
                         tint = AppTheme.colors.text,
                         contentDescription = null
                     )

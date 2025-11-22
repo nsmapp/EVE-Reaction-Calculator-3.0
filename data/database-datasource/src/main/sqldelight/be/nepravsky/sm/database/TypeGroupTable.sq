@@ -37,4 +37,4 @@ updateActiveGroups:
 UPDATE type_group SET isSelected = ? WHERE id = ?;
 
 clearActiveGroups:
-UPDATE type_group SET isSelected = 1 WHERE id != 1137;
+UPDATE type_group SET isSelected = 0 WHERE id != 1137;

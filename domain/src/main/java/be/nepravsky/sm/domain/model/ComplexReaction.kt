@@ -3,6 +3,7 @@ package be.nepravsky.sm.domain.model
 data class ComplexReaction(
     val baseReactions: List<CompleteReactionFull>,
     val reactions: List<CompleteReactionFull>,
+    val isSingleMeReaction: Boolean,
 ){
 
     val productQuantity: Long

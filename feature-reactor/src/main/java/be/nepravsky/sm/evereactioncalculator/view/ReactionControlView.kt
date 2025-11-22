@@ -65,6 +65,7 @@ fun ReactionControlView(
             },
             keyboardOptions = numberKeyboardOptions,
             textAlign = TextAlign.Center,
+            enabled = state.isMeEnabled,
         )
 
         CBaseTextField(
@@ -81,6 +82,7 @@ fun ReactionControlView(
             },
             keyboardOptions = numberKeyboardOptions,
             textAlign = TextAlign.Center,
+            enabled = state.isMeEnabled,
         )
     }
 }

@@ -75,7 +75,7 @@ class ComplexReactionMapper {
                 fullMaterialBuy = fullMaterialBuy.toISK(),
                 fullMaterialPriceDif = materialPriceDif.toISK(),
 
-                hasZeroPrice = hasZeroPrice
+                hasZeroPrice = hasZeroPrice,
             )
         }
 

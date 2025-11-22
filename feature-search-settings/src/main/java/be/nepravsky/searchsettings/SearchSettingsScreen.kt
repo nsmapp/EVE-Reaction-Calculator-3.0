@@ -6,7 +6,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Clear
+import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -41,8 +41,8 @@ fun SearchSettingsScreen(
             modifier = Modifier,
             text = stringResource(R.string.feature_search_settings_search_settings),
             onBackPressed = { router.onFinish() },
-            actionIcon = Icons.Default.Clear,
-            onActionClick = {viewModel.cleanFilter()}
+            actionIcon = Icons.Default.Refresh,
+            onActionClick = {viewModel.cleanFilter()},
         )
 
         LazyColumn(

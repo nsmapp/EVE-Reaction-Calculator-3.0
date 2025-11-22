@@ -13,6 +13,7 @@ data class ReactorState(
     val run: String,
     val me: String,
     val subMe: String,
+    val isMeEnabled: Boolean = true,
 ) {
     companion object {
         val EMPTY = ReactorState(

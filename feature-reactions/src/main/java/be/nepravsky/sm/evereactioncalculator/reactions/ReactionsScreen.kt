@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.FilterAlt
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.Composable
@@ -81,7 +82,7 @@ fun ReactionsScreen(
                 viewModel.getBpcList(text)
             },
             leadingIcon = Icons.Default.Search,
-            trailingIcon = Icons.Default.Settings,
+            trailingIcon = Icons.Default.FilterAlt,
             onTrailingClick = { router.openSearchSettings() },
             hint = stringResource(R.string.feature_reaction_search),
         )

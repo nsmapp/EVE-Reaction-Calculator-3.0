@@ -1,0 +1,49 @@
+INSERT INTO type_group (id,iconId,isFormula,isSelected,category,de,en,fr,ja,ru,zh)
+VALUES (4924,90307,1,1,200,"Erratische Erzformel","Erratic Ore Formula","Formule de minerai erratique","不安定鉱石のフォーミュラ","Формула неустойчивой руды","不稳定矿石配方");
+
+
+INSERT INTO reaction (id,groupId,isFormula,de,en,fr,ja,ru,zh,baseTime,runLimit,materials,products)
+VALUES (90283,4924,1,"Unrefined Tritanium Formula","Unrefined Tritanium Formula","Formule de tritanium non raffiné","未精製トリタニウムのフォーミュラ","Unrefined Tritanium Formula","粗糙的三钛合金配方",3600,1000,"[{""quantity"":100,""typeID"":16634},{""quantity"":100,""typeID"":90307}]","[{""quantity"":100,""typeID"":90283}]");
+INSERT INTO reaction (id,groupId,isFormula,de,en,fr,ja,ru,zh,baseTime,runLimit,materials,products)
+VALUES (90284,4924,1,"Unrefined Pyerite Formula","Unrefined Pyerite Formula","Formule de pyérite non raffinée","未精製パイライトのフォーミュラ","Unrefined Pyerite Formula","粗糙的类晶体胶矿配方",3600,1000,"[{""quantity"":100,""typeID"":90307},{""quantity"":250,""typeID"":16634}]","[{""quantity"":100,""typeID"":90284}]");
+INSERT INTO reaction (id,groupId,isFormula,de,en,fr,ja,ru,zh,baseTime,runLimit,materials,products)
+VALUES (90286,4924,1,"Unrefined Mexallon Formula","Unrefined Mexallon Formula","Formule de mexallon non raffiné","未精製メクサロンのフォーミュラ","Unrefined Mexallon Formula","粗糙的类银超金属配方",3600,1000,"[{""quantity"":100,""typeID"":90307},{""quantity"":300,""typeID"":16634}]","[{""quantity"":100,""typeID"":90286}]");
+INSERT INTO reaction (id,groupId,isFormula,de,en,fr,ja,ru,zh,baseTime,runLimit,materials,products)
+VALUES (90289,4924,1,"Unrefined Isogen Formula","Unrefined Isogen Formula","Formule d'isogène non raffiné","未精製アイソゲンのフォーミュラ","Unrefined Isogen Formula","粗糙的同位聚合体配方",3600,1000,"[{""quantity"":100,""typeID"":90307},{""quantity"":1000,""typeID"":16634}]","[{""quantity"":100,""typeID"":90289}]");
+INSERT INTO reaction (id,groupId,isFormula,de,en,fr,ja,ru,zh,baseTime,runLimit,materials,products)
+VALUES (90292,4924,1,"Unrefined Nocxium Formula","Unrefined Nocxium Formula","Formule de nocxium non raffiné","未精製ノキシウムのフォーミュラ","Unrefined Nocxium Formula","粗糙的超新星诺克石配方",3600,1000,"[{""quantity"":100,""typeID"":90307},{""quantity"":600,""typeID"":16634}]","[{""quantity"":100,""typeID"":90292}]");
+INSERT INTO reaction (id,groupId,isFormula,de,en,fr,ja,ru,zh,baseTime,runLimit,materials,products)
+VALUES (90294,4924,1,"Unrefined Zydrine Formula","Unrefined Zydrine Formula","Formule de zydrine non raffinée","未精製ザイドリンのフォーミュラ","Unrefined Zydrine Formula","粗糙的晶状石英核岩配方",	3600,1000,"[{""quantity"":100,""typeID"":90307},{""quantity"":1000,""typeID"":16634}]","[{""quantity"":100,""typeID"":90294}]");
+INSERT INTO reaction (id,groupId,isFormula,de,en,fr,ja,ru,zh,baseTime,runLimit,materials,products)
+VALUES (90296,4924,1,"Unrefined Megacyte Formula","Unrefined Megacyte Formula","Formule de mégacyte non raffinée","未精製メガサイトのフォーミュラ","Unrefined Megacyte Formula","粗糙的超噬矿配方",3600,1000,"[{""quantity"":100,""typeID"":90307},{""quantity"":1000,""typeID"":16634}]","[{""quantity"":100,""typeID"":90296}]");
+INSERT INTO reaction (id,groupId,isFormula,de,en,fr,ja,ru,zh,baseTime,runLimit,materials,products)
+VALUES (90298,4924,1,"Unrefined Morphite Formula","Unrefined Morphite Formula","Formule de morphite non raffinée","未精製モルファイトのフォーミュラ","Unrefined Morphite Formula","粗糙的莫尔石配方",3600,1000,"[{""quantity"":100,""typeID"":90307},{""quantity"":3000,""typeID"":16634}]","[{""quantity"":100,""typeID"":90298}]");
+
+
+
+INSERT INTO type (id,groupId,basePrice,volume,de,en,fr,ja,ru,zh)
+VALUES (90283,4932,1000,40,"Unrefined Tritanium","Unrefined Tritanium","Tritanium non raffiné","未精製トリタニウム","Unrefined Tritanium","粗糙的三钛合金");
+
+INSERT INTO type (id,groupId,basePrice,volume,de,en,fr,ja,ru,zh)
+VALUES (90284,4932,1000,40,"Unrefined Pyerite","Unrefined Pyerite","Pyérite non raffinée","未精製パイライト","Unrefined Pyerite","粗糙的类晶体胶矿");
+
+INSERT INTO type (id,groupId,basePrice,volume,de,en,fr,ja,ru,zh)
+VALUES (90286,4932,1000,40,"Unrefined Mexallon","Unrefined Mexallon","Mexallon non raffiné","未精製メクサロン","Unrefined Mexallon","粗糙的类银超金属");
+
+INSERT INTO type (id,groupId,basePrice,volume,de,en,fr,ja,ru,zh)
+VALUES (90289,4932,1000,40,"Unrefined Isogen","Unrefined Isogen","Isogène non raffiné","未精錬アイソゲン","Unrefined Isogen","粗糙的同位聚合体");
+
+INSERT INTO type (id,groupId,basePrice,volume,de,en,fr,ja,ru,zh)
+VALUES (90292,4932,1000,40,"Unrefined Nocxium","Unrefined Nocxium","Nocxium non raffiné","未精製ノキシウム","Unrefined Nocxium","粗糙的超新星诺克石");
+
+INSERT INTO type (id,groupId,basePrice,volume,de,en,fr,ja,ru,zh)
+VALUES (90294,4932,1000,40,"Unrefined Zydrine","Unrefined Zydrine","Zydrine non raffinée","未精製ザイドリン","Unrefined Zydrine","粗糙的晶状石英核岩");
+
+INSERT INTO type (id,groupId,basePrice,volume,de,en,fr,ja,ru,zh)
+VALUES (90296,4932,1000,40,"Unrefined Megacyte","Unrefined Megacyte","Mégacyte non raffiné","未精製メガサイト","Unrefined Megacyte","粗糙的超噬矿");
+
+INSERT INTO type (id,groupId,basePrice,volume,de,en,fr,ja,ru,zh)
+VALUES (90298,4932,1000,40,"Unrefined Morphite","Unrefined Morphite","Morphite non raffinée","未精製モルファイト","Unrefined Morphite","粗糙的莫尔石");
+
+INSERT INTO type (id,groupId,basePrice,volume,de,en,fr,ja,ru,zh)
+VALUES (90307,4915,1000,0.4,"Compressed Prismaticite","Compressed Prismaticite","Prismaticite compressée","圧縮プリズマティサイト","Compressed Prismaticite","高密度棱柱岩");

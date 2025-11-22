@@ -33,14 +33,18 @@ class MakeReactionUseCase(
             runCatching {
 
                 //calc reaction with base materials
-                val baseReactionShort = getBaseReactionShortList(query)
-                val baseReaction = getBaseReactionFull(baseReactionShort)
+                val baseReactionShort: List<CompleteReactionShort> = getBaseReactionShortList(query)
+                val baseReaction: List<CompleteReactionFull> = getBaseReactionFull(baseReactionShort)
 
                 //calc simple reaction
-                val reactionShort = getReactionShortList(query)
-                val reaction = getReactionFull(reactionShort)
+                val reactionShort: List<CompleteReactionShort> = getReactionShortList(query)
+                val reaction: List<CompleteReactionFull> = getReactionFull(reactionShort)
 
-                ComplexReaction(baseReaction, reaction)
+                ComplexReaction(
+                    baseReactions = baseReaction,
+                    reactions = reaction,
+                    isSingleMeReaction = query.size == 1 && baseReactionShort.all { !it.isFormula }
+                )
             }
         }
 
@@ -119,7 +123,12 @@ class MakeReactionUseCase(
                 products.forEach { product -> typeSet.add(product.typeId) }
                 materials.forEach { material -> typeSet.add(material.typeId) }
 
-                val shorReaction = CompleteReactionShort(products, materials, typeSet)
+                val shorReaction = CompleteReactionShort(
+                    products = products,
+                    materials = materials,
+                    typeIdSet = typeSet,
+                    isFormula = bpc.isFormula,
+                )
                 completeReactionsShort.add(shorReaction)
             }
         }
@@ -144,7 +153,12 @@ class MakeReactionUseCase(
                 products.forEach { product -> typeSet.add(product.typeId) }
                 materials.forEach { material -> typeSet.add(material.typeId) }
 
-                val shorReaction = CompleteReactionShort(products, materials, typeSet)
+                val shorReaction = CompleteReactionShort(
+                    products = products,
+                    materials = materials,
+                    typeIdSet = typeSet,
+                    isFormula = bpc.isFormula,
+                )
                 completeReactionsShort.add(shorReaction)
             }
         }
