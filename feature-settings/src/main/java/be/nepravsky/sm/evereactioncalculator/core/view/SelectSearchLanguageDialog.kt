@@ -18,12 +18,13 @@ import be.nepravsky.sm.evereactioncalculator.uikit.R
 import be.nepravsky.sm.uikit.theme.AppTheme
 import be.nepravsky.sm.uikit.view.button.CButton
 import be.nepravsky.sm.uikit.view.text.TextMedium
+import kotlinx.collections.immutable.ImmutableList
 
 @Composable
 fun SelectSearchLanguageDialog(
-    onItemClick: (LanguageModel) -> Unit,
+    onItemClick: (Long) -> Unit,
     onDismissDialog: () -> Unit,
-    languages: List<LanguageModel>,
+    languages: ImmutableList<LanguageModel>,
 ) {
     Dialog(onDismissRequest = onDismissDialog) {
         Column(
@@ -59,7 +60,7 @@ fun SelectSearchLanguageDialog(
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(vertical = AppTheme.padding.s_2),
-                        onClick = { onItemClick(item) },
+                        onClick = { onItemClick(item.id) },
                         text = item.name
                     )
                 }

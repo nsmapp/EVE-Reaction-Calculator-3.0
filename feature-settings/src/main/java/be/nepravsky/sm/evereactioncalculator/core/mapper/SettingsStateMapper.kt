@@ -6,6 +6,8 @@ import be.nepravsky.sm.domain.model.settings.Systems
 import be.nepravsky.sm.evereactioncalculator.core.model.LanguageModel
 import be.nepravsky.sm.evereactioncalculator.core.model.SettingsState
 import be.nepravsky.sm.evereactioncalculator.core.model.SystemModel
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.toPersistentList
 import org.koin.core.annotation.Factory
 
 @Factory
@@ -35,15 +37,15 @@ class SettingsStateMapper {
             )
     }
 
-    private fun mapLanguage(languages: List<Language>): List<LanguageModel> =
+    private fun mapLanguage(languages: List<Language>): ImmutableList<LanguageModel> =
         languages.map { lang ->
             LanguageModel(
                 id = lang.id,
                 name = lang.name
             )
-        }
+        }.toPersistentList()
 
-    private fun mapSystems(systems: List<Systems>): List<SystemModel> =
+    private fun mapSystems(systems: List<Systems>): ImmutableList<SystemModel> =
         systems.map { system ->
             SystemModel(
                 systemId = system.systemId,
@@ -51,5 +53,5 @@ class SettingsStateMapper {
                 regionId = system.regionId,
                 regionName = system.regionName
             )
-        }
+        }.toPersistentList()
 }

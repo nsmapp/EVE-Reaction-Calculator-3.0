@@ -9,10 +9,13 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import be.nepravsky.sm.evereactioncalculator.core.model.SettingsState
+import be.nepravsky.sm.evereactioncalculator.core.model.SystemModel
 import be.nepravsky.sm.evereactioncalculator.uikit.R
 import be.nepravsky.sm.evereactioncalculator.core.view.SelectPriceLocationDialog
 import be.nepravsky.sm.evereactioncalculator.core.view.SelectSearchLanguageDialog
@@ -27,17 +30,45 @@ fun SettingScreen(
     router: SettingsRouter,
 ) {
 
-    val state by viewModel.state.collectAsState()
+    val state by viewModel.state.collectAsStateWithLifecycle()
 
-    if (state.isShowLanguageDialog) SelectSearchLanguageDialog(
-        onItemClick = { languageModel -> viewModel.setSearchLanguage(languageModel.id) },
-        onDismissDialog = { viewModel.hideDialogs() },
-        languages = state.languages
+    SettingsScreenView(
+        state = state,
+        onSetSearchLanguage =  { viewModel::setSearchLanguage },
+        onHideDialogs = remember(viewModel) { viewModel::hideDialogs },
+        onSetPriceLocation = remember(viewModel) { viewModel::setPriceLocation },
+        onShowSearchLanguageDialog = remember(viewModel) { viewModel::showSearchLanguageDialog },
+        onShowPriceLocationDialog = remember(viewModel) { viewModel::showPriceLocationDialog },
+        onSetOfflineMode = remember(viewModel) { viewModel::setOfflineMode },
+        onSetIsIgnoreFuelBlockBpc = remember(viewModel) { viewModel::setIsIgnoreFuelBlockBpc },
+        onOpenAboutScreen = remember(router) { router::openAboutScreen },
     )
 
+}
+
+@Composable
+private fun SettingsScreenView(
+    state: SettingsState,
+    onSetSearchLanguage: (Long) -> Unit,
+    onHideDialogs: () -> Unit,
+    onSetPriceLocation: (SystemModel) -> Unit,
+    onShowSearchLanguageDialog: () -> Unit,
+    onShowPriceLocationDialog: () -> Unit,
+    onSetOfflineMode: (Boolean) -> Unit,
+    onSetIsIgnoreFuelBlockBpc: (Boolean) -> Unit,
+    onOpenAboutScreen: () -> Unit,
+) {
+    if (state.isShowLanguageDialog) {
+        SelectSearchLanguageDialog(
+            onItemClick = onSetSearchLanguage,
+            onDismissDialog = onHideDialogs,
+            languages = state.languages
+        )
+    }
+
     if (state.isShowPriceLocationDialog) SelectPriceLocationDialog(
-        onItemClick = { systemModel ->  viewModel.setPriceLocation(systemModel)},
-        onDismissDialog = {viewModel.hideDialogs()},
+        onItemClick = onSetPriceLocation,
+        onDismissDialog = onHideDialogs,
         systems = state.systems
     )
 
@@ -53,7 +84,7 @@ fun SettingScreen(
 
         KeyValueRow(
             modifier = Modifier
-                .clickable { viewModel.showSearchLanguageDialog() }
+                .clickable(onClick = onShowSearchLanguageDialog)
                 .padding(vertical = AppTheme.padding.s_12)
                 .padding(start = AppTheme.padding.s_8, end = AppTheme.padding.s_16)
                 .fillMaxWidth()
@@ -65,7 +96,7 @@ fun SettingScreen(
 
         KeyValueRow(
             modifier = Modifier
-                .clickable { viewModel.showPriceLocationDialog() }
+                .clickable(onClick = onShowPriceLocationDialog)
                 .padding(vertical = AppTheme.padding.s_12)
                 .padding(start = AppTheme.padding.s_8, end = AppTheme.padding.s_16)
                 .fillMaxWidth()
@@ -81,9 +112,7 @@ fun SettingScreen(
                 .padding(horizontal = AppTheme.padding.s_8),
             key = stringResource(R.string.feature_settings_offline_mode),
             checked = state.isOfflineMode,
-            onCheckedChange = { isChecked ->
-                viewModel.setOfflineMode(isChecked)
-            },
+            onCheckedChange = onSetOfflineMode,
             style = AppTheme.typography.medium
         )
 
@@ -93,24 +122,20 @@ fun SettingScreen(
                 .padding(horizontal = AppTheme.padding.s_8),
             key = stringResource(R.string.feature_settings_ignore_fuel_bpc),
             checked = state.isIgnoreFuelBlock,
-            onCheckedChange = { isChecked ->
-                viewModel.setIsIgnoreFuelBlockBpc(isChecked)
-            },
+            onCheckedChange = onSetIsIgnoreFuelBlockBpc,
             style = AppTheme.typography.medium
         )
 
         KeyValueRow(
             modifier = Modifier
-                .clickable { viewModel.showPriceLocationDialog() }
                 .padding(vertical = AppTheme.padding.s_12)
                 .padding(start = AppTheme.padding.s_8, end = AppTheme.padding.s_16)
                 .fillMaxWidth()
-                .clickable { router.openAboutScreen() }
+                .clickable(onClick = onOpenAboutScreen)
                 .wrapContentHeight(),
             key = "About",
             value = TEXT_EMPTY,
             style = AppTheme.typography.medium,
         )
-
     }
 }

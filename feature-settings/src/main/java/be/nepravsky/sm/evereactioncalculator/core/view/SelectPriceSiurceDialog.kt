@@ -18,12 +18,13 @@ import be.nepravsky.sm.evereactioncalculator.uikit.R
 import be.nepravsky.sm.uikit.theme.AppTheme
 import be.nepravsky.sm.uikit.view.button.CButton
 import be.nepravsky.sm.uikit.view.text.TextMedium
+import kotlinx.collections.immutable.ImmutableList
 
 @Composable
 fun SelectPriceLocationDialog(
     onItemClick: (SystemModel) -> Unit,
     onDismissDialog: () -> Unit,
-    systems: List<SystemModel>,
+    systems: ImmutableList<SystemModel>,
 ) {
     Dialog(onDismissRequest = onDismissDialog) {
         Column(

@@ -1,7 +1,11 @@
 package be.nepravsky.sm.evereactioncalculator.core.model
 
+import androidx.compose.runtime.Stable
 import be.nepravsky.sm.evereactioncalculator.utils.TEXT_EMPTY
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
 
+@Stable
 data class SettingsState(
     val id: Long,
     val langId: Long,
@@ -14,8 +18,8 @@ data class SettingsState(
     val isProgress: Boolean,
     val isShowLanguageDialog: Boolean,
     val isShowPriceLocationDialog: Boolean,
-    val languages: List<LanguageModel>,
-    val systems: List<SystemModel>,
+    val languages: ImmutableList<LanguageModel>,
+    val systems: ImmutableList<SystemModel>,
 ) {
     companion object {
         val EMPTY = SettingsState(
@@ -30,8 +34,8 @@ data class SettingsState(
             isProgress = true,
             isShowLanguageDialog = false,
             isShowPriceLocationDialog = false,
-            languages = listOf(),
-            systems = listOf(),
+            languages = persistentListOf(),
+            systems = persistentListOf(),
         )
     }
 }

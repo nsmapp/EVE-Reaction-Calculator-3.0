@@ -25,6 +25,7 @@ material = "1.9.4"
 materialIcons = "1.7.8"
 systemUIcontroller = "0.36.0"
 serializationJson = "1.9.0"
+immutable-list = "0.4.0"
 
 ktor = "3.3.2"
 sqlDelight = "2.1.0"
@@ -48,6 +49,7 @@ firebaseCrashlytics = "20.0.3"
 googleGmsGoogleServices = "4.4.4"
 googleFirebaseCrashlytics = "3.0.6"
 firebaseAnalytics = "23.0.0"
+runtime = "1.9.5"
 
 [libraries]
 # plugins
@@ -77,6 +79,7 @@ androidx-icons = {group = "androidx.compose.material", name = "material-icons-ex
 accompanist-systemuicontroller = { group = "com.google.accompanist", name = "accompanist-systemuicontroller", version.ref = "systemUIcontroller" }
 ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling", version.ref = "uiTooling" }
 kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "serializationJson" }
+immutable-collections-list = { group = "org.jetbrains.kotlinx", name = "kotlinx-collections-immutable", version.ref = "immutable-list"}
 
 #ktor
 ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
@@ -120,6 +123,7 @@ coil-coil = { module = "io.coil-kt:coil-compose", version.ref = "coilVersiom" }
 material = { group = "com.google.android.material", name = "material", version.ref = "materialVersion" }
 firebase-crashlytics = { group = "com.google.firebase", name = "firebase-crashlytics", version.ref = "firebaseCrashlytics" }
 firebase-analytics = { group = "com.google.firebase", name = "firebase-analytics", version.ref = "firebaseAnalytics" }
+androidx-compose-runtime = { group = "androidx.compose.runtime", name = "runtime", version.ref = "runtime" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

@@ -31,15 +31,14 @@ import be.nepravsky.sm.uikit.view.text.TextMediumSmall
 fun ReactionGroupItem(
     modifier: Modifier = Modifier,
     item: ReactionGroup,
-    onItemClick: (isSelected: Boolean, groupId: Long) -> Unit,
+    onReactionGroupClick: (Long, Boolean) -> Unit,
 ) {
-    val group by remember(key1 = item.id, key2 = item.isSelected) { mutableStateOf(item) }
 
     Row(
         modifier = modifier
             .wrapContentHeight()
             .fillMaxWidth()
-            .clickable{onItemClick(group.isSelected.not(), group.id)}
+            .clickable { onReactionGroupClick(item.id, item.isSelected.not()) }
             .background(color = AppTheme.colors.foreground)
             .padding(horizontal = AppTheme.padding.s_16),
         verticalAlignment = Alignment.CenterVertically,
@@ -48,7 +47,7 @@ fun ReactionGroupItem(
         Row {
             AsyncImage(
                 modifier = Modifier
-                    .clickable { onItemClick(group.isSelected.not(), group.id) }
+                    .clickable { onReactionGroupClick(item.id, item.isSelected.not()) }
                     .clip(RoundedCornerShape(AppTheme.radius.r_2))
                     .padding(end = AppTheme.padding.s_16)
                     .size(AppTheme.viewSize.icon_small),
@@ -66,8 +65,8 @@ fun ReactionGroupItem(
         }
 
         CSwitch(
-            checked = group.isSelected,
-            onCheckedChange = { checked -> onItemClick(checked, group.id) },
+            checked = item.isSelected,
+            onCheckedChange = { checked -> onReactionGroupClick(item.id, checked) },
         )
     }
 }

@@ -8,6 +8,7 @@ import be.nepravsky.searchsettings.contract.SearchSettingsContract
 import be.nepravsky.searchsettings.model.SearchSettingsState
 import be.nepravsky.sm.domain.usecase.groups.ClearActiveGroupUseCase
 import be.nepravsky.sm.evereactioncalculator.viewmodel.BaseViewModel
+import kotlinx.collections.immutable.toPersistentList
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -28,7 +29,9 @@ class SearchSettingsViewModel(
     override fun getReactionGroups() {
         viewModelScope.launch {
             getReactionGroupsUseCase.invoke()
-                .onSuccess { groups -> _state.update { it.copy(reactionGroups = groups) } }
+                .onSuccess { groups ->
+                    _state.update { it.copy(reactionGroups = groups.toPersistentList()) }
+                }
                 .onFailure {
                     TODO("get reactions group error handle don't implemented: ${it.message}")
                 }
@@ -42,7 +45,7 @@ class SearchSettingsViewModel(
                     group.copy(
                         isSelected = if (group.id == groupId) isSelected else group.isSelected
                     )
-                }
+                }.toPersistentList()
             )
         }
         updateActiveReactions(ActiveGroupQuery(groupId, isSelected))

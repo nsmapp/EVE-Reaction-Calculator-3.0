@@ -1,13 +1,14 @@
 package be.nepravsky.searchsettings.model
 
+import kotlinx.collections.immutable.*
 import be.nepravsky.sm.domain.model.ReactionGroup
 
 data class SearchSettingsState(
-    val reactionGroups: List<ReactionGroup>
+    val reactionGroups: ImmutableList<ReactionGroup>
 ){
     companion object{
         val EMPTY = SearchSettingsState(
-            reactionGroups = emptyList()
+            reactionGroups = persistentListOf()
         )
     }
 }
