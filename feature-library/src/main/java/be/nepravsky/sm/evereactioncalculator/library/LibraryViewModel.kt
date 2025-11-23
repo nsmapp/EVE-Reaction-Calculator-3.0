@@ -7,6 +7,7 @@ import be.nepravsky.sm.domain.usecase.project.GetAllProjectsUseCase
 import be.nepravsky.sm.evereactioncalculator.library.mapper.ProjectMapper
 import be.nepravsky.sm.evereactioncalculator.library.model.LibraryState
 import be.nepravsky.sm.evereactioncalculator.viewmodel.BaseViewModel
+import kotlinx.collections.immutable.toPersistentList
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -48,7 +49,7 @@ class LibraryViewModel(
         val models = projects.map { project ->
             projectMapper.map(project)
         }
-        _state.update { it.copy(projects = models) }
+        _state.update { it.copy(projects = models.toPersistentList()) }
     }
 
 }

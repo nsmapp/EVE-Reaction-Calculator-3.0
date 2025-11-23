@@ -3,6 +3,7 @@ package be.nepravsky.sm.domain.usecase.project
 import be.nepravsky.sm.domain.model.project.Project
 import be.nepravsky.sm.domain.repo.ProjectRepo
 import be.nepravsky.sm.domain.utils.DispatcherProvider
+import kotlinx.collections.immutable.toPersistentList
 import kotlinx.coroutines.withContext
 import org.koin.core.annotation.Factory
 
@@ -20,7 +21,7 @@ class SaveProjectUseCase(
                     project.copy(
                         id = projectId,
                         iconId = project.items.firstOrNull()?.reactionId ?: 34,
-                        items = project.items.map { it.copy(projectId = projectId) }
+                        items = project.items.map { it.copy(projectId = projectId) }.toPersistentList()
                     )
                 )
             }

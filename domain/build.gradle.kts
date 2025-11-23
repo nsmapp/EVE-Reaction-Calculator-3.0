@@ -11,4 +11,5 @@ java {
 
 dependencies{
     api(libs.androidx.compose.runtime)
+    implementation(libs.immutable.collections.list)
 }

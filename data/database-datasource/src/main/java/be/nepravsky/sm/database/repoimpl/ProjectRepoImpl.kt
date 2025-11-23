@@ -9,6 +9,8 @@ import be.nepravsky.sm.domain.model.project.Project
 import be.nepravsky.sm.domain.model.project.ProjectItem
 import be.nepravsky.sm.domain.repo.ProjectRepo
 import be.nepravsky.sm.domain.utils.DispatcherProvider
+import kotlinx.collections.immutable.persistentListOf
+import kotlinx.collections.immutable.toPersistentList
 import kotlinx.coroutines.flow.Flow
 import org.koin.core.annotation.Single
 
@@ -28,7 +30,7 @@ class ProjectRepoImpl(
                     iconId = iconId,
                     name = name,
                     description = description,
-                    items = emptyList(),
+                    items = persistentListOf(),
                 )
             }
         )
@@ -90,7 +92,7 @@ class ProjectRepoImpl(
                     iconId = iconId,
                     name = name,
                     description = description,
-                    items = items
+                    items = items.toPersistentList()
                 )
             }).executeAsOne()
 

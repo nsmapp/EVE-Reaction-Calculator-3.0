@@ -14,8 +14,8 @@ android {
     defaultConfig {
         targetSdk = libs.versions.compileSDk.get().toInt()
         applicationId = "by.nepravsky.sm.evereactioncalculator"
-        versionCode = 30001
-        versionName = "3.0d"
+        versionCode = 30002
+        versionName = "3.1a"
     }
     namespace = "be.nepravsky.sm.evereactioncalculator"
 

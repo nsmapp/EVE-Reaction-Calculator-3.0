@@ -26,6 +26,7 @@ dependencies {
     implementation(libs.sqlDelight.extensions)
     implementation(libs.sqlDelight.driver.android)
     implementation(libs.sqlDelight.pribitive.adapters)
+    implementation(libs.immutable.collections.list)
     implementation(project(":domain"))
     implementation(project(":data:network-source"))
 }

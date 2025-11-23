@@ -6,6 +6,7 @@ import be.nepravsky.builder.model.ProjectItemModel
 import be.nepravsky.sm.domain.model.project.Project
 import be.nepravsky.sm.domain.model.project.ProjectItem
 import be.nepravsky.sm.evereactioncalculator.utils.TEXT_EMPTY
+import kotlinx.collections.immutable.toPersistentList
 import org.koin.core.annotation.Factory
 import java.util.Date
 
@@ -61,7 +62,7 @@ class ProjectBuildMapper {
                         subMe = item.subMe,
                         name = item.name,
                     )
-                }
+                }.toPersistentList()
             )
         }
     }
