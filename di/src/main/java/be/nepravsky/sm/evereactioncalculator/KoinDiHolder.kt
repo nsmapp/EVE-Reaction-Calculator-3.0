@@ -19,7 +19,7 @@ class KoinDiHolder private constructor(di: KoinApplication){
             val koinApp = startKoin {
                 modules(
                     module {single { context }},
-                    DiModule().module, initialDepsModule,
+                    DiModule().module,
                 )
             }
             instance = KoinDiHolder(koinApp)
@@ -27,8 +27,4 @@ class KoinDiHolder private constructor(di: KoinApplication){
         }
 
     }
-}
-
-val initialDepsModule: Module = module {
-    factory<InitialDepsHolder> { InitialDepsHolderAndroid() }
 }

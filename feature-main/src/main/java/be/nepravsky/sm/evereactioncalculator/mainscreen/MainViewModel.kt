@@ -12,19 +12,19 @@ import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.koin.core.annotation.Factory
-import org.koin.core.annotation.InjectedParam
 
-@Factory(binds = [BaseViewModel::class])
-class MainViewModel(
-    @InjectedParam private val initialTab: Tabs,
-): BaseViewModel() {
+@Factory
+class MainViewModel(): BaseViewModel() {
 
-    private val _activeTab = MutableStateFlow(initialTab)
+    private val _activeTab = MutableStateFlow(Tabs.REACTIONS)
     val activeTab = _activeTab.asStateFlow()
 
     private val _channel = Channel<Tabs>()
     val channel = _channel.receiveAsFlow().flowOn(Dispatchers.Main.immediate)
 
+    init {
+        setActiveTab(Tabs.REACTIONS)
+    }
     fun setActiveTab(tab: Tabs){
         _activeTab.update { tab }
         viewModelScope.launch {

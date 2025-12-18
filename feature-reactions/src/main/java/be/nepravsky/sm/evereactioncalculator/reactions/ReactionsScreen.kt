@@ -5,6 +5,7 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -12,7 +13,6 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.FilterAlt
 import androidx.compose.material.icons.filled.Search
-import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -23,18 +23,19 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import be.nepravsky.sm.evereactioncalculator.reactions.contract.ReactionsRouter
-import be.nepravsky.sm.uikit.view.items.BlueprintItem
 import be.nepravsky.sm.evereactioncalculator.uikit.R
 import be.nepravsky.sm.evereactioncalculator.utils.TEXT_EMPTY
 import be.nepravsky.sm.uikit.theme.AppTheme
+import be.nepravsky.sm.uikit.view.items.BlueprintItem
 import be.nepravsky.sm.uikit.view.textfield.CTextField
+import org.koin.androidx.compose.koinViewModel
 
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun ReactionsScreen(
-    viewModel: ReactionsViewModel,
     router: ReactionsRouter,
+    viewModel: ReactionsViewModel = koinViewModel(),
 ) {
 
     val state by viewModel.state.collectAsState()
@@ -44,9 +45,9 @@ fun ReactionsScreen(
 
     Column(
         modifier = Modifier
+            .fillMaxSize()
             .background(AppTheme.colors.foreground)
-            .padding(horizontal = AppTheme.padding.s_8)
-            ,
+            .padding(horizontal = AppTheme.padding.s_8),
         verticalArrangement = Arrangement.SpaceBetween,
     ) {
 
@@ -74,7 +75,6 @@ fun ReactionsScreen(
         //TODO add filter and search icons
         CTextField(
             modifier = Modifier
-                .padding(bottom = AppTheme.padding.s_16)
                 .fillMaxWidth(),
             value = searchText,
             onValueChange = { text ->

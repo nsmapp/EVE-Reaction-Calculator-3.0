@@ -8,5 +8,5 @@ interface MainRouter {
 
     fun selectTab(tab: Tabs)
 
-    fun onBackClicked(toIndex: Int)
+    fun navigationBack(toIndex: Int)
 }

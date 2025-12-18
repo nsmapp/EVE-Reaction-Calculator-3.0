@@ -15,7 +15,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.koin.core.annotation.Factory
 
-@Factory(binds = [BaseViewModel::class])
+@Factory
 class SearchSettingsViewModel(
     private val getReactionGroupsUseCase: GetReactionGroupsUseCase,
     private val updateActiveGroupUseCase: UpdateActiveGroupUseCase,

@@ -13,7 +13,7 @@ import org.koin.core.annotation.Module
 @Module(
     includes = [
         ViewModelModule::class,
-        DomainModule::class, DatabaseModule::class, NavigationModule::class,
+        DomainModule::class, DatabaseModule::class,
         LibraryModule::class,
         MainModule::class,
         ReactionsModule::class, ReactorModule::class,

@@ -35,12 +35,13 @@ import be.nepravsky.sm.evereactioncalculator.library.view.SwipeMenuView
 import be.nepravsky.sm.uikit.theme.AppTheme
 import be.nepravsky.sm.uikit.view.icons.NormalIcon
 import kotlinx.coroutines.launch
+import org.koin.androidx.compose.koinViewModel
 import kotlin.math.roundToInt
 
 @OptIn(ExperimentalMaterialApi::class, ExperimentalFoundationApi::class)
 @Composable
 fun LibraryScreen(
-    viewModel: LibraryViewModel,
+    viewModel: LibraryViewModel = koinViewModel(),
     router: LibraryRouter,
 ) {
 

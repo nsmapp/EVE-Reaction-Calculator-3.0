@@ -21,11 +21,12 @@ import be.nepravsky.searchsettings.view.ReactionGroupItem
 import be.nepravsky.sm.uikit.theme.AppTheme
 import be.nepravsky.sm.uikit.view.appbar.CAppBar
 import kotlinx.coroutines.flow.StateFlow
+import org.koin.androidx.compose.koinViewModel
 
 
 @Composable
 fun SearchSettingsScreen(
-    viewModel: SearchSettingsViewModel,
+    viewModel: SearchSettingsViewModel = koinViewModel(),
     router: SearchSettingsRouter,
 ) {
 
@@ -37,7 +38,7 @@ fun SearchSettingsScreen(
         {groupId, isSelected -> viewModel.onReactionGroupClick(groupId, isSelected) }
     }
     val onClearFilterClick: () -> Unit = remember(viewModel) { { viewModel.cleanFilter() } }
-    val onFinishClick: () -> Unit = remember(router) { { router.onFinish() } }
+    val onFinishClick: () -> Unit = remember(router) { { router.navigateBack() } }
 
     SearchScreenView(
         onBackClick = onFinishClick,

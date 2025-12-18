@@ -26,7 +26,6 @@ import be.nepravsky.sm.uikit.theme.dimens.defaultRadius
 import be.nepravsky.sm.uikit.theme.dimens.defaultViewSizes
 import be.nepravsky.sm.uikit.theme.typography.UbuntuTypography
 import be.nepravsky.sm.uikit.theme.typography.ubuntuTypography
-import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import kotlinx.coroutines.CoroutineScope
 
 

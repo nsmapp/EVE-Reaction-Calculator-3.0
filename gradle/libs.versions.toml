@@ -19,8 +19,8 @@ coreKtx = "1.17.0"
 lifecycleRuntimeKtx = "2.9.4"
 activityCompose = "1.11.0"
 androidxComposeCompiler = "1.5.7"
-composeBom = "2025.11.00"
-material3 = "1.12.0"
+composeBom = "2025.12.00"
+material3 = "1.7.8"
 material = "1.9.4"
 materialIcons = "1.7.8"
 systemUIcontroller = "0.36.0"
@@ -33,7 +33,10 @@ sqlDelight = "2.1.0"
 koin = "4.1.1"
 koinAnatations = "2.3.0"
 
-decomposeVersion = "3.4.0"
+nav3Core = "1.0.0"
+lifecycleViewmodelNav3 = "2.10.0"
+kotlinxSerializationCore = "1.8.1"
+material3AdaptiveNav3 = "1.3.0-alpha05"
 
 coilVersiom = "2.7.0"
 
@@ -72,7 +75,7 @@ androidx-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
 androidx-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
 androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
 androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
-androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
+androidx-material3-base = { group = "androidx.compose.material3", name = "material3" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 androidx-material = { group = "androidx.compose.material", name = "material", version.ref = "material" }
 androidx-icons = {group = "androidx.compose.material", name = "material-icons-extended", version.ref = "materialIcons"}
@@ -113,10 +116,12 @@ sqlDelight-driver-ios = { module = "app.cash.sqldelight:native-driver", version.
 kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutines" }
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
 
-#decompose
-decompose-core = { module = "com.arkivanov.decompose:decompose", version.ref = "decomposeVersion" }
-decompose-extension = { module = "com.arkivanov.decompose:extensions-compose", version.ref = "decomposeVersion" }
-decompose-android-extension = { module = "com.arkivanov.decompose:extensions-android", version.ref = "decomposeVersion" }
+#navigation3
+androidx-navigation3-runtime = { module = "androidx.navigation3:navigation3-runtime", version.ref = "nav3Core" }
+androidx-navigation3-ui = { module = "androidx.navigation3:navigation3-ui", version.ref = "nav3Core" }
+androidx-lifecycle-viewmodel-navigation3 = { module = "androidx.lifecycle:lifecycle-viewmodel-navigation3", version.ref = "lifecycleViewmodelNav3" }
+kotlinx-serialization-core = { module = "org.jetbrains.kotlinx:kotlinx-serialization-core", version.ref = "kotlinxSerializationCore" }
+androidx-material3-adaptive-navigation3 = { group = "androidx.compose.material3.adaptive", name = "adaptive-navigation3", version.ref = "material3AdaptiveNav3" }
 
 #coil
 coil-coil = { module = "io.coil-kt:coil-compose", version.ref = "coilVersiom" }

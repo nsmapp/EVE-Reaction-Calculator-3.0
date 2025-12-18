@@ -6,7 +6,7 @@ Is a compact Android application designed to calculate reaction manufacturing in
 * Ktor 
 * SQLDelight 
 * Koin (with anatations) 
-* Decompose 
+* Jetpack Navigation 3 
 * Coin 
 
 ### App on Google Play: 

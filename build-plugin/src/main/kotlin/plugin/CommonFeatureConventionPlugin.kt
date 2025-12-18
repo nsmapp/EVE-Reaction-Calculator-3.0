@@ -26,15 +26,12 @@ class CommonFeatureConventionPlugin : Plugin<Project> {
                 implementation(platform(getLibs().androidx.compose.bom))
                 implementation(getLibs().androidx.ui.graphics)
                 implementation(getLibs().androidx.ui.tooling.preview)
-                implementation(getLibs().androidx.material3)
+                implementation(getLibs().androidx.material3.base)
                 implementation(getLibs().androidx.material)
                 implementation(getLibs().accompanist.systemuicontroller)
                 implementation(getLibs().koin.compose)
                 implementation(getLibs().koin.android)
                 implementation(getLibs().kotlinx.coroutines.android)
-                implementation(getLibs().decompose.core)
-                implementation(getLibs().decompose.extension)
-                implementation(getLibs().decompose.android.extension)
                 implementation(getLibs().androidx.icons)
             }
         }

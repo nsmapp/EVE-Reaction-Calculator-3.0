@@ -23,10 +23,11 @@ import be.nepravsky.sm.evereactioncalculator.utils.TEXT_EMPTY
 import be.nepravsky.sm.uikit.theme.AppTheme
 import be.nepravsky.sm.uikit.view.row.KeyCheckRow
 import be.nepravsky.sm.uikit.view.row.KeyValueRow
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun SettingScreen(
-    viewModel: SettingsViewModel,
+    viewModel: SettingsViewModel = koinViewModel(),
     router: SettingsRouter,
 ) {
 

@@ -26,10 +26,11 @@ import be.nepravsky.sm.uikit.view.appbar.CAppBar
 import be.nepravsky.sm.uikit.view.icons.NormalIcon
 import be.nepravsky.sm.uikit.view.text.TextBold
 import be.nepravsky.sm.uikit.view.text.TextMedium
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun AboutScreen(
-    viewModel: AboutViewModel,
+    viewModel: AboutViewModel = koinViewModel(),
     router: AboutRouter,
 ) {
 
@@ -42,7 +43,7 @@ fun AboutScreen(
     ) {
         CAppBar(modifier = Modifier,
             text = stringResource(R.string.feature_settings_about),
-            onBackPressed = { router.onFinish() })
+            onBackPressed = { router.navigateBack() })
         Column(
             modifier = Modifier
                 .padding(AppTheme.padding.s_8)

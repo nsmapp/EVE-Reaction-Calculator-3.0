@@ -35,13 +35,3 @@ class App: Application(), ImageLoaderFactory {
             .build()
 
 }
-
-
-@Composable
-fun App(initialDepsHolder: InitialDepsHolder){
-
-    AppTheme(){
-        initialDepsHolder.rootNavGraph.Content()
-    }
-
-}

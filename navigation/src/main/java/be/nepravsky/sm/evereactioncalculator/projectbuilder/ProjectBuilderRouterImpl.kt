@@ -1,43 +1,16 @@
 package be.nepravsky.sm.evereactioncalculator.projectbuilder
 
-import androidx.compose.runtime.Composable
-import androidx.lifecycle.ViewModelProvider
-import be.nepravsky.sm.evereactioncalculator.navigation.Rout
-import be.nepravsky.sm.evereactioncalculator.viewmodel.viewModelKey
 import be.nepravsky.builder.BuilderRouter
-import be.nepravsky.builder.BuilderScreen
-import be.nepravsky.builder.BuilderViewModel
-import be.nepravsky.sm.evereactioncalculator.viewmodel.KoinAssistedViewModelFactory
-import com.arkivanov.decompose.ComponentContext
-import org.koin.core.parameter.parametersOf
 
 class ProjectBuilderRouterImpl(
-    componentContext: ComponentContext,
-    private val projectId: Long?,
-    private val onOpenSearchSettings: () -> Unit,
-    private val onBackPressed: () -> Unit,
-) : Rout(componentContext, BuilderViewModel::class.viewModelKey()), BuilderRouter {
-
-
-    override val viewModelFactory: ViewModelProvider.Factory by lazy {
-        KoinAssistedViewModelFactory(
-            parametersOf(projectId)
-        )
-    }
-
-    @Composable
-    override fun Content() {
-        BuilderScreen(
-            decomposeViewModel(),
-            this,
-        )
-    }
-
+    private val onNavigateSearchSettings: (() -> Unit),
+    private val onNavigateBack: (() -> Unit),
+): BuilderRouter {
     override fun openSearchSettings() {
-        onOpenSearchSettings.invoke()
+        onNavigateSearchSettings()
     }
 
     override fun onBackPressed() {
-        onBackPressed.invoke()
+        onNavigateBack()
     }
 }

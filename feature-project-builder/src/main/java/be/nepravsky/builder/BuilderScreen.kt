@@ -19,8 +19,8 @@ import androidx.compose.material.FractionalThreshold
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Done
+import androidx.compose.material.icons.filled.FilterAlt
 import androidx.compose.material.icons.filled.Search
-import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.rememberSwipeableState
 import androidx.compose.material.swipeable
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -52,6 +52,8 @@ import be.nepravsky.sm.uikit.view.icons.NormalIcon
 import be.nepravsky.sm.uikit.view.items.BlueprintItem
 import be.nepravsky.sm.uikit.view.textfield.CTextField
 import kotlinx.coroutines.launch
+import org.koin.androidx.compose.koinViewModel
+import org.koin.core.parameter.parametersOf
 import kotlin.math.roundToInt
 
 @OptIn(
@@ -60,9 +62,13 @@ import kotlin.math.roundToInt
 )
 @Composable
 fun BuilderScreen(
-    viewModel: BuilderViewModel,
+    projectId: Long?,
     router: BuilderRouter
 ) {
+    val viewModel = koinViewModel<BuilderViewModel>(
+        key = BuilderViewModel::class.simpleName + projectId,
+        parameters = { parametersOf(projectId) }
+    )
 
     val state = viewModel.state.collectAsStateWithLifecycle()
 
@@ -106,7 +112,7 @@ fun BuilderScreen(
                 viewModel.setProjectName(text)
             },
             //TODO replace icon
-            trailingIcon = Icons.Default.Settings,
+            trailingIcon = Icons.Default.FilterAlt,
             onTrailingClick = { router.openSearchSettings() },
             hint = stringResource(R.string.feature_project_builder_project_name),
         )

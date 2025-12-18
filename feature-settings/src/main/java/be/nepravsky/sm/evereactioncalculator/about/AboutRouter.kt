@@ -8,7 +8,7 @@ interface AboutRouter {
      * On finish
      *
      */
-    fun onFinish()
+    fun navigateBack()
 
     /**
      * Open git hub link

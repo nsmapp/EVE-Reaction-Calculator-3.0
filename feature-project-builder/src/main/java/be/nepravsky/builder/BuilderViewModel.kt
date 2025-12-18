@@ -25,7 +25,7 @@ import kotlinx.coroutines.launch
 import org.koin.core.annotation.Factory
 import org.koin.core.annotation.InjectedParam
 
-@Factory(binds = [BaseViewModel::class])
+@Factory
 class BuilderViewModel(
     @InjectedParam val projectId: Long?,
     private val saveProjectUseCase: SaveProjectUseCase,

@@ -1,36 +1,19 @@
 package be.nepravsky.sm.evereactioncalculator.library
 
-import androidx.compose.runtime.Composable
-import be.nepravsky.sm.evereactioncalculator.navigation.Rout
-import be.nepravsky.sm.evereactioncalculator.viewmodel.viewModelKey
-import com.arkivanov.decompose.ComponentContext
-
 class LibraryRouterImpl(
-    componentContext: ComponentContext,
-    private val onAddProject: (projectId: Long?) -> Unit,
-    private val onRunProject: (projectId: Long) -> Unit,
-): Rout(
-    componentContext = componentContext,
-    viewModelKey = LibraryViewModel::class.viewModelKey(),
-), LibraryRouter {
-
-    @Composable
-    override fun Content() {
-        LibraryScreen(
-            viewModel = decomposeViewModel(),
-            router = this
-        )
-    }
-
+    private val onNavigateAddProject: ((Long?) -> Unit),
+    private val onNavigateEditProject: ((Long) -> Unit),
+    private val onNavigateRunProject: ((Long) -> Unit),
+): LibraryRouter {
     override fun addProject(projectId: Long?) {
-        onAddProject.invoke(projectId)
+        onNavigateAddProject(projectId)
     }
 
     override fun editProject(projectId: Long) {
-
+        onNavigateEditProject(projectId)
     }
 
     override fun runProject(projectId: Long) {
-        onRunProject.invoke(projectId)
+        onNavigateRunProject(projectId)
     }
 }

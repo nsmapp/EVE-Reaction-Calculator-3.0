@@ -48,13 +48,21 @@ import be.nepravsky.sm.uikit.theme.colors.leftRightGradient
 import be.nepravsky.sm.uikit.view.FullScreenProgressBox
 import be.nepravsky.sm.uikit.view.icons.SmallIcon
 import kotlinx.coroutines.launch
+import org.koin.androidx.compose.koinViewModel
+import org.koin.core.parameter.parametersOf
 
 
 @Composable
 fun ReactorScreen(
-    viewModel: ReactorViewModel,
+    reactionId: Long,
+    isSingleReaction: Boolean,
     router: ReactorRouter,
 ) {
+    val viewModel = koinViewModel<ReactorViewModel>(
+        key = ReactorViewModel::class.simpleName + reactionId,
+        parameters = { parametersOf(reactionId, isSingleReaction) }
+    )
+
     val focusManager = LocalFocusManager.current
     val context = LocalContext.current
     val snackbarHostState = remember { SnackbarHostState() }
@@ -65,7 +73,7 @@ fun ReactorScreen(
     val pagerState = rememberPagerState(pageCount = { ReactionTab.entries.size })
     val selectedTabIndex = pagerState.currentPage
 
-    LaunchedEffect(null) {
+    LaunchedEffect(Unit) {
         focusManager.clearFocus()
         viewModel.sideEffect.collect { effect ->
             when (effect) {
