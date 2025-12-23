@@ -4,12 +4,16 @@ package be.nepravsky.builder.mapper
 import be.nepravsky.builder.model.BpcShortModel
 import be.nepravsky.sm.domain.model.bpc.BpcShort
 import be.nepravsky.sm.evereactioncalculator.utils.TEXT_EMPTY
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.toPersistentList
 import org.koin.core.annotation.Factory
 
 @Factory
 class BpcShortModelMapper {
 
-
+    fun map(bpcShortList: List<BpcShort>): ImmutableList<BpcShortModel> {
+        return bpcShortList.map { map(it) }.toPersistentList()
+    }
     fun map(bpcShort: BpcShort): BpcShortModel {
 
 

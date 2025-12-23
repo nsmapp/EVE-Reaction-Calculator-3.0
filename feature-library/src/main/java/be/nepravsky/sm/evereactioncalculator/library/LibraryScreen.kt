@@ -22,7 +22,8 @@ import androidx.compose.material.rememberSwipeableState
 import androidx.compose.material.swipeable
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -30,10 +31,13 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import be.nepravsky.sm.evereactioncalculator.library.model.ProjectModel
 import be.nepravsky.sm.evereactioncalculator.library.view.ProjectItemView
 import be.nepravsky.sm.evereactioncalculator.library.view.SwipeMenuView
 import be.nepravsky.sm.uikit.theme.AppTheme
 import be.nepravsky.sm.uikit.view.icons.NormalIcon
+import kotlinx.collections.immutable.ImmutableList
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
 import kotlin.math.roundToInt
@@ -41,20 +45,39 @@ import kotlin.math.roundToInt
 @OptIn(ExperimentalMaterialApi::class, ExperimentalFoundationApi::class)
 @Composable
 fun LibraryScreen(
-    viewModel: LibraryViewModel = koinViewModel(),
     router: LibraryRouter,
 ) {
 
-    LaunchedEffect(null) {
+    val viewModel: LibraryViewModel = koinViewModel()
+
+    LaunchedEffect(Unit) {
         viewModel.getAllWithoutItems()
     }
 
-    val state = viewModel.state.collectAsState()
+    val state by viewModel.state.collectAsStateWithLifecycle()
 
+
+    LibraryScreenContent(
+        projects = state.projects,
+        onAddProject = remember(router) { router::addProject },
+        onEditProject = remember(router) { router::editProject },
+        onRunProject = remember(router) { router::runProject },
+        onDeleteProject = remember(viewModel) { viewModel::deleteProject},
+    )
+}
+
+@Composable
+@OptIn(ExperimentalMaterialApi::class)
+private fun LibraryScreenContent(
+    projects: ImmutableList<ProjectModel>,
+    onAddProject: (Long?) -> Unit,
+    onEditProject: (Long) -> Unit,
+    onRunProject: (Long) -> Unit,
+    onDeleteProject: (Long) -> Unit,
+) {
     val scope = rememberCoroutineScope()
-    val sizePx = with(LocalDensity.current) { 90.dp.toPx() }
-    val anchors = mapOf(0f to 0, -sizePx to 1)
-
+    val sizePx = with(LocalDensity.current) { remember { 90.dp.toPx() } }
+    val anchors = remember { mapOf(0f to 0, -sizePx to 1) }
 
     Column(
         modifier = Modifier
@@ -63,10 +86,11 @@ fun LibraryScreen(
             .padding(horizontal = AppTheme.padding.s_8)
     ) {
 
-        LazyColumn(modifier = Modifier.animateContentSize(),
+        LazyColumn(
+            modifier = Modifier.animateContentSize(),
             content = {
                 itemsIndexed(
-                    items = state.value.projects,
+                    items = projects,
                     key = { _, item -> item.id }) { _, item ->
 
                     val swipeableState = rememberSwipeableState(0)
@@ -85,11 +109,11 @@ fun LibraryScreen(
                         SwipeMenuView(
                             onDeleteClick = {
                                 scope.launch { swipeableState.animateTo(0, tween()) }
-                                viewModel.deleteProject(item.id)
+                                onDeleteProject(item.id)
                             },
                             onEditClick = {
                                 scope.launch { swipeableState.animateTo(0, tween()) }
-                                router.addProject(item.id)
+                                onEditProject(item.id)
                             },
                         )
 
@@ -97,7 +121,7 @@ fun LibraryScreen(
                             modifier = Modifier
                                 .offset { IntOffset(swipeableState.offset.value.roundToInt(), 0) },
                             item = item,
-                            onItemClick = { router.runProject(item.id) }
+                            onItemClick = onRunProject
                         )
                     }
                 }
@@ -107,13 +131,14 @@ fun LibraryScreen(
                     NormalIcon(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .clickable { router.addProject(null) },
+                            .clickable { onAddProject(null) },
                         imageVector = Icons.Default.Add,
                         colorFilter = ColorFilter.tint(AppTheme.colors.text)
                     )
 
                 }
-            })
+            }
+        )
 
     }
 }

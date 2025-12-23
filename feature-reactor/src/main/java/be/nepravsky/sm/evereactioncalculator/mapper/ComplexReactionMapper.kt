@@ -6,6 +6,7 @@ import be.nepravsky.sm.evereactioncalculator.utils.toISK
 import be.nepravsky.sm.evereactioncalculator.utils.toVolume
 import be.nepravsky.sm.evereactioncalculator.model.ComplexReactionModel
 import be.nepravsky.sm.evereactioncalculator.model.ReactionItemModel
+import kotlinx.collections.immutable.toPersistentList
 import org.koin.core.annotation.Factory
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -51,7 +52,7 @@ class ComplexReactionMapper {
                     && items.isNotEmpty()
 
             ComplexReactionModel(
-                baseItems = baseItems,
+                baseItems = baseItems.toPersistentList(),
                 productQuantity = productQuantity.toString(),
                 productVolume = productVolume.toVolume(),
                 productSell = productSell.toISK(),
@@ -63,7 +64,7 @@ class ComplexReactionMapper {
                 materialBuy = materialBuy.toISK(),
                 materialPriceDif = baseMaterialPriceDif.toISK(),
 
-                items = items,
+                items = items.toPersistentList(),
                 fullProductQuantity = fullProductQuantity.toString(),
                 fullProductVolume = fullProductVolume.toVolume(),
                 fullProductSell = fullProductSell.toISK(),

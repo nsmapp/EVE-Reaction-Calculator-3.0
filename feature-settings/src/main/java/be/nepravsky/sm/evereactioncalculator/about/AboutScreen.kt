@@ -26,11 +26,9 @@ import be.nepravsky.sm.uikit.view.appbar.CAppBar
 import be.nepravsky.sm.uikit.view.icons.NormalIcon
 import be.nepravsky.sm.uikit.view.text.TextBold
 import be.nepravsky.sm.uikit.view.text.TextMedium
-import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun AboutScreen(
-    viewModel: AboutViewModel = koinViewModel(),
     router: AboutRouter,
 ) {
 

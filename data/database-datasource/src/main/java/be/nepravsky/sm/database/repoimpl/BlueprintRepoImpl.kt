@@ -14,9 +14,10 @@ class BlueprintRepoImpl(
     private val reactionTableQueries: ReactionTableQueries,
 ) : BlueprintRepo {
 
-    override fun get(query: ReactionsQuery): List<BpcShort> =
-        reactionTableQueries
-            .getBpcShort(query.name, query.groupIds)
+    override fun get(query: ReactionsQuery): List<BpcShort> {
+
+        val result = reactionTableQueries
+            .getBpcShort(query.name)
             .executeAsList()
             .map { reaction ->
                 with(reaction) {
@@ -29,6 +30,8 @@ class BlueprintRepoImpl(
                     )
                 }
             }
+        return result
+    }
 
     override fun getById(reactionId: Long): BpcFull? = reactionTableQueries
         .getBpcFull(reactionId) { id, groupId, isFormula, baseTime, runLimit, materials, products, name ->

@@ -1,9 +1,7 @@
 package be.nepravsky.sm.evereactioncalculator
 
-import android.content.Intent
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -14,6 +12,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -26,6 +25,7 @@ import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
@@ -33,7 +33,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
-import androidx.core.content.ContextCompat.startActivity
 import be.nepravsky.sm.evereactioncalculator.model.ReactionTab
 import be.nepravsky.sm.evereactioncalculator.model.ReactorSideEffect
 import be.nepravsky.sm.evereactioncalculator.uikit.R
@@ -50,6 +49,7 @@ import be.nepravsky.sm.uikit.view.icons.SmallIcon
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
 import org.koin.core.parameter.parametersOf
+import be.nepravsky.sm.evereactioncalculator.model.ReactorState
 
 
 @Composable
@@ -65,10 +65,10 @@ fun ReactorScreen(
 
     val focusManager = LocalFocusManager.current
     val context = LocalContext.current
-    val snackbarHostState = remember { SnackbarHostState() }
+    val snackBarHostState = remember { SnackbarHostState() }
     val coroutineScope = rememberCoroutineScope()
 
-    val state = viewModel.state.collectAsState()
+    val state by viewModel.state.collectAsState()
 
     val pagerState = rememberPagerState(pageCount = { ReactionTab.entries.size })
     val selectedTabIndex = pagerState.currentPage
@@ -77,42 +77,58 @@ fun ReactorScreen(
         focusManager.clearFocus()
         viewModel.sideEffect.collect { effect ->
             when (effect) {
-                is ReactorSideEffect.ShareReaction -> {
-                    val sendIntent = Intent(Intent.ACTION_SEND).apply {
-                        putExtra(Intent.EXTRA_TEXT, effect.text)
-                        type = "text/plain"
-                    }
-                    val shareIntent = Intent.createChooser(sendIntent, null)
-                    context.startActivity(shareIntent,null)
-                }
-
+                is ReactorSideEffect.ShareReaction -> router.shareReaction(context, effect.text)
                 is ReactorSideEffect.PriceUpdateError -> {
                     coroutineScope.launch {
-                        snackbarHostState.showSnackbar(
-                            context.getString(R.string.feature_reactor_failed_to_update_some_prices),
+                        snackBarHostState.showSnackbar(
+                            message = context.getString(R.string.feature_reactor_failed_to_update_some_prices),
                             duration = SnackbarDuration.Short
                         )
-
                     }
                 }
-
                 else -> {
                     //do nothing
                 }
             }
-
         }
     }
 
-
-    if (state.value.isShowShareDialog) ShareReactionDialog(
+    if (state.isShowShareDialog) ShareReactionDialog(
         onDismiss = { viewModel.hideShareDialog() },
         onSimpleTextShare = { viewModel.shareAsSimpleText(selectedTabIndex.isBaseType()) },
         onRichTextShare = { viewModel.shareAsEveNoteText(selectedTabIndex.isBaseType()) },
     )
 
+    ReactorScreenContent(
+        state = state,
+        selectedTabIndex = selectedTabIndex,
+        pagerState = pagerState,
+        snackBarHostState = snackBarHostState,
+        onChangeReactionInformationVisibility =
+            remember(viewModel) { viewModel::changeReactionInformationVisibility },
+        onShowShareDialog = remember(viewModel) { viewModel::showShareDialog },
+        onSetRuns = remember(viewModel) { viewModel::setRuns },
+        onSetMe = remember(viewModel) { viewModel::setMe },
+        onSetSubMe = remember(viewModel) { viewModel::setSubMe },
+        onDisableOfflineMode = remember(viewModel) { viewModel::disableOfflineMode },
+    )
+}
+
+@Composable
+private fun ReactorScreenContent(
+    state: ReactorState,
+    selectedTabIndex: Int,
+    pagerState: PagerState,
+    snackBarHostState: SnackbarHostState,
+    onChangeReactionInformationVisibility: () -> Unit = {},
+    onShowShareDialog: () -> Unit = {},
+    onSetRuns: (run: Long) -> Unit = {},
+    onSetMe: (me: Double) -> Unit = {},
+    onSetSubMe: (subMe: Double) -> Unit = {},
+    onDisableOfflineMode: () -> Unit = {},
+) {
     FullScreenProgressBox(
-        isShowProgress = state.value.isShowProgress
+        isShowProgress = state.isShowProgress
     ) {
         Column(
             modifier = Modifier
@@ -145,8 +161,8 @@ fun ReactorScreen(
                     SmallIcon(
                         modifier = Modifier
                             .padding(AppTheme.padding.s_2)
-                            .clickable { viewModel.changeReactionInformationVisibility() },
-                        imageVector = if (state.value.isShowReactionInformation)
+                            .clickable { onChangeReactionInformationVisibility() },
+                        imageVector = if (state.isShowReactionInformation)
                             Icons.Default.MoreVert else Icons.Default.Menu,
                         colorFilter = ColorFilter.tint(AppTheme.colors.accent)
                     )
@@ -154,9 +170,7 @@ fun ReactorScreen(
                     SmallIcon(
                         modifier = Modifier
                             .padding(AppTheme.padding.s_2)
-                            .clickable {
-                                viewModel.showShareDialog()
-                            },
+                            .clickable { onShowShareDialog() },
                         imageVector = Icons.Default.Share,
                         colorFilter = ColorFilter.tint(AppTheme.colors.accent)
                     )
@@ -164,46 +178,47 @@ fun ReactorScreen(
 
                 AnimatedVisibility(
                     modifier = Modifier.padding(AppTheme.padding.s_4),
-                    visible = state.value.isShowReactionInformation,
+                    visible = state.isShowReactionInformation,
                 ) {
                     ReactionInformationView(state, selectedTabIndex)
                 }
 
                 AnimatedVisibility(
-                    visible = state.value.isSingleReaction
+                    visible = state.isSingleReaction
                 ) {
                     ReactionControlView(
-                        state = state.value,
-                        onRunChanged = { run: Long -> viewModel.setRuns(run) },
-                        onMeChanged = { me: Double -> viewModel.setMe(me) },
-                        onSubMeChanged = { subMe: Double -> viewModel.setSubMe(subMe) },
-
-                        )
+                        run = state.run,
+                        me = state.me,
+                        subMe = state.subMe,
+                        isMeEnabled = state.isMeEnabled,
+                        onRunChanged = onSetRuns,
+                        onMeChanged = onSetMe,
+                        onSubMeChanged = onSetSubMe,
+                    )
                 }
             }
-
 
             ReactionPageView(
                 selectedTabIndex = selectedTabIndex,
                 pagerState = pagerState,
-                state = state,
+                hasZeroPrice = state.data.hasZeroPrice,
+                items = state.data.items,
+                baseItems = state.data.baseItems,
                 gradient1 = rightLeftGradient,
                 gradient2 = leftRightGradient
             )
 
-            if (state.value.isOfflineMode) OfflineModeInformationView(
-                onDisableOfflineMode = { viewModel.disableOfflineMode() }
+            if (state.isOfflineMode) OfflineModeInformationView(
+                onDisableOfflineMode = onDisableOfflineMode
             )
-
         }
 
         //TODO custom snack bar
         SnackbarHost(
-            hostState = snackbarHostState,
+            hostState = snackBarHostState,
             modifier = Modifier.align(Alignment.BottomCenter)
         )
     }
-
 }
 
 

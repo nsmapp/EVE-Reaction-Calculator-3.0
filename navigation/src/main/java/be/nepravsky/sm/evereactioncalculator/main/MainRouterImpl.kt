@@ -7,7 +7,6 @@ class MainRouterImpl(
     private val onNavigateLibrary: (() -> Unit),
     private val onNavigateReactions: (() -> Unit),
     private val onNavigateSettings: (() -> Unit),
-    private val onNavigateBack: (() -> Unit),
 ) : MainRouter {
     override fun selectTab(tab: Tabs) {
         when (tab) {
@@ -15,9 +14,5 @@ class MainRouterImpl(
             Tabs.REACTIONS -> onNavigateReactions()
             Tabs.SETTINGS -> onNavigateSettings()
         }
-    }
-
-    override fun navigationBack(toIndex: Int) {
-        onNavigateBack()
     }
 }

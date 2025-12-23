@@ -5,9 +5,12 @@
     <!--    ui kit  -->
     <string name="view_blueprint_base_reaction_time">Base reaction time</string>
 
-    <string name="feature_reaction_search">Search</string>
 
     <string name="feature_search_settings_search_settings">Search settings</string>
+
+    <!--  Reactions  -->
+    <string name="feature_reactions_bpc_not_found">BPC not found</string>
+    <string name="feature_reaction_search">Search</string>
 
     <!--  Reactor  -->
     <string name="feature_reactor_volume">Volume</string>

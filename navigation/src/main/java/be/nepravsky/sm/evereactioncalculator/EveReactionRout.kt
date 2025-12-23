@@ -62,8 +62,9 @@ fun EveReactionRout() {
                 MainRout(rootBackStack)
             }
             entry<AppDest.SearchSettings> {
-                SearchSettingsScreen(router = SearchSettingsRouterImpl(
-                    onNavigateBack = {rootBackStack.removeLastOrNull()}
+                SearchSettingsScreen(
+                    router = SearchSettingsRouterImpl(
+                    onNavigateBack = { rootBackStack.removeLastOrNull() }
                 ))
             }
             entry<AppDest.Reactor> { data ->
@@ -77,15 +78,15 @@ fun EveReactionRout() {
                 BuilderScreen(
                     projectId = it.projectId,
                     router = ProjectBuilderRouterImpl(
-                        onNavigateSearchSettings = {rootBackStack.add(AppDest.SearchSettings)},
-                        onNavigateBack = {rootBackStack.removeLastOrNull()}
+                        onNavigateSearchSettings = { rootBackStack.add(AppDest.SearchSettings) },
+                        onNavigateBack = { rootBackStack.removeLastOrNull() }
                     ),
                 )
             }
             entry<AppDest.About> {
                 AboutScreen(
                     router = AboutRouterImpl(
-                        onNavigationBack = {rootBackStack.removeLastOrNull()}
+                        onNavigationBack = { rootBackStack.removeLastOrNull() }
                     )
                 )
             }

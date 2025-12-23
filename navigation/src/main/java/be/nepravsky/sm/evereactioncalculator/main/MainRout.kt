@@ -1,8 +1,7 @@
 package be.nepravsky.sm.evereactioncalculator.main
 
-import androidx.compose.animation.core.tween
-import androidx.compose.animation.slideInHorizontally
-import androidx.compose.animation.slideOutHorizontally
+import androidx.compose.animation.scaleIn
+import androidx.compose.animation.scaleOut
 import androidx.compose.animation.togetherWith
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -31,7 +30,6 @@ fun MainRout(
             onNavigateLibrary = { backStack.add(MainDest.Library) },
             onNavigateReactions = { backStack.add(MainDest.Reactions) },
             onNavigateSettings = { backStack.add(MainDest.Settings) },
-            onNavigateBack = { rootBackStack.removeLastOrNull() },
         )
     }
 
@@ -55,7 +53,6 @@ fun MainRout(
             onNavigateReactor = { id, isSingleReaction ->
                 rootBackStack.add(AppDest.Reactor(id, isSingleReaction))
             },
-            onNavigateBack = { rootBackStack.removeLastOrNull() }
         )
     }
 
@@ -69,24 +66,7 @@ fun MainRout(
         NavDisplay(
             backStack = backStack,
             onBack = { rootBackStack.removeLastOrNull() },
-            transitionSpec = {
-                slideInHorizontally(
-                    initialOffsetX = { it },
-                    animationSpec = tween(250)
-                ) togetherWith slideOutHorizontally(
-                    targetOffsetX = { -it },
-                    animationSpec = tween(250)
-                )
-            },
-            popTransitionSpec = {
-                slideInHorizontally(
-                    initialOffsetX = { -it },
-                    animationSpec = tween(250)
-                ) togetherWith slideOutHorizontally(
-                    targetOffsetX = { it },
-                    animationSpec = tween(250)
-                )
-            },
+            transitionSpec = { scaleIn(initialScale = 0.95f) togetherWith scaleOut(targetScale = 0.95f) },
             entryProvider = entryProvider {
                 entry<MainDest.Library> {
                     LibraryScreen(router = libraryRouter)

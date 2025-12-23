@@ -49,12 +49,15 @@ interface BuilderContract {
      */
     fun deleteProjectItem(typeId: Long)
 
+
+    fun searchReactions(query: String)
+
     /**
      * Get bpc list
      *
      * @param text
      */
-    fun getBpcList(text: String)
+    fun getReactions(text: String)
 
     /**
      * Get load project

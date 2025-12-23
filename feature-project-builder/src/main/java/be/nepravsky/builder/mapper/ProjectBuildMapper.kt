@@ -6,6 +6,8 @@ import be.nepravsky.builder.model.ProjectItemModel
 import be.nepravsky.sm.domain.model.project.Project
 import be.nepravsky.sm.domain.model.project.ProjectItem
 import be.nepravsky.sm.evereactioncalculator.utils.TEXT_EMPTY
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.toPersistentList
 import org.koin.core.annotation.Factory
 import java.util.Date
@@ -20,11 +22,11 @@ class ProjectBuildMapper {
                 name = name,
                 items = mapItems(items),
                 isShowTypeBottomSheet = false,
-                types = emptyList(),
+                types = persistentListOf(),
             )
         }
 
-    private fun mapItems(items: List<ProjectItem>): MutableList<ProjectItemModel>  =
+    private fun mapItems(items: List<ProjectItem>): ImmutableList<ProjectItemModel>  =
         items.map { item ->
             ProjectItemModel(
                 id = item.reactionId,
@@ -33,7 +35,7 @@ class ProjectBuildMapper {
                 me = item.me,
                 subMe = item.subMe
             )
-        }.toMutableList()
+        }.toPersistentList()
 
 
     fun mapProject(model: ProjectBuilderState): Project {

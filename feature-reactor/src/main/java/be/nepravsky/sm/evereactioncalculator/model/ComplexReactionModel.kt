@@ -1,7 +1,9 @@
 package be.nepravsky.sm.evereactioncalculator.model
 
+import kotlinx.collections.immutable.ImmutableList
+
 data class ComplexReactionModel(
-    val baseItems: List<ReactionItemModel>,
+    val baseItems: ImmutableList<ReactionItemModel>,
 
     val productQuantity: String,
     val productVolume: String,
@@ -15,7 +17,7 @@ data class ComplexReactionModel(
     val materialBuy: String,
     val materialPriceDif: String,
 
-    val items: List<ReactionItemModel>,
+    val items: ImmutableList<ReactionItemModel>,
 
     val fullProductQuantity: String,
     val fullProductVolume: String,

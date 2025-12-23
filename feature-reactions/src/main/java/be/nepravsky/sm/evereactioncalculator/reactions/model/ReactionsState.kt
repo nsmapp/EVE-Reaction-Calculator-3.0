@@ -1,12 +1,20 @@
 package be.nepravsky.sm.evereactioncalculator.reactions.model
 
-data class ReactionsState(
+import androidx.compose.runtime.Stable
+import be.nepravsky.sm.evereactioncalculator.utils.TEXT_EMPTY
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
 
-    val bpcShortList: List<BpcShortModel>
+@Stable
+data class ReactionsState(
+    val bpcShortList: ImmutableList<BpcShortModel>,
+    val searchText: String = TEXT_EMPTY,
+
 ){
     companion object{
         val EMPTY = ReactionsState(
-            bpcShortList = emptyList()
+            bpcShortList = persistentListOf(),
+            searchText = TEXT_EMPTY,
         )
     }
 }

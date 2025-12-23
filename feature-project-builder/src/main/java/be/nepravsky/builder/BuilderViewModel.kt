@@ -9,16 +9,19 @@ import be.nepravsky.builder.model.ProjectBuilderState
 import be.nepravsky.builder.model.ProjectItemModel
 import be.nepravsky.sm.domain.model.query.ReactionsQuery
 import be.nepravsky.sm.domain.usecase.GetBpcListUseCase
-import be.nepravsky.sm.domain.usecase.groups.GetActiveGroupIdsUseCase
 import be.nepravsky.sm.domain.usecase.project.GetProjectUseCase
 import be.nepravsky.sm.domain.usecase.project.SaveProjectUseCase
 import be.nepravsky.sm.evereactioncalculator.utils.TEXT_EMPTY
 import be.nepravsky.sm.evereactioncalculator.viewmodel.BaseViewModel
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
+import kotlinx.collections.immutable.toPersistentList
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -30,7 +33,6 @@ class BuilderViewModel(
     @InjectedParam val projectId: Long?,
     private val saveProjectUseCase: SaveProjectUseCase,
     private val projectBuildMapper: ProjectBuildMapper,
-    private val getActiveGroupIdsUseCase: GetActiveGroupIdsUseCase,
     private val getProjectUseCase: GetProjectUseCase,
     private val getBpcListUseCase: GetBpcListUseCase,
     private val bpcShortModelMapper: BpcShortModelMapper,
@@ -42,18 +44,24 @@ class BuilderViewModel(
     private val _sideEffect by lazy { Channel<ProjectBuildSideEffect>() }
     val sideEffect: Flow<ProjectBuildSideEffect> by lazy { _sideEffect.receiveAsFlow() }
 
-    private val _activeGroupIds = MutableStateFlow<List<Long>>(emptyList())
-    private var searchQuery = TEXT_EMPTY
+    private val _searchQuery = MutableStateFlow(TEXT_EMPTY)
 
     init {
         initData()
+
+        viewModelScope.launch {
+            _searchQuery
+                .debounce(500)
+                .collectLatest { query ->
+                    getReactions(query)
+                }
+        }
     }
 
     override fun initData() {
-        getActiveReactionGroupIds()
         projectId?.let { id -> loadProject(id) }
             ?: _state.update { ProjectBuilderState.EMPTY.copy(
-                items = mutableListOf()
+                items = persistentListOf()
             ) }
     }
 
@@ -81,7 +89,15 @@ class BuilderViewModel(
     }
 
     override fun addProjectItem(type: BpcShortModel) {
+        _state.update {
+            it.copy(
+                isShowTypeBottomSheet = false,
+                items = addBpcToProject(type)
+            )
+        }
+    }
 
+    private fun addBpcToProject(type: BpcShortModel): ImmutableList<ProjectItemModel> {
         val items: List<ProjectItemModel> = _state.value.items
         val projectItem = ProjectItemModel(
             type.id,
@@ -91,35 +107,30 @@ class BuilderViewModel(
             subMe = 0.0,
         )
         val updated = if (items.none { it.id == projectItem.id }) items + projectItem else items
-
-        _state.update {
-            it.copy(
-                isShowTypeBottomSheet = false,
-                items = updated
-            )
-        }
+        return updated.toPersistentList()
     }
 
     override fun deleteProjectItem(typeId: Long) {
         val items = _state.value.items.filter { it.id != typeId }
         _state.update {
             it.copy(
-                items = items
+                items = items.toPersistentList()
             )
         }
     }
 
-    override fun getBpcList(text: String) {
-        searchQuery = text
+    override fun searchReactions(query: String) {
+        println("!!!! $query")
+        _searchQuery.update { query }
+        _state.update { it.copy(searchText = query) }
+    }
+
+    override fun getReactions(text: String) {
         viewModelScope.launch {
-            getBpcListUseCase.invoke(ReactionsQuery(text, _activeGroupIds.value))
+            getBpcListUseCase.invoke(ReactionsQuery(text))
                 .onSuccess { bpcList ->
                     _state.update { state ->
-                        state.copy(types = bpcList.map {
-                            bpcShortModelMapper.map(
-                                it
-                            )
-                        })
+                        state.copy(types = bpcShortModelMapper.map(bpcList))
                     }
                 }
                 .onFailure {
@@ -141,25 +152,13 @@ class BuilderViewModel(
         }
     }
 
-
-    private fun getActiveReactionGroupIds() {
-        viewModelScope.launch {
-            getActiveGroupIdsUseCase.invoke()
-                .collectLatest { ids ->
-                    _activeGroupIds.update { ids }
-                    getBpcList(searchQuery)
-                }
-        }
-    }
-
     fun setRunCount(runs: String, id: Long) {
         val items = _state.value.items.map { item ->
             if (item.id == id) item.copy(runCount = runs) else item
         }
-
         _state.update {
             it.copy(
-                items = items
+                items = items.toPersistentList()
             )
         }
 

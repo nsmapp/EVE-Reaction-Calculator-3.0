@@ -1,6 +1,10 @@
 package be.nepravsky.sm.evereactioncalculator.view
 
 //noinspection UsingMaterialAndMaterial3Libraries
+//noinspection UsingMaterialAndMaterial3Libraries
+//noinspection UsingMaterialAndMaterial3Libraries
+//noinspection UsingMaterialAndMaterial3Libraries
+//noinspection UsingMaterialAndMaterial3Libraries
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -12,28 +16,24 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.shape.RoundedCornerShape
-//noinspection UsingMaterialAndMaterial3Libraries
 import androidx.compose.material.Tab
-//noinspection UsingMaterialAndMaterial3Libraries
 import androidx.compose.material.TabRow
-//noinspection UsingMaterialAndMaterial3Libraries
 import androidx.compose.material.TabRowDefaults
-//noinspection UsingMaterialAndMaterial3Libraries
 import androidx.compose.material.TabRowDefaults.tabIndicatorOffset
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.State
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.res.stringResource
+import be.nepravsky.sm.evereactioncalculator.model.ReactionItemModel
 import be.nepravsky.sm.evereactioncalculator.model.ReactionTab
-import be.nepravsky.sm.evereactioncalculator.model.ReactorState
 import be.nepravsky.sm.evereactioncalculator.uikit.R
 import be.nepravsky.sm.uikit.theme.AppTheme
 import be.nepravsky.sm.uikit.view.text.TextBold
 import be.nepravsky.sm.uikit.view.text.TextMedium
+import kotlinx.collections.immutable.ImmutableList
 import kotlinx.coroutines.launch
 
 @Composable
@@ -41,7 +41,9 @@ import kotlinx.coroutines.launch
 fun ColumnScope.ReactionPageView(
     selectedTabIndex: Int,
     pagerState: PagerState,
-    state: State<ReactorState>,
+    hasZeroPrice: Boolean,
+    items: ImmutableList<ReactionItemModel>,
+    baseItems: ImmutableList<ReactionItemModel>,
     gradient1: Brush,
     gradient2: Brush
 ) {
@@ -91,7 +93,7 @@ fun ColumnScope.ReactionPageView(
     ) { index ->
         Column(modifier = Modifier.fillMaxWidth()) {
 
-            if (state.value.data.hasZeroPrice) TextMedium(
+            if (hasZeroPrice) TextMedium(
                 modifier = Modifier.align(Alignment.CenterHorizontally),
                 text = stringResource(R.string.feature_reaction_missing_information_on_some_prices),
                 color = AppTheme.colors.warning,
@@ -100,7 +102,7 @@ fun ColumnScope.ReactionPageView(
             when (index) {
                 ReactionTab.REACTION.ordinal -> LazyColumn(modifier = Modifier, content = {
                     itemsIndexed(
-                        items = state.value.data.items,
+                        items = items,
                         key = { _, item -> "${item.id}${item.isProduct}" }) { _, item ->
                         ReactorItemView(item, gradient1, gradient2)
                     }
@@ -108,7 +110,7 @@ fun ColumnScope.ReactionPageView(
 
                 ReactionTab.BASE_TYPE.ordinal -> LazyColumn(modifier = Modifier, content = {
                     itemsIndexed(
-                        items = state.value.data.baseItems,
+                        items = baseItems,
                         key = { _, item -> "${item.id}${item.isProduct}" }) { _, item ->
                         ReactorItemView(item, gradient1, gradient2)
                     }

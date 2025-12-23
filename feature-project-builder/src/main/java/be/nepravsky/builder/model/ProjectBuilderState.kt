@@ -1,13 +1,18 @@
 package be.nepravsky.builder.model
 
+import androidx.compose.runtime.Stable
 import be.nepravsky.sm.domain.utils.TEXT_EMPTY
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
 
+@Stable
 data class ProjectBuilderState(
     val id: Long?,
     val name: String,
-    val items: List<ProjectItemModel>,
+    val items: ImmutableList<ProjectItemModel>,
     val isShowTypeBottomSheet: Boolean,
-    val types: List<BpcShortModel>
+    val types: ImmutableList<BpcShortModel>,
+    val searchText: String = TEXT_EMPTY,
 
 ){
     companion object{
@@ -15,9 +20,10 @@ data class ProjectBuilderState(
         val EMPTY = ProjectBuilderState(
             id = null,
             name = TEXT_EMPTY,
-            items = listOf(),
+            items = persistentListOf(),
             isShowTypeBottomSheet = false,
-            types = emptyList()
+            types = persistentListOf(),
+            searchText = TEXT_EMPTY
         )
     }
 }

@@ -13,14 +13,16 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
-import be.nepravsky.sm.evereactioncalculator.model.ReactorState
 import be.nepravsky.sm.evereactioncalculator.uikit.R
 import be.nepravsky.sm.uikit.view.textfield.CBaseTextField
 import be.nepravsky.sm.uikit.view.textfield.numberKeyboardOptions
 
 @Composable
 fun ReactionControlView(
-    state: ReactorState,
+    run: String,
+    me: String,
+    subMe: String,
+    isMeEnabled: Boolean,
     onRunChanged: (run: Long) -> Unit,
     onMeChanged: (me: Double) -> Unit,
     onSubMeChanged: (subMe: Double) -> Unit,
@@ -38,7 +40,7 @@ fun ReactionControlView(
     ) {
         CBaseTextField(
             modifier = Modifier.wrapContentSize(),
-            label = stringResource(R.string.feature_run_count, state.run),
+            label = stringResource(R.string.feature_run_count, run),
             value = runText,
             onValueChange = { runs ->
                 if (runs.length <= 4){
@@ -53,7 +55,7 @@ fun ReactionControlView(
 
         CBaseTextField(
             modifier = Modifier,
-            label = stringResource(R.string.feature_reactor_me_percent, state.me),
+            label = stringResource(R.string.feature_reactor_me_percent, me),
             value = meText,
             onValueChange = { mes ->
                 if (mes.length <= 4){
@@ -65,12 +67,12 @@ fun ReactionControlView(
             },
             keyboardOptions = numberKeyboardOptions,
             textAlign = TextAlign.Center,
-            enabled = state.isMeEnabled,
+            enabled = isMeEnabled,
         )
 
         CBaseTextField(
             modifier = Modifier,
-            label = stringResource(R.string.feature_reactor_sub_me_percent, state.subMe),
+            label = stringResource(R.string.feature_reactor_sub_me_percent, subMe),
             value = subMeText,
             onValueChange = { subMes ->
                 if (subMes.length <= 4){
@@ -82,7 +84,7 @@ fun ReactionControlView(
             },
             keyboardOptions = numberKeyboardOptions,
             textAlign = TextAlign.Center,
-            enabled = state.isMeEnabled,
+            enabled = isMeEnabled,
         )
     }
 }

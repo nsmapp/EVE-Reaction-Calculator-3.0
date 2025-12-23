@@ -1,8 +1,10 @@
 package be.nepravsky.sm.evereactioncalculator.model
 
+import androidx.compose.runtime.Stable
 import be.nepravsky.sm.domain.utils.TEXT_EMPTY
+import kotlinx.collections.immutable.persistentListOf
 
-
+@Stable
 data class ReactorState(
     val data: ComplexReactionModel,
     val isShowProgress: Boolean,
@@ -18,7 +20,7 @@ data class ReactorState(
     companion object {
         val EMPTY = ReactorState(
             data = ComplexReactionModel(
-                baseItems = listOf(),
+                baseItems = persistentListOf(),
 
                 productQuantity = TEXT_EMPTY,
                 productVolume = TEXT_EMPTY,
@@ -32,7 +34,7 @@ data class ReactorState(
                 materialBuy = TEXT_EMPTY,
                 materialPriceDif = TEXT_EMPTY,
 
-                items = emptyList(),
+                items = persistentListOf(),
                 fullProductQuantity = TEXT_EMPTY,
                 fullProductVolume = TEXT_EMPTY,
                 fullProductSell = TEXT_EMPTY,

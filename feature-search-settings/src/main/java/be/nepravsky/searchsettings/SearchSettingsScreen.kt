@@ -14,10 +14,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import be.nepravsky.sm.evereactioncalculator.uikit.R
 import be.nepravsky.searchsettings.contract.SearchSettingsRouter
 import be.nepravsky.searchsettings.model.SearchSettingsState
 import be.nepravsky.searchsettings.view.ReactionGroupItem
+import be.nepravsky.sm.evereactioncalculator.uikit.R
 import be.nepravsky.sm.uikit.theme.AppTheme
 import be.nepravsky.sm.uikit.view.appbar.CAppBar
 import kotlinx.coroutines.flow.StateFlow
@@ -26,24 +26,18 @@ import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun SearchSettingsScreen(
-    viewModel: SearchSettingsViewModel = koinViewModel(),
     router: SearchSettingsRouter,
 ) {
 
+    val viewModel = koinViewModel<SearchSettingsViewModel>()
     LaunchedEffect(null) {
         viewModel.getReactionGroups()
     }
 
-    val onReactionGroupClick: (Long, Boolean) -> Unit = remember(viewModel) {
-        {groupId, isSelected -> viewModel.onReactionGroupClick(groupId, isSelected) }
-    }
-    val onClearFilterClick: () -> Unit = remember(viewModel) { { viewModel.cleanFilter() } }
-    val onFinishClick: () -> Unit = remember(router) { { router.navigateBack() } }
-
     SearchScreenView(
-        onBackClick = onFinishClick,
-        onReactionGroupClick = onReactionGroupClick,
-        onClearFilterClick = onClearFilterClick,
+        onBackClick = remember(router) { router::navigateBack } ,
+        onReactionGroupClick = remember(viewModel) { viewModel::onReactionGroupClick },
+        onClearFilterClick = remember(viewModel) { viewModel::cleanFilter },
         state = viewModel.state
     )
 }

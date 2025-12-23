@@ -4,7 +4,7 @@ class LibraryRouterImpl(
     private val onNavigateAddProject: ((Long?) -> Unit),
     private val onNavigateEditProject: ((Long) -> Unit),
     private val onNavigateRunProject: ((Long) -> Unit),
-): LibraryRouter {
+) : LibraryRouter {
     override fun addProject(projectId: Long?) {
         onNavigateAddProject(projectId)
     }

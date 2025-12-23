@@ -8,5 +8,4 @@ interface MainRouter {
 
     fun selectTab(tab: Tabs)
 
-    fun navigationBack(toIndex: Int)
 }

@@ -27,7 +27,7 @@ import coil.compose.AsyncImage
 fun ProjectItemView(
     modifier: Modifier,
     item: ProjectModel,
-    onItemClick: () -> Unit
+    onItemClick: (Long) -> Unit
 ) {
     Row(
         modifier = modifier
@@ -36,7 +36,7 @@ fun ProjectItemView(
             .padding(top = AppTheme.padding.s_4)
             .clip(RoundedCornerShape(AppTheme.radius.r_8))
             .background(rightLeftGradient)
-            .clickable { onItemClick() }
+            .clickable { onItemClick(item.id) }
             .border(
                 AppTheme.viewSize.border_small,
                 AppTheme.colors.foreground_hard,

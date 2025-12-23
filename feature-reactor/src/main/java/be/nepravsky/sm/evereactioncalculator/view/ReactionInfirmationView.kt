@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.State
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import be.nepravsky.sm.domain.utils.TEXT_EMPTY
@@ -18,11 +17,11 @@ import be.nepravsky.sm.uikit.view.text.TextMedium
 
 @Composable
 fun ReactionInformationView(
-    state: State<ReactorState>,
+    state: ReactorState,
     selectedTabIndex: Int,
 ) {
 
-    val data = state.value.data
+    val data = state.data
     val isBaseTab = ReactionTab.BASE_TYPE.ordinal == selectedTabIndex
 
 
