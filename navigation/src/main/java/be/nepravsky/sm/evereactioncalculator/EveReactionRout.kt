@@ -32,29 +32,29 @@ fun EveReactionRout() {
         onBack = { rootBackStack.removeLastOrNull() },
         transitionSpec = {
             slideInHorizontally(
-                initialOffsetX = { it },
-                animationSpec = tween(250)
+                initialOffsetX = { -it },
+                animationSpec = tween(350)
             ) togetherWith slideOutHorizontally(
-                targetOffsetX = { -it },
-                animationSpec = tween(250)
+                targetOffsetX = { it },
+                animationSpec = tween(350)
             )
         },
         popTransitionSpec = {
             slideInHorizontally(
-                initialOffsetX = { -it },
-                animationSpec = tween(250)
+                initialOffsetX = { it },
+                animationSpec = tween(350)
             ) togetherWith slideOutHorizontally(
-                targetOffsetX = { it },
-                animationSpec = tween(250)
+                targetOffsetX = { -it },
+                animationSpec = tween(350)
             )
         },
         predictivePopTransitionSpec = {
             slideInHorizontally(
-                initialOffsetX = { -it },
-                animationSpec = tween(250)
+                initialOffsetX = { it },
+                animationSpec = tween(350)
             ) togetherWith slideOutHorizontally(
-                targetOffsetX = { it },
-                animationSpec = tween(250)
+                targetOffsetX = { -it },
+                animationSpec = tween(350)
             )
         },
         entryProvider = entryProvider {
@@ -64,8 +64,8 @@ fun EveReactionRout() {
             entry<AppDest.SearchSettings> {
                 SearchSettingsScreen(
                     router = SearchSettingsRouterImpl(
-                    onNavigateBack = { rootBackStack.removeLastOrNull() }
-                ))
+                        onNavigateBack = { rootBackStack.removeLastOrNull() }
+                    ))
             }
             entry<AppDest.Reactor> { data ->
                 ReactorScreen(

@@ -27,9 +27,18 @@ fun MainRout(
 
     val mainRouter = remember {
         MainRouterImpl(
-            onNavigateLibrary = { backStack.add(MainDest.Library) },
-            onNavigateReactions = { backStack.add(MainDest.Reactions) },
-            onNavigateSettings = { backStack.add(MainDest.Settings) },
+            onNavigateLibrary = {
+                backStack.add(MainDest.Library)
+                backStack.removeFirstOrNull()
+            },
+            onNavigateReactions = {
+                backStack.add(MainDest.Reactions)
+                backStack.removeFirstOrNull()
+            },
+            onNavigateSettings = {
+                backStack.add(MainDest.Settings)
+                backStack.removeFirstOrNull()
+            },
         )
     }
 
@@ -65,7 +74,7 @@ fun MainRout(
     ) {
         NavDisplay(
             backStack = backStack,
-            onBack = { rootBackStack.removeLastOrNull() },
+            onBack = { backStack.removeLastOrNull() },
             transitionSpec = { scaleIn(initialScale = 0.95f) togetherWith scaleOut(targetScale = 0.95f) },
             entryProvider = entryProvider {
                 entry<MainDest.Library> {
