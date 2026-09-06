@@ -14,7 +14,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import be.nepravsky.searchsettings.contract.SearchSettingsRouter
 import be.nepravsky.searchsettings.model.SearchSettingsState
 import be.nepravsky.searchsettings.view.ReactionGroupItem
 import be.nepravsky.sm.evereactioncalculator.uikit.R
@@ -26,7 +25,7 @@ import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun SearchSettingsScreen(
-    router: SearchSettingsRouter,
+    onNavigateBack: () -> Unit,
 ) {
 
     val viewModel = koinViewModel<SearchSettingsViewModel>()
@@ -35,7 +34,7 @@ fun SearchSettingsScreen(
     }
 
     SearchScreenView(
-        onBackClick = remember(router) { router::navigateBack } ,
+        onBackClick = onNavigateBack ,
         onReactionGroupClick = remember(viewModel) { viewModel::onReactionGroupClick },
         onClearFilterClick = remember(viewModel) { viewModel::cleanFilter },
         state = viewModel.state

@@ -10,7 +10,6 @@ android {
     dependencies {
         implementation(project(":base"))
         implementation(project(":uikit"))
-        implementation(project(":feature-main"))
         implementation(project(":feature-library"))
         implementation(project(":feature-reactions"))
         implementation(project(":feature-reactor"))

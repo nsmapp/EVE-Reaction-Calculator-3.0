@@ -1,5 +1,6 @@
 package be.nepravsky.sm.evereactioncalculator.about
 
+import android.content.Context
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.Orientation
@@ -29,7 +30,9 @@ import be.nepravsky.sm.uikit.view.text.TextMedium
 
 @Composable
 fun AboutScreen(
-    router: AboutRouter,
+    onNavigateBack: () -> Unit,
+    onOpenGitHubLink: (Context, url: String) -> Unit,
+    onSendEmail: (Context, mail: String, subject: String) -> Unit,
 ) {
 
     val context = LocalContext.current
@@ -41,7 +44,8 @@ fun AboutScreen(
     ) {
         CAppBar(modifier = Modifier,
             text = stringResource(R.string.feature_settings_about),
-            onBackPressed = { router.navigateBack() })
+            onBackPressed = onNavigateBack,
+        )
         Column(
             modifier = Modifier
                 .padding(AppTheme.padding.s_8)
@@ -72,7 +76,7 @@ fun AboutScreen(
                     modifier = Modifier
                         .padding(AppTheme.padding.s_8)
                         .clickable {
-                            router.openGitHubLink(
+                            onOpenGitHubLink(
                                 context, context.getString(R.string.feature_settings_gitgab_link)
                             )
                         },
@@ -83,7 +87,7 @@ fun AboutScreen(
                     modifier = Modifier
                         .padding(AppTheme.padding.s_8)
                         .clickable {
-                            router.sendEmail(
+                            onSendEmail(
                                 context,
                                 context.getString(R.string.feature_settings_nsmappinfo_gmail_com),
                                 context.getString(

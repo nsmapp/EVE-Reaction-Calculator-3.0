@@ -36,7 +36,9 @@ import org.koin.core.parameter.parametersOf
 )
 @Composable
 fun BuilderScreen(
-    projectId: Long?, router: BuilderRouter
+    projectId: Long?,
+    onBackPressed: () -> Unit,
+    onSearchSettings: () -> Unit,
 ) {
     val viewModel = koinViewModel<BuilderViewModel>(
         key = BuilderViewModel::class.simpleName + projectId,
@@ -50,7 +52,7 @@ fun BuilderScreen(
     LaunchedEffect(null) {
         viewModel.sideEffect.collect { effect ->
             when (effect) {
-                is ProjectBuildSideEffect.CLOSE -> router.onBackPressed()
+                is ProjectBuildSideEffect.CLOSE -> onBackPressed()
             }
         }
     }
@@ -64,7 +66,7 @@ fun BuilderScreen(
 
         CAppBar(
             text = stringResource(R.string.feature_project_builder),
-            onBackPressed = remember(router) { router::onBackPressed },
+            onBackPressed = remember { onBackPressed },
             onActionClick = remember(viewModel) { viewModel::saveProject },
             actionIcon = Icons.Default.Done,
         )
@@ -76,7 +78,7 @@ fun BuilderScreen(
             value = state.name,
             onValueChange = remember(viewModel) { viewModel::setProjectName },
             trailingIcon = Icons.Default.FilterAlt,
-            onTrailingClick = remember(router) { router::openSearchSettings },
+            onTrailingClick = onSearchSettings,
             hint = stringResource(R.string.feature_project_builder_project_name),
         )
 

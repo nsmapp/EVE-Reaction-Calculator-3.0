@@ -45,7 +45,9 @@ import kotlin.math.roundToInt
 @OptIn(ExperimentalMaterialApi::class, ExperimentalFoundationApi::class)
 @Composable
 fun LibraryScreen(
-    router: LibraryRouter,
+    onAddProject: (Long?) -> Unit,
+    onEditProject: (Long) -> Unit,
+    onRunProject: (Long) -> Unit,
 ) {
 
     val viewModel: LibraryViewModel = koinViewModel()
@@ -59,9 +61,9 @@ fun LibraryScreen(
 
     LibraryScreenContent(
         projects = state.projects,
-        onAddProject = remember(router) { router::addProject },
-        onEditProject = remember(router) { router::editProject },
-        onRunProject = remember(router) { router::runProject },
+        onAddProject = onAddProject,
+        onEditProject = onEditProject,
+        onRunProject = onRunProject,
         onDeleteProject = remember(viewModel) { viewModel::deleteProject},
     )
 }

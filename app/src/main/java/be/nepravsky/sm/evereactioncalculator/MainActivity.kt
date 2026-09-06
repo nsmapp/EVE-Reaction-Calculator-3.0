@@ -3,6 +3,7 @@ package be.nepravsky.sm.evereactioncalculator
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import be.nepravsky.sm.evereactioncalculator.news.Root
 import be.nepravsky.sm.uikit.theme.AppTheme
 import org.koin.android.ext.android.getKoin
 import org.koin.core.module.Module
@@ -20,7 +21,7 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             AppTheme{
-                EveReactionRout()
+                Root()
             }
         }
     }

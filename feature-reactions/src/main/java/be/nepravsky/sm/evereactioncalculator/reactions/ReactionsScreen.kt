@@ -22,7 +22,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import be.nepravsky.sm.evereactioncalculator.reactions.contract.ReactionsRouter
 import be.nepravsky.sm.evereactioncalculator.reactions.model.BpcShortModel
 import be.nepravsky.sm.evereactioncalculator.uikit.R
 import be.nepravsky.sm.uikit.theme.AppTheme
@@ -36,7 +35,8 @@ import org.koin.androidx.compose.koinViewModel
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun ReactionsScreen(
-    router: ReactionsRouter,
+    onBuildReaction: (reactionId: Long, isSingleReaction: Boolean) -> Unit,
+    onOpenSearchSettings: () -> Unit,
 ) {
 
     val viewModel = koinViewModel<ReactionsViewModel>()
@@ -48,8 +48,8 @@ fun ReactionsScreen(
         searchText = state.searchText,
         bpcShortList = state.bpcShortList,
         onSearchReaction = remember(viewModel) {viewModel::searchReactions  },
-        onBuildReaction = router::buildReaction,
-        onOpenSearchSettings = router::openSearchSettings,
+        onBuildReaction = onBuildReaction,
+        onOpenSearchSettings = onOpenSearchSettings,
     )
 }
 
@@ -58,7 +58,7 @@ private fun ReactionsContent(
     searchText: String,
     bpcShortList: ImmutableList<BpcShortModel>,
     onSearchReaction: (String) -> Unit,
-    onBuildReaction: (reactionId: Long) -> Unit,
+    onBuildReaction: (reactionId: Long, isSingleReaction: Boolean) -> Unit,
     onOpenSearchSettings: () -> Unit,
 ) {
 
@@ -98,7 +98,7 @@ private fun ReactionsContent(
                             name = item.name,
                             baseTime = item.baseTime,
                             onItemClick = { reactionId ->
-                                onBuildReaction(reactionId)
+                                onBuildReaction(reactionId, true)
                             }
                         )
                     }

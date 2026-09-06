@@ -12,7 +12,6 @@ android{
         implementation(project(":data:network-source"))
         implementation(project(":navigation"))
         implementation(project(":feature-library"))
-        implementation(project(":feature-main"))
         implementation(project(":feature-reactions"))
         implementation(project(":feature-reactor"))
         implementation(project(":feature-settings"))

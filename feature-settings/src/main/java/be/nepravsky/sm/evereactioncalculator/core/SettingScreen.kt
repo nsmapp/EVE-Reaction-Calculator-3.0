@@ -27,7 +27,7 @@ import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun SettingScreen(
-    router: SettingsRouter,
+    onOpenAboutScreen: () -> Unit,
 ) {
 
     val viewModel = koinViewModel<SettingsViewModel>()
@@ -35,14 +35,14 @@ fun SettingScreen(
 
     SettingsScreenView(
         state = state,
-        onSetSearchLanguage =  remember(viewModel) { viewModel::setSearchLanguage },
+        onSetSearchLanguage = remember(viewModel) { viewModel::setSearchLanguage },
         onHideDialogs = remember(viewModel) { viewModel::hideDialogs },
         onSetPriceLocation = remember(viewModel) { viewModel::setPriceLocation },
         onShowSearchLanguageDialog = remember(viewModel) { viewModel::showSearchLanguageDialog },
         onShowPriceLocationDialog = remember(viewModel) { viewModel::showPriceLocationDialog },
         onSetOfflineMode = remember(viewModel) { viewModel::setOfflineMode },
         onSetIsIgnoreFuelBlockBpc = remember(viewModel) { viewModel::setIsIgnoreFuelBlockBpc },
-        onOpenAboutScreen = remember(viewModel) { router::openAboutScreen },
+        onOpenAboutScreen = remember(viewModel) { onOpenAboutScreen },
     )
 
 }

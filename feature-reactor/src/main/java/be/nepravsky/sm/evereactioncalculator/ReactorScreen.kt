@@ -1,5 +1,6 @@
 package be.nepravsky.sm.evereactioncalculator
 
+import android.content.Context
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
@@ -56,7 +57,7 @@ import be.nepravsky.sm.evereactioncalculator.model.ReactorState
 fun ReactorScreen(
     reactionId: Long,
     isSingleReaction: Boolean,
-    router: ReactorRouter,
+    onShareReaction: (Context, String) -> Unit
 ) {
     val viewModel = koinViewModel<ReactorViewModel>(
         key = ReactorViewModel::class.simpleName + reactionId,
@@ -77,7 +78,7 @@ fun ReactorScreen(
         focusManager.clearFocus()
         viewModel.sideEffect.collect { effect ->
             when (effect) {
-                is ReactorSideEffect.ShareReaction -> router.shareReaction(context, effect.text)
+                is ReactorSideEffect.ShareReaction -> onShareReaction(context, effect.text)
                 is ReactorSideEffect.PriceUpdateError -> {
                     coroutineScope.launch {
                         snackBarHostState.showSnackbar(
